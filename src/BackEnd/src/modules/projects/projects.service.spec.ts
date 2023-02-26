@@ -34,7 +34,19 @@ describe('ProjectsService', () => {
       projectType: "Dev",
       blockedSubscriptions: true
     }
-    expect(service.createProject("Desenvolvimento de aplicação", "10/10/2023", "10/11/2023", "Desenvolvimento de aplicação para notebooks dell", 20, 56, "Dev", true)).toBe(projectCreated)
+    expect(service.createProject(projectCreated)).toBe(
+      {
+        id: 1,
+        name: "Desenvolvimento de aplicação",
+        start: "10/10/2023",
+        end: "10/11/2023",
+        description: "Desenvolvimento de aplicação para notebooks dell",
+        ownerId: 20,
+        coleaderId: 56,
+        projectType: "Dev",
+        blockedSubscriptions: true
+      }
+    )
   })
 
   // Unit test for the "delete project" endpoint function

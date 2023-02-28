@@ -8,8 +8,14 @@ import { LoginDTO } from './dto/Login.dto';
 import * as jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 
-
 dotenv.config();
+
+function exclude(user, keys) {
+    for (let key of keys) {
+      delete user[key]
+    }
+    return user
+}
 
 @Injectable()
 export class UsersService {
@@ -99,6 +105,29 @@ export class UsersService {
                 name: user.name,
             }
         }
+    }
+
+    async Auth(id: string) {
+        console.log(id)
+        let user = null;
+        try {
+            const user1 = this.prisma.user.findUnique({
+                where: {
+                    id: id
+                },
+            });
+
+            user = exclude(user1, ['password']);
+            console.log(user)
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+        
+        if (!user) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "User not found"})
+        }
+
+        return user
     }
 
     async update(id: string, data: any) {

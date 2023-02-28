@@ -1,9 +1,10 @@
-import { Body, Controller, Post, Get, Param } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Req} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/CreateUser.dto';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { LoginDTO } from './dto/Login.dto';
 import { Put } from '@nestjs/common/decorators';
+import { Request, Response, NextFunction } from 'express';
 
 @Controller('User')
 export class UsersController {
@@ -44,6 +45,11 @@ export class UsersController {
   @Get("/getAll")
   async getAll() {
     return this.usersService.getAll();
+  }
+
+  @Get("/Auth")
+  async Auth(@Req() req: Request) {
+    return this.usersService.Auth(req.id);
   }
 
   @Get("/getByName/:name")

@@ -17,6 +17,7 @@ export class AppModule implements NestModule {
         { path: 'User/getAll', method: RequestMethod.GET },
         { path: 'User/Update/:id', method: RequestMethod.PUT },
         { path: 'User/getByName/:name', method: RequestMethod.GET },
+        { path: 'User/Auth', method: RequestMethod.GET },
              
       );
   }

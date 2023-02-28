@@ -12,6 +12,12 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(UnsureAuthenticated)
-      .forRoutes({ path: 'User/Info/:id', method: RequestMethod.GET });
+      .forRoutes(
+        { path: 'User/Info/:id', method: RequestMethod.GET },
+        { path: 'User/getAll', method: RequestMethod.GET },
+        { path: 'User/Update/:id', method: RequestMethod.PUT },
+        { path: 'User/getByName/:name', method: RequestMethod.GET },
+             
+      );
   }
 }

@@ -19,34 +19,43 @@ model Project {
   start               DateTime?
   end                 DateTime?
   coleaderId          String?
+  coleader            User?     @relation("Coleader", fields: [coleaderId], references: [id])
   ownerId             String
-  owner               User      @relation(fields: [ownerId], references: [id])
+  owner               User      @relation("Owner", fields: [ownerId], references: [id])
   projectType         String
   blockedSubscription Boolean   @default(false)
+
+  @@map("projects")
 }
 
-model Task {
+model Tags {
   id   String @id
   name String
+
+  @@map("tags")
 }
 
 model User {
-  id         String    @id
-  email      String    @unique
-  name       String?
-  password   String
-  bornDate   DateTime
-  gender     String
-  n_dell     String
-  managerId  String
-  habilities String
-  projects   Project[]
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id               String    @id
+  email            String    @unique
+  name             String?
+  password         String
+  bornDate         DateTime
+  gender           String
+  n_dell           String
+  managerId        String
+  habilities       String
+  projects         Project[] @relation("Owner")
+  projectsColeader Project[] @relation("Coleader")
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 
+  @@map("users")
 }
 
 model Habilitie {
   id   String @id
   name String
+
+  @@map("habilities")
 }

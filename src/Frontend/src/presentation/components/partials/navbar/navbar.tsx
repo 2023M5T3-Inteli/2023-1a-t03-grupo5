@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import './navbar-styles.scss'
-import Logo from '../../../../public/logo.png'
+import Logo from '/logo.png'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
@@ -38,7 +38,7 @@ const Navbar: any = (props: Props) => {
     },
   ]
   return (
-    <div className='container'>
+    <div className='navbar'>
       <div className="grid-3">
         <Link className='logo' to={'/'}>
           <img src={Logo} alt="dell logo" />

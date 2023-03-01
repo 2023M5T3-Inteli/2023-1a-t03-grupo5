@@ -9,7 +9,7 @@ export class ProjectsService {
     constructor(private prisma: PrismaService) {}
 
     async createProject(data: ProjectDTO){
-        const projectExists = await this.prisma.projects.findFirst({
+        const projectExists = await this.prisma.project.findFirst({
             where: {
                 projectId: data.projectId
             }
@@ -19,7 +19,7 @@ export class ProjectsService {
             throw new Error('Project already exists');
         }
 
-        const project = await this.prisma.projects.create({
+        const project = await this.prisma.project.create({
 
             data,
         });
@@ -28,7 +28,7 @@ export class ProjectsService {
     }
 
     async getAllProjects(){
-        const allProjects = await this.prisma.projects.findMany({
+        const allProjects = await this.prisma.project.findMany({
             select: {
                 projectId: true,
                 name: true,
@@ -44,7 +44,7 @@ export class ProjectsService {
     }
 
     async updateProject(projectId: string, data: ProjectDTO) {
-        const projectExists = await this.prisma.projects.findUnique({
+        const projectExists = await this.prisma.project.findUnique({
             where: {
                 projectId,
             }
@@ -54,7 +54,7 @@ export class ProjectsService {
             throw new Error('Project does not exist!')
         }
 
-        const updateProject = await this.prisma.projects.update({
+        const updateProject = await this.prisma.project.update({
             where: {
                 projectId,
             },
@@ -67,7 +67,7 @@ export class ProjectsService {
 
     async deleteProject(projectId: string){
 
-        const projectExists = await this.prisma.projects.findUnique({
+        const projectExists = await this.prisma.project.findUnique({
             where: {
                 projectId,
             }
@@ -77,7 +77,7 @@ export class ProjectsService {
             throw new Error('Project does not exist!')
         }
 
-        return await this.prisma.projects.delete({
+        return await this.prisma.project.delete({
             where: {
                 projectId,
             }

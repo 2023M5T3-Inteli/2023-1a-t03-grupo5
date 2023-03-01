@@ -12,16 +12,6 @@ export class ProjectsService {
     constructor(private prisma: PrismaService) {}
 
     async createProject(data: ProjectDTO){
-        const projectExists = await this.prisma.project.findFirst({
-            where: {
-                projectId: data.projectId
-            }
-        })
-
-        if(projectExists) {
-            throw new Error('Project already exists');
-        }
-
         const project = await this.prisma.project.create({
             data: {
                 projectId: uuid(),

@@ -2,9 +2,6 @@ import { IsString, IsBoolean } from "class-validator";
 
 export class ProjectDTO {
     @IsString()
-    projectId: string
-
-    @IsString()
     name: string
 
     @IsString()

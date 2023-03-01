@@ -2,6 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { ProjectDTO } from './dto/Project.dto';
+import { v4 as uuid } from 'uuid';
 
 
 @Injectable()
@@ -20,26 +21,27 @@ export class ProjectsService {
         }
 
         const project = await this.prisma.project.create({
-
-            data,
+            data: {
+                projectId: uuid(),
+                name: data.name,
+                start: new Date(),
+                end: new Date(),
+                tasks: data.tasks,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                description: data.description,
+                coleaderId: data.coleaderId,
+                ownerId: data.ownerId,
+                blockedSubscription: data.blockedSubscription,
+                projectType: data.projectType,
+            }
         });
     
         return project;
     }
 
     async getAllProjects(){
-        const allProjects = await this.prisma.project.findMany({
-            select: {
-                projectId: true,
-                name: true,
-                start: true,
-                end: true,
-                description: true,
-                ownerId: true,
-                coleaderId: true,
-                projectType: true,
-            }
-        });
+        const allProjects = await this.prisma.project.findMany({});
         return allProjects;
     }
 

@@ -218,4 +218,18 @@ export class UsersService {
             }
         })
     }
+
+    async delete(id: string) {
+        try {
+            await this.prisma.user.delete({
+                where: {
+                    id: id
+                }
+            })
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+        
+        return "Usuário deletado com sucesso"
+    }
 }

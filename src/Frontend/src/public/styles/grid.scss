@@ -1,0 +1,16 @@
+$grid-gutter: 16px;
+$grid-columns: 12;
+$grid-max: 1024px;
+
+[class*="grid-"]{
+  display: flex;
+  float: left;
+  padding: 0 $grid-gutter;
+  box-sizing: border-box;
+}
+
+@for $i from 1 through $grid-columns{
+  .grid-#{$i}{
+    width: calc(100% / $grid-columns * $i)
+  }
+}

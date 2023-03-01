@@ -1,0 +1,6 @@
+@use './typographic.scss' as t;
+
+* {
+  margin: 0;
+  font-family: t.$font-primary;
+}

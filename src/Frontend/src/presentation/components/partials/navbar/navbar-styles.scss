@@ -1,0 +1,77 @@
+@use '../../../../public/styles/typographic.scss' as t;
+@use '../../../../public/styles/spacing.scss' as sp;
+@use '../../../../public/styles/color.scss' as c;
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: sp.$stack-xs sp.$stack-md;
+  box-shadow: 0px 4px 4px 0px #00000040;
+
+  .menu-items {
+    display: flex;
+    gap: sp.$stack-lg;
+
+    .item {
+      position: relative;
+      font-size: t.$text-lg;
+      text-decoration: none;
+      color: c.$primary;
+    }
+
+    .active:after {
+      content: "";
+      background: c.$primary;
+      position: absolute;
+      bottom: -(sp.$stack-xs);
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      text-align: center;
+    }
+  }
+
+  .profile {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    position: relative;
+    text-align: center;
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .select {
+      display: flex;
+      align-items: center;
+      gap: sp.$stack-xs;
+      cursor: pointer;
+    }
+
+    .options {
+      background-color: c.$secundary;
+      position: absolute;
+      top: 40px;
+
+      padding: sp.$stack-xs;
+      font-size: t.$text-xs;
+
+      box-shadow: 0px 4px 4px 0px #00000040;
+      border-radius: 3px;
+
+      div {
+        width: 60px;
+      }
+
+      cursor: pointer;
+    }
+
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}

@@ -1,9 +1,8 @@
-import { Body, Controller, Post, Get, Param, Req} from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Req, Delete, Put} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/CreateUser.dto';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { LoginDTO } from './dto/Login.dto';
-import { Put } from '@nestjs/common/decorators';
 import { Request, Response, NextFunction } from 'express';
 
 @Controller('User')
@@ -58,6 +57,15 @@ export class UsersController {
       return this.usersService.getUserByName(name);
     } else {
       throw new BadRequestException("Something Bad Happened", {cause: new Error(), description: "Name must be a String"})
+    }
+  }
+
+  @Delete("/Delete/:id")
+  async delete(@Param("id") id: string) {
+    if(typeof id === "string") {
+      return this.usersService.delete(id);
+    } else {
+      throw new BadRequestException("Something Bad Happened", {cause: new Error(), description: "ID must be a String"})
     }
   }
 }

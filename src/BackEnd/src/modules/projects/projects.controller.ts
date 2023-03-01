@@ -3,12 +3,13 @@ import { Controller, Post, Body, Param, Delete, Get, Put } from '@nestjs/common'
 import { ProjectDTO } from './dto/Project.dto';
 import { ProjectsService } from './projects.service';
 
-@Controller('projects')
+@Controller('Project')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Post()
   async create(@Body() data: ProjectDTO) {
+    console.log(data.blockedSubscription);
     return this.projectsService.createProject(data);
   }
 

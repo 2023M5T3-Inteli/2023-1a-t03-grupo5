@@ -46,6 +46,8 @@ model User {
   n_dell           String
   managerId        String
   habilities       String
+  isAdmin          Boolean   @default(false)
+  photoURL         String?
   projects         Project[] @relation("Owner")
   projectsColeader Project[] @relation("Coleader")
   createdAt        DateTime  @default(now())

@@ -23,4 +23,6 @@ export class CreateUserDTO {
 
     @IsString()
     habilities: string;
+
+    photoURL: string;
 }

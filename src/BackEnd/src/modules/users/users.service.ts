@@ -56,6 +56,7 @@ export class UsersService {
                     n_dell: data.n_dell,
                     managerId: data.managerId,
                     habilities: data.habilities,
+                    photoURL: data.photoURL,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 }
@@ -141,7 +142,22 @@ export class UsersService {
         if (!userExists) {
             throw new BadRequestException("Something bad happened", {cause: new Error(), description: "User doesn't exists"})
         }
+
+        //Verify if new email already exists
+        if (data.email) {
+            const emailExists = await this.prisma.user.findUnique({
+                where: {
+                    email: data.email
+                }
+            })
+
+            if (emailExists) {
+                throw new BadRequestException("Something bad happened", {cause: new Error(), description: "Email already exists"})
+            }
+        }
         
+        data.updatedAt = new Date()
+
         //Efetua a atualição
         try {
             await this.prisma.user.update({
@@ -220,6 +236,17 @@ export class UsersService {
     }
 
     async delete(id: string) {
+        //Verify if user already exists
+        const userExists = await this.prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        if (!userExists) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "User doesn't exists"})
+        }
+
         try {
             await this.prisma.user.delete({
                 where: {

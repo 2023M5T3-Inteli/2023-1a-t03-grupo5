@@ -1,3 +1,5 @@
+//this file contains all the functions that are called in the routes in the projects.controller.ts file
+
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
@@ -43,6 +45,15 @@ export class ProjectsService {
     async getAllProjects(){
         const allProjects = await this.prisma.project.findMany({});
         return allProjects;
+    }
+
+    async getProjectById(projectId: string){
+        const project = await this.prisma.project.findUnique({
+            where: {
+                projectId,
+            }
+        })
+        return project;
     }
 
     async updateProject(projectId: string, data: ProjectDTO) {

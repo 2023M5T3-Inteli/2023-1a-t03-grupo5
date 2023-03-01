@@ -1,3 +1,5 @@
+//this file contains all the routes for the project module and the requests that are made to the database
+
 /* eslint-disable prettier/prettier */
 import { Controller, Post, Body, Param, Delete, Get, Put } from '@nestjs/common';
 import { ProjectDTO } from './dto/Project.dto';
@@ -17,6 +19,12 @@ export class ProjectsController {
   async findAll() {
     return this.projectsService.getAllProjects()
   }
+
+  @Get(":projectId")
+  async findOne(@Param("projectId") projectId: string){
+    return this.projectsService.getProjectById(projectId);
+  }
+
 
   @Put(":projectId")
   async update(@Param("projectId") projectId: string, @Body() data: ProjectDTO) {

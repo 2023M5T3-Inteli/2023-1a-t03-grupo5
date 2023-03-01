@@ -1,0 +1,5 @@
+@use '/public/styles/spacing.scss' as sp;
+
+.home {
+  padding: sp.$stack-md sp.$stack-lg;
+}

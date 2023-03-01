@@ -1,13 +1,14 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware, BadRequestException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
+import { PrismaService } from 'src/prisma.service';
 import * as jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
 @Injectable()
-export class UnsureAuthenticated implements NestMiddleware {
-  use(req: Request, res: Response, next: NextFunction) {
+export class UnsureAdmin implements NestMiddleware {
+  async use(req: Request, res: Response, next: NextFunction) {
     //Recebe o token inserido pela aplicação
     const authToken = req.headers.authorization;
 
@@ -33,6 +34,24 @@ export class UnsureAuthenticated implements NestMiddleware {
 
         //Recupera infos do usuário
         req.id = sub as string
+
+        const prisma = new PrismaService()
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id: req.id
+            }
+        })
+
+        if (!user.isAdmin) {
+            // res.status(401).json({
+            //     statusCode: 401,
+            //     message: "Something bad happened",
+            //     error: "Unauthorized"
+            // })
+            throw new Error()
+        }
+
         return next();
     } catch(err) {
         //Retorna o erro caso o token não seja válido

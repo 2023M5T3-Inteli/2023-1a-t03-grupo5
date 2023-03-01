@@ -40,7 +40,9 @@ const Navbar: any = (props: Props) => {
   return (
     <div className='container'>
       <div className="grid-3">
-        <img src={Logo} alt="dell logo" />
+        <Link className='logo' to={'/'}>
+          <img src={Logo} alt="dell logo" />
+        </Link>
       </div>
       <div className="grid-6 menu-items">
         {

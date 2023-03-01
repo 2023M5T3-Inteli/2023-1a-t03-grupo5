@@ -1,3 +1,5 @@
+@use './spacing.scss' as sp;
+
 $grid-gutter: 16px;
 $grid-columns: 12;
 $grid-max: 1024px;
@@ -7,6 +9,7 @@ $grid-max: 1024px;
   float: left;
   padding: 0 $grid-gutter;
   box-sizing: border-box;
+  margin-bottom: sp.$stack-xs;
 }
 
 @for $i from 1 through $grid-columns{

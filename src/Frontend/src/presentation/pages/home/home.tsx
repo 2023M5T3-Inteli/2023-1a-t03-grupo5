@@ -1,12 +1,82 @@
 import React from 'react'
+import { Project } from '../../../shared/lib/types'
+import Card from '../../components/card/card'
+
 import './home-styles.scss'
 
 const Home: React.FC = () => {
+  const projects: Project[] = [
+    {
+      title: 'Project 1',
+      startDate: '22/11/2022',
+      description: 'We are find people with skills in React and Nest',
+      vacancies: '10 vacancies'
+    },
+    {
+      title: 'Project 2',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '5 vacancies'
+    }, 
+    {
+      title: 'Project 3',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '15 vacancies'
+    },
+    {
+      title: 'Project 1',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '7 vacancies'
+    },
+    {
+      title: 'Project 2',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '12 vacancies'
+    }, {
+      title: 'Project 3',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '8 vacancies'
+    },
+    {
+      title: 'Project 3',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '3 vacancies'
+    },
+    {
+      title: 'Project 1',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '1 vacancy'
+    },
+    {
+      title: 'Project 2',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '5 vacancies'
+    }, {
+      title: 'Project 3',
+      startDate: '22/11/2022',
+      description: 'Project built with Next',
+      vacancies: '4 vacancies'
+    }
+  ]
+
   return (
     <div className='home'>
-      <div className="grid-4">1</div>
-      <div className="grid-4">2</div>
-      <div className="grid-4">3</div>
+      {
+        projects.map((project: any, index: number) => {
+          return (
+            <div key={index} className="grid-4">
+              <Card {...project}></Card>
+            </div>
+          )
+        })
+      }
     </div>
   )
 }

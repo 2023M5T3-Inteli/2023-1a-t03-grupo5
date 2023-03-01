@@ -1,5 +1,10 @@
 @use '/public/styles/spacing.scss' as sp;
 
 .home {
-  padding: sp.$stack-md sp.$stack-lg;
+  padding: sp.$stack-lg sp.$stack-xs; 
+  // padding: sp.$stack-md 0; 
+
+  .grid {
+    margin: auto;
+  }
 }

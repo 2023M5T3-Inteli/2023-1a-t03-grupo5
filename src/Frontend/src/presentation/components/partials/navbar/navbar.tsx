@@ -48,7 +48,7 @@ const Navbar: any = (props: Props) => {
         {
           menu.map((item, index) => {
             return (
-              <Link to={item.link} className={`item ${props.page == index && 'active'}`} onClick={() => props.changePage(index)}>{item.name}</Link>
+              <Link to={item.link} className={`item ${props.page == index && 'active'}`} key={index} onClick={() => props.changePage(index)}>{item.name}</Link>
             )
           })
         }

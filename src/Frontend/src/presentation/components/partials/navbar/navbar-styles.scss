@@ -32,8 +32,8 @@
       background: c.$primary;
       position: absolute;
       bottom: -(sp.$stack-xs);
-      left: 10%;
-      width: 80%;
+      left: calc(10% - 10px);
+      width: calc(80% + 20px);
       height: 2px;
       text-align: center;
     }

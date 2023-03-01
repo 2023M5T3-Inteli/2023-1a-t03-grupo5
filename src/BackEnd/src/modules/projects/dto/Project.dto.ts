@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { IsString, IsBoolean } from "class-validator";
 
-export type ProjectDTO = {
+export class ProjectDTO {
     @IsString()
     projectId: string
 

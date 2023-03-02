@@ -68,4 +68,13 @@ export class UsersController {
       throw new BadRequestException("Something Bad Happened", {cause: new Error(), description: "ID must be a String"})
     }
   }
+
+  @Get("/sendForgotEmail/:email")
+  async sendForgotEmail(@Param("email") email: string) {
+    if(typeof email === "string") {
+      return this.usersService.sendForgotPasswordEmail(email);
+    } else {
+      throw new BadRequestException("Something Bad Happened", {cause: new Error(), description: "Email must be a String"})
+    }
+  }
 }

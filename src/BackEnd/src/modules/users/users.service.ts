@@ -7,8 +7,24 @@ import * as bcrypt from 'bcrypt';
 import { LoginDTO } from './dto/Login.dto';
 import * as jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
+import * as nodemailer from 'nodemailer';
+import { smtpConfig } from '../../Common/SMTP/smtpConfig';
+import { html } from 'src/Common/SMTP/HTML/htmlSendForgot';
 
 dotenv.config();
+
+const transporter = nodemailer.createTransport({
+    host: smtpConfig.host,
+    port: smtpConfig.port,
+    secure: false,
+    auth: {
+        user: smtpConfig.user,
+        pass: smtpConfig.pass
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+})
 
 function exclude(user, keys) {
     for (let key of keys) {
@@ -258,5 +274,41 @@ export class UsersService {
         }
         
         return "Usuário deletado com sucesso"
+    }
+
+    async sendForgotPasswordEmail(email: string) {
+        //Verify if user already exists
+        const userExists = await this.prisma.user.findUnique({
+            where: {
+                email: email
+            }
+        })
+
+        if (!userExists) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "The operation could not be completed"})
+        }
+
+        const token = jwt.sign({
+            email: email
+        }, process.env.HASH_EMAIL_TOKEN, {
+            subject: email,
+            expiresIn: "5m"
+        });
+
+        var resetCode = Math.floor(1000 + Math.random() * 9000);
+
+        // send mail with defined transport object
+        try {
+            await transporter.sendMail({
+                from: '"NoReply DELLPROJECTS 👻" <noreply@dellprojects.com>', 
+                to: email, // list of receivers
+                subject: "Hello ✔", // Subject line
+                text: token, // plain text body
+                html: html(resetCode) // html body
+            });
+        } catch (err) {
+            console.log(err)
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
     }
 }

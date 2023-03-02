@@ -4,27 +4,33 @@ import './createProject-styles.scss'
 
 const CreateProject: React.FC = () => {
   return (
-    <div>
+    <div className='DivInput'>
       <h1 className='TitleProject'>Create Project</h1>
+      <h4 className='titleInput'>Project name</h4>
         <Input
-        Title='Project name'
         className='InputCreate'
         placeholder={"Enter the project name"}
         type={'text'}
         />
-        <h4>Project Description</h4>
+        <h4 className='titleInput'>Project Description</h4>
         <textarea
         className='InputCreatedescription'
         placeholder={"Enter the project description"}
         />
+        <h4 className='titleInput'>Email</h4>
         <Input
-        Title='Email'
         className='InputCreate'
         placeholder={"Digite seu email"}
         type={'email'}
         />
+        <h4 className='titleInput'>Dead Line</h4>
         <Input
-        Title='End of Registrations'
+        className='InputCreate'
+        placeholder={"xx/xx/xxxx"}
+        type={'date'}
+        />
+        <h4 className='titleInput'>Co-leader</h4>
+        <Input
         className='InputCreate'
         placeholder={"xx/xx/xxxx"}
         type={'date'}

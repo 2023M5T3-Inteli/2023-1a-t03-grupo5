@@ -6,5 +6,3 @@ export const smtpConfig = {
     user: "noreplydellprojects@gmail.com",
     pass: process.env.PASSWORD_GMAIL_NODEMAILER
 }
-
-console.log(process.env.PASSWORD_GMAIL_NODEMAILER)

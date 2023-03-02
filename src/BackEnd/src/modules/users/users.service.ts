@@ -10,6 +10,7 @@ import * as dotenv from 'dotenv';
 import * as nodemailer from 'nodemailer';
 import { smtpConfig } from '../../Common/SMTP/smtpConfig';
 import { html } from 'src/Common/SMTP/HTML/htmlSendForgot';
+import { ResetPasswordDTO } from './dto/resetPassword.dto';
 
 dotenv.config();
 
@@ -186,8 +187,11 @@ export class UsersService {
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: "Problems on update"})
         }
         
-        return "Atualização efetuada com sucesso"
-
+        return {
+            message: "Doing great",
+            statusCode: 200,
+            description: "Information updated successfully"
+        }
     }
 
     async getOne(id: string) {
@@ -273,7 +277,11 @@ export class UsersService {
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
         
-        return "Usuário deletado com sucesso"
+        return {
+            message: "Doing great",
+            statusCode: 200,
+            description: "User deleted with success"
+        }
     }
 
     async sendForgotPasswordEmail(email: string) {
@@ -288,27 +296,88 @@ export class UsersService {
             throw new BadRequestException("Something bad happened", {cause: new Error(), description: "The operation could not be completed"})
         }
 
-        const token = jwt.sign({
-            email: email
-        }, process.env.HASH_EMAIL_TOKEN, {
-            subject: email,
-            expiresIn: "5m"
-        });
-
         var resetCode = Math.floor(1000 + Math.random() * 9000);
+
+        // Set resetCode on user
+        try {
+            await this.prisma.user.update({
+                data: {
+                    code: resetCode.toString()
+                },
+                where: {
+                    email: email
+                }
+            })
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
 
         // send mail with defined transport object
         try {
             await transporter.sendMail({
-                from: '"NoReply DELLPROJECTS 👻" <noreply@dellprojects.com>', 
+                from: '"NoReply DELLPROJECTS" <noreply@dellprojects.com>', 
                 to: email, // list of receivers
-                subject: "Hello ✔", // Subject line
-                text: token, // plain text body
+                subject: "Reset Password", // Subject line
                 html: html(resetCode) // html body
             });
         } catch (err) {
             console.log(err)
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+
+        return {
+            message: "Doing great",
+            statusCode: 200,
+            description: "Email sent, please check your inbox"
+        }
+    }
+
+    async resetPassword(data: ResetPasswordDTO) {
+        //Verify token
+        const email = data.email;
+        const code = data.code;
+        let password = data.newPassword;
+
+
+        //Verify if user already exists
+        const userExists = await this.prisma.user.findUnique({
+            where: {
+                email: email
+            }
+        })
+
+        if (!userExists) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "The operation could not be completed"})
+        }
+
+        //Verify if code is correct
+        if (userExists.code != code) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "Unanuthorized, please try again"})
+        }
+
+        //Hashin password
+        const hashedPassWord = await bcrypt.hash(password, 8) 
+
+        password = hashedPassWord
+
+        //Update password
+        try {
+            await this.prisma.user.update({
+                data: {
+                    password: password
+                },
+                where: {
+                    email: email
+                }
+            })
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+
+        return {
+            message: "Doing great",
+            statusCode: 200,
+            description: "Password updated, please login again"
         }
     }
 }

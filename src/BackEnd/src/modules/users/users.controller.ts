@@ -4,6 +4,7 @@ import { CreateUserDTO } from './dto/CreateUser.dto';
 import { BadRequestException } from '@nestjs/common/exceptions';
 import { LoginDTO } from './dto/Login.dto';
 import { Request, Response, NextFunction } from 'express';
+import { ResetPasswordDTO } from './dto/resetPassword.dto';
 
 @Controller('User')
 export class UsersController {
@@ -76,5 +77,10 @@ export class UsersController {
     } else {
       throw new BadRequestException("Something Bad Happened", {cause: new Error(), description: "Email must be a String"})
     }
+  }
+
+  @Post("/resetForgotPassword")
+  async resetPassword(@Body() data: ResetPasswordDTO) {
+    return this.usersService.resetPassword(data);
   }
 }

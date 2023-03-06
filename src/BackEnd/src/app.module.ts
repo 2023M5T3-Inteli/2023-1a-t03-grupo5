@@ -3,9 +3,10 @@ import { ProjectsModule } from './modules/projects/projects.module';
 import { UsersModule } from './modules/users/users.module';
 import { UnsureAuthenticated } from './Common/middleware/unsureAuthenticated.middleware';
 import { UnsureAdmin } from './Common/middleware/unsureAdmin.middleware';
+import { ApplyModule } from './modules/apply/apply.module';
 
 @Module({
-  imports: [ProjectsModule, UsersModule],
+  imports: [ProjectsModule, UsersModule, ApplyModule],
   controllers: [],
   providers: [],
 })

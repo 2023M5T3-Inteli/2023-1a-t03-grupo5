@@ -1,6 +1,7 @@
 import React from 'react'
 import Input from '../../components/Input'
 import './createProject-styles.scss'
+import './../../../../public/styles/grid.scss'
 
 const CreateProject: React.FC = () => {
   return (
@@ -30,6 +31,24 @@ const CreateProject: React.FC = () => {
         type={'date'}
         />
         <h4 className='titleInput'>Co-leader</h4>
+        <Input
+        className='InputCreate'
+        placeholder={"xx/xx/xxxx"}
+        type={'date'}
+        />
+        <h4 className='titleInput'>Area</h4>
+        <Input
+        className='InputCreate'
+        placeholder={"xx/xx/xxxx"}
+        type={'date'}
+        />
+        <h4 className='titleInput'>Number of vacancies</h4>
+        <Input
+        className='InputCreate'
+        placeholder={"xx/xx/xxxx"}
+        type={'date'}
+        />
+        <h4 className='titleInput'>Position</h4>
         <Input
         className='InputCreate'
         placeholder={"xx/xx/xxxx"}

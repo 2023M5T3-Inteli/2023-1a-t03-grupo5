@@ -8,7 +8,7 @@ import { LoginDTO } from './dto/Login.dto';
 import * as jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 import * as nodemailer from 'nodemailer';
-import { smtpConfig } from '../../Common/SMTP/smtpConfig';
+import { smtpConfig } from '../../Common/SMTP/SMTPconfig';
 import { html } from 'src/Common/SMTP/HTML/htmlSendForgot';
 import { ResetPasswordDTO } from './dto/resetPassword.dto';
 

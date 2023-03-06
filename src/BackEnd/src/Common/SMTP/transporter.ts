@@ -1,4 +1,4 @@
-import { smtpConfig } from './smtpConfig';
+import { smtpConfig } from './SMTPconfig';
 import nodemailer from 'nodemailer';
 
 //Envia o email ao usuário

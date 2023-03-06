@@ -23,6 +23,7 @@ model Project {
   owner               User      @relation("Owner", fields: [ownerId], references: [id], onDelete: Cascade)
   projectType         String
   blockedSubscription Boolean   @default(false)
+  status              Boolean   @default(false)
 
   @@map("projects")
 }

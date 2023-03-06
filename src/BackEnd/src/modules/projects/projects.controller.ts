@@ -40,10 +40,5 @@ export class ProjectsController {
   async filterProjectByParam(@Body() data: any) {
     return this.projectsService.filterProject(data);
   }
-
-  // @Put(":projectId")
-  // async approve(@Param("projectId") projectId: string, @Body() data: ProjectDTO) {
-  //   return this.projectsService.approveProject(projectId);
-  // }
 }
 

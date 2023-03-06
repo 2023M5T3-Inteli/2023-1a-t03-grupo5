@@ -1,30 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Controller, Post } from '@nestjs/common';
 import { ApplyService } from './apply.service';
 import { createApplyDTO } from './DTOs/createApply.dto';
 
-@Controller('Apply')
+@Controller('apply')
 export class ApplyController {
   constructor(private readonly applyService: ApplyService) {}
 
   @Post()
-  async apply(@Body() data: createApplyDTO) {
+  async apply(data: createApplyDTO) {
     return await this.applyService.apply(data);
   }
-
-  @Get("/getProjectId/:projectId")
-  async getApplyByProjectId(@Param() projectId: string) {
-    return await this.applyService.getApplyByProjectId(projectId);
-  }
-
-  @Get("/getUserId/:userId")
-  async getApplyByUserId(@Param() userId: string) {
-    return await this.applyService.getApplyByUserId(userId);
-  }
-
-  @Delete(":id")
-  async deleteApply(@Param() id: string) {
-    return await this.applyService.deleteApply(id);
-  }
-
-
 }

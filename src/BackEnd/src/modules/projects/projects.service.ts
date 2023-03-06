@@ -95,17 +95,4 @@ export class ProjectsService {
         })
         return project;
     }
-
-    // async approveProject(projectId: string) {
-    //     const project = await this.prisma.project.update({
-    //         where: {
-    //             projectId,
-    //         },
-    //         data: {
-    //             blockedSubscription: false,
-    //             status: true,
-    //         }
-    //     })
-    //     return project;
-    // }
 }

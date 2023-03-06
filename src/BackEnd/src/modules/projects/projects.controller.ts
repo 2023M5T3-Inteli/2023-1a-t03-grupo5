@@ -35,5 +35,10 @@ export class ProjectsController {
   async delete(@Param("projectId") projectId: string) {
     return this.projectsService.deleteProject(projectId);
   }
+
+  @Get()
+  async filterProjectByParam(@Body() data: ProjectDTO) {
+    return this.projectsService.filterProject(data);
+  }
 }
 

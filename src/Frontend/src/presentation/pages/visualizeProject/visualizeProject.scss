@@ -1,0 +1,8 @@
+@use '/public/styles/spacing.scss' as sp;
+
+.container{
+    margin-top: sp.$stack-md;
+    h1{
+        align-items: center;
+    }
+}

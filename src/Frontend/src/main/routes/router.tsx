@@ -4,6 +4,7 @@ import Navbar from '../../presentation/components/partials/navbar/navbar'
 import Home from '../../presentation/pages/home/home'
 // import Login from '../../presentation/pages/login/login'
 import CreateProject from '../../presentation/pages/createProject/createProject'
+import VisualizeProject from '../../presentation/pages/visualizeProject/visualizeProject'
 
 const Router: React.FC = () => {
   const [active, setActive] = useState(0)
@@ -19,6 +20,7 @@ const Router: React.FC = () => {
         <Route path='/' element={<Home />}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
         <Route path='/CreateProject' element={<CreateProject />}></Route>
+        <Route path='/VisualizeProject' element={<VisualizeProject />}></Route>
       </Routes>
     </BrowserRouter>
   )

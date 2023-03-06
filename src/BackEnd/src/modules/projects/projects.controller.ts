@@ -36,8 +36,8 @@ export class ProjectsController {
     return this.projectsService.deleteProject(projectId);
   }
 
-  @Get()
-  async filterProjectByParam(@Body() data: ProjectDTO) {
+  @Get("/filter")
+  async filterProjectByParam(@Body() data: any) {
     return this.projectsService.filterProject(data);
   }
 }

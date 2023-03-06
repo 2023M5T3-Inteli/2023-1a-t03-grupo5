@@ -89,10 +89,9 @@ export class ProjectsService {
 
     async filterProject(data: any) {
         const project = await this.prisma.project.findMany({
-            where: {
-                data,
-            }
+            where: data,
         })
+
         return project;
     }
 }

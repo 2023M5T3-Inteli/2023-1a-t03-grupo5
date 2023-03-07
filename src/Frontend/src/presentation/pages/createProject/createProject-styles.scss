@@ -1,35 +1,53 @@
-.InputCreate{
-    border-radius: 0.4rem;
-    border-color: #A1A1A1;
-    width: 25rem;
-    height: 1.5rem;
-    margin-top: 0.5rem;
-    display: flex;
-    align-items: center;
-}
+@use '/public/styles/spacing.scss' as sp;
 
-.TitleProject{
-    color: #0076CE;
-    text-align: center;
-    margin-top: 1cm;
-}
+#create-project {
+    .input-container {
+        border-radius: 0.4rem;
+        border: solid 1px #A1A1A1;
+        width: 25rem;
+        height: 1.5rem;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
 
-.InputCreatedescription{
-    text-align: center;
-    width: 20rem;
-    height: 3rem;
-    margin-top: 0.5rem;
-    align-items: center;
-}
+    .title {
+        color: #0076CE;
+        text-align: center;
+        margin-top: 1cm;
+    }
 
-.titleInput{
-    color: #0076CE;
-    margin-top: 2%;
-    align-items: center;
-}
+    .titleInput {
+        color: #0076CE;
+        margin-top: 2%;
+        align-items: center;
+    }
 
-.DivInput{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    .DivInput {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-container {
+        display: flex;
+        flex-direction: column;
+
+        textarea {
+            resize: none;
+            border: solid 1px #A1A1A1;
+            text-align: center;
+            width: 20rem;
+            height: 3rem;
+            margin-top: 0.5rem;
+            align-items: center;
+        }
+    }
+
+    .inputRow {
+        align-items: center;
+    }
+
+    .container {
+        margin-top: sp.$stack-md;
+    }
 }

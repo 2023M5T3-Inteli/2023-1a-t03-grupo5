@@ -2,9 +2,13 @@ import React from 'react'
 import { Project } from '../../../shared/lib/types'
 import Card from '../../components/card/card'
 
+import AddIcon from '@mui/icons-material/Add'
+
 import './home-styles.scss'
 
 const Home: React.FC = () => {
+  const isMobile = true;
+
   const projects: Project[] = [
     {
       title: 'Project 1',
@@ -77,6 +81,10 @@ const Home: React.FC = () => {
           )
         })
       }
+      <div className="button-container">
+        <AddIcon />
+        <p className='tooltip'>Criar projeto</p>
+      </div>
     </div>
   )
 }

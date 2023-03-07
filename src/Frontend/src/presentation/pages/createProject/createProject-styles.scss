@@ -1,36 +1,29 @@
 @use '/public/styles/spacing.scss' as sp;
+@use '/public/styles/color.scss' as c;
 
 #create-project {
-    .input-container {
-        border-radius: 0.4rem;
-        border: solid 1px #A1A1A1;
-        width: 25rem;
-        height: 1.5rem;
-        margin-top: 0.5rem;
-        display: flex;
-        align-items: center;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     .title {
         color: #0076CE;
         text-align: center;
         margin-top: 1cm;
     }
-
-    .titleInput {
-        color: #0076CE;
-        margin-top: 2%;
-        align-items: center;
-    }
-
-    .DivInput {
+    
+    .container {
         display: flex;
         flex-direction: column;
+        margin-top: sp.$stack-md;
     }
 
     .input-container {
         display: flex;
         flex-direction: column;
+        gap: sp.$stack-xs;
+        margin-bottom: sp.$stack-md;
 
         textarea {
             resize: none;
@@ -41,13 +34,17 @@
             margin-top: 0.5rem;
             align-items: center;
         }
+
+        .input-title {
+            color: c.$primary;
+        }
+
+        input {
+            // margin-bottom: sp.$stack-xs;
+        }
     }
 
     .inputRow {
         align-items: center;
-    }
-
-    .container {
-        margin-top: sp.$stack-md;
     }
 }

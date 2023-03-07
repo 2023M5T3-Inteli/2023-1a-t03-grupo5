@@ -1,13 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Project } from '../../../shared/lib/types'
 import Card from '../../components/card/card'
 
 import AddIcon from '@mui/icons-material/Add'
 
 import './home-styles.scss'
+import Modal from '../../components/modal/modal'
 
 const Home: React.FC = () => {
   const isMobile = true;
+  const [openModal, setOpenModal] = useState(false)
 
   const projects: Project[] = [
     {
@@ -21,7 +23,7 @@ const Home: React.FC = () => {
       startDate: '22/11/2022',
       description: 'Project built with Next',
       vacancies: '5 vacancies'
-    }, 
+    },
     {
       title: 'Project 3',
       startDate: '22/11/2022',
@@ -72,6 +74,9 @@ const Home: React.FC = () => {
 
   return (
     <div className='home'>
+      { 
+        openModal && <Modal />
+      }
       {
         projects.map((project: any, index: number) => {
           return (
@@ -82,8 +87,10 @@ const Home: React.FC = () => {
         })
       }
       <div className="button-container">
-        <AddIcon />
-        <p className='tooltip'>Criar projeto</p>
+        <div className='add-icon' onClick={() => setOpenModal(!openModal)}>
+          <AddIcon />
+        </div>
+        <p className='tooltip'>Criar Projeto</p>
       </div>
     </div>
   )

@@ -1,0 +1,44 @@
+@use '/public/styles/spacing.scss' as sp;
+
+.container-visualize{
+    margin-top: sp.$stack-md;
+    display: flex;
+    flex-direction: column;
+    margin-top: sp.$stack-sm;
+    h1{
+        margin-top: sp.$stack-sm;
+        align-items: center;
+    }
+    h3{
+        margin-top: sp.$stack-xs;
+        color: #0076CE;
+    }
+    p{
+        margin-top: sp.$stack-sm;
+    }
+    .visualize-project {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.info-project{
+    border: solid 1px #0076CE;
+    width: 15rem;
+    height: 17rem;
+    border-radius: 0.7rem;
+    display: flex;
+    flex-direction: column;
+
+    h2{
+        color: #0076CE;
+        margin-top: sp.$stack-sm;
+    }
+    h3{
+        color: #0076CE;
+        margin-top: sp.$stack-sm;
+    }
+    p{
+        margin-top: sp.$stack-xs;
+    }
+}

@@ -1,0 +1,68 @@
+#login {
+    // deixa flexivel
+    display: flex;
+    // deixa os elemento em formato de colunas 
+    // flex-direction: column;
+    // tamanho da largura da tela toda vw = view width 
+    width: 100vw;
+    // tamanho da altura da tela toda vh = view hight 
+    height: 100vh;
+
+    .container {
+        // 
+        display: flex;
+        // muda o sentido dos elementos
+        flex-direction: column;
+        // background-color: red;
+
+        /* centraliza horizontalmente */
+        justify-content: center;
+
+        /* centraliza verticalmente */
+        align-items: center;
+
+        .logo {
+            // largura
+            width: 180px;
+            height: 180px;
+            // espaçamento superior
+            margin-top: 40px;
+            // espaçamento inferior
+            margin-bottom: 40px;
+
+        }
+
+        input {
+            width: 50%;
+            height: 25px;
+            // width: 279px;
+        }
+
+        .email {
+            margin-bottom: 20px;
+        }
+
+        a {
+            width: 50%;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        button {
+            height: 45px;
+            width: 180px;
+            // espaçamento superior
+            margin-top: 40px;
+            // espaçamento inferior
+            margin-bottom: 5px;
+        }
+
+        .banner-login {
+            width: 80%;
+        }
+    }
+}

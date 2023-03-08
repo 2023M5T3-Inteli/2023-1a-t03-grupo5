@@ -7,13 +7,13 @@ import { ProjectsService } from './projects.service';
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
-  @Post()
+  @Post("/create")
   async create(@Body() data: ProjectDTO) {
     console.log(data.blockedSubscription);
     return this.projectsService.createProject(data);
   }
 
-  @Get()
+  @Get("/findAll")
   async findAll() {
     return this.projectsService.getAllProjects()
   }
@@ -38,7 +38,7 @@ export class ProjectsController {
     return this.projectsService.filterProject(data);
   }
 
-  @Put(":projectId")
+  @Put("/approve/:projectId")
   async approve(@Param("projectId") projectId: string, @Body() data: ProjectDTO) {
     return this.projectsService.approveProject(projectId);
   }

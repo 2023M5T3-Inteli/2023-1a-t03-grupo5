@@ -5,7 +5,9 @@ import { BadRequestException } from '@nestjs/common/exceptions';
 import { LoginDTO } from './dto/Login.dto';
 import { Request, Response, NextFunction } from 'express';
 import { ResetPasswordDTO } from './dto/resetPassword.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User')
 @Controller('User')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

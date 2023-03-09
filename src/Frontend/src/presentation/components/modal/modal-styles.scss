@@ -19,7 +19,7 @@
     position:relative;
     display: flex;
     justify-content: center;
-    padding: sp.$stack-md;
+    padding: sp.$stack-xs;
     width: 60%;
     min-height: 60%;
     background-color: c.$secundary;
@@ -30,9 +30,11 @@
   }
 
   .backIcon {
+    padding: sp.$stack-xs sp.$stack-xs;
+    width: 32px;
     position: absolute;
-    top: sp.$stack-md;
-    left: sp.$stack-md;
+    top: sp.$stack-xs;
+    left: sp.$stack-xs;
     align-self: flex-start;
     cursor: pointer;
   }

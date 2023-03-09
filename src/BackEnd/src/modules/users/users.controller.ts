@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param, Req, Delete, Put} from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Req, Delete, Put, UseGuards} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDTO } from './dto/CreateUser.dto';
 import { BadRequestException } from '@nestjs/common/exceptions';
@@ -6,6 +6,7 @@ import { LoginDTO } from './dto/Login.dto';
 import { Request, Response, NextFunction } from 'express';
 import { ResetPasswordDTO } from './dto/resetPassword.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('User')
 @Controller('User')
@@ -17,10 +18,10 @@ export class UsersController {
     return this.usersService.create(data);
   }
 
-  @Post("/Login")
-  async login(@Body() data: LoginDTO) {
-    return this.usersService.Login(data);
-  }
+  // @Post("/Login")
+  // async login(@Body() data: LoginDTO) {
+  //   return this.usersService.Login(data);
+  // }
 
   @Put("/Update/:id")
   async update(@Param("id") id: string, @Body() data: any) {
@@ -50,8 +51,8 @@ export class UsersController {
   }
 
   @Get("/Auth")
-  async Auth(@Req() req: Request) {
-    return this.usersService.Auth(req.id);
+  async Auth() {
+    return "Authenticated"
   }
 
   @Get("/getByName/:name")

@@ -89,64 +89,64 @@ export class UsersService {
         }
     }
 
-    async Login(data: LoginDTO) {
-        //Check if user exists
-        const user = await this.prisma.user.findUnique({
-            where: {
-                email: data.email
-            }
-        });
+    // async Login(data: LoginDTO) {
+    //     //Check if user exists
+    //     const user = await this.prisma.user.findUnique({
+    //         where: {
+    //             email: data.email
+    //         }
+    //     });
 
-        if (!user) {
-            throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Email or Password doesn't match"})
-        }
+    //     if (!user) {
+    //         throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Email or Password doesn't match"})
+    //     }
 
-        //Check if password is correct
-        const passwordMatch = await bcrypt.compare(data.password, user.password)
+    //     //Check if password is correct
+    //     const passwordMatch = await bcrypt.compare(data.password, user.password)
 
-        if (!passwordMatch) {
-            throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Email or Password doesn't match"})
-        }
+    //     if (!passwordMatch) {
+    //         throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Email or Password doesn't match"})
+    //     }
 
-        let token = jwt.sign({
-            email: user.email
-        }, process.env.USER_LOGIN_HASH, {
-            subject: user.id,
-            expiresIn: "30m"
-        });
+    //     let token = jwt.sign({
+    //         email: user.email
+    //     }, process.env.USER_LOGIN_HASH, {
+    //         subject: user.id,
+    //         expiresIn: "30m"
+    //     });
         
-        return {
-            token: token,
-            user: {
-                id: user.id,
-                email: user.email,
-                name: user.name,
-            }
-        }
-    }
+    //     return {
+    //         token: token,
+    //         user: {
+    //             id: user.id,
+    //             email: user.email,
+    //             name: user.name,
+    //         }
+    //     }
+    // }
 
-    async Auth(id: string) {
-        console.log(id)
-        let user = null;
-        try {
-            const user1 = this.prisma.user.findUnique({
-                where: {
-                    id: id
-                },
-            });
+    // async Auth(id: string) {
+    //     console.log(id)
+    //     let user = null;
+    //     try {
+    //         const user1 = this.prisma.user.findUnique({
+    //             where: {
+    //                 id: id
+    //             },
+    //         });
 
-            user = exclude(user1, ['password']);
-            console.log(user)
-        } catch (err) {
-            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
-        }
+    //         user = exclude(user1, ['password']);
+    //         console.log(user)
+    //     } catch (err) {
+    //         throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+    //     }
         
-        if (!user) {
-            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "User not found"})
-        }
+    //     if (!user) {
+    //         throw new BadRequestException("Something bad happened", {cause: new Error(), description: "User not found"})
+    //     }
 
-        return user
-    }
+    //     return user
+    // }
 
     async update(id: string, data: any) {
         //Verify if user already exists
@@ -223,6 +223,20 @@ export class UsersService {
             projects: user.projects,
             projectsColeader: user.projectsColeader
         }
+    }
+
+    async getOneByEmail(email: string) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                email: email
+            },
+        });
+
+        if (!user) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "User not found"})
+        }
+
+        return user
     }
 
     async getAll() {

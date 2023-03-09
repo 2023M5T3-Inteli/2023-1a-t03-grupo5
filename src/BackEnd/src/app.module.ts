@@ -5,9 +5,10 @@ import { UnsureAuthenticated } from './Common/middleware/unsureAuthenticated.mid
 import { UnsureAdmin } from './Common/middleware/unsureAdmin.middleware';
 import { ApplyModule } from './modules/apply/apply.module';
 import { HealthController } from './modules/health/health.controller';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-  imports: [ProjectsModule, UsersModule, ApplyModule],
+  imports: [ProjectsModule, UsersModule, ApplyModule, AuthModule],
   controllers: [HealthController],
   providers: [],
 })

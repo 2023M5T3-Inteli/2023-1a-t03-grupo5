@@ -10,41 +10,33 @@
     .title {
         color: #0076CE;
         text-align: center;
-        margin-top: 1cm;
     }
-    
+
     .container {
-        display: flex;
-        flex-direction: column;
-        margin-top: sp.$stack-md;
-    }
+        margin: sp.$stack-md 0;
+        margin-left: sp.$stack-md;
+        max-height: 300px;
+        overflow-y: auto;
 
-    .input-container {
-        display: flex;
-        flex-direction: column;
-        gap: sp.$stack-xs;
-        margin-bottom: sp.$stack-md;
+        .section-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: sp.$stack-lg;
+        }
 
-        textarea {
-            resize: none;
-            border: solid 1px #A1A1A1;
-            text-align: center;
-            width: 20rem;
-            height: 3rem;
-            margin-top: 0.5rem;
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: sp.$stack-xs;
+            margin-bottom: sp.$stack-md;
+
+            .input-title {
+                color: c.$primary;
+            }
+        }
+
+        .inputRow {
             align-items: center;
         }
-
-        .input-title {
-            color: c.$primary;
-        }
-
-        input {
-            // margin-bottom: sp.$stack-xs;
-        }
-    }
-
-    .inputRow {
-        align-items: center;
     }
 }

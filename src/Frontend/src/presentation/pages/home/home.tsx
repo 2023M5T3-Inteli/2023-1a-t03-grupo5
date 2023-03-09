@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Project } from '../../../shared/lib/types'
 import Card from '../../components/card/card'
 
@@ -6,10 +6,15 @@ import AddIcon from '@mui/icons-material/Add'
 
 import './home-styles.scss'
 import Modal from '../../components/modal/modal'
+import CreateProject from '../createProject/createProject'
 
 const Home: React.FC = () => {
   const isMobile = true;
   const [openModal, setOpenModal] = useState(false)
+
+  const closeModal = () => {
+    setOpenModal(!openModal)
+  }
 
   const projects: Project[] = [
     {
@@ -74,8 +79,8 @@ const Home: React.FC = () => {
 
   return (
     <div className='home'>
-      { 
-        openModal && <Modal />
+      {
+        openModal && <Modal closeArrow={true} closeModal={() => closeModal()} content={<CreateProject closeModal={() => closeModal()} />} />
       }
       {
         projects.map((project: any, index: number) => {

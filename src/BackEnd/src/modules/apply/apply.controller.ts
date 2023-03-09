@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApplyService } from './apply.service';
 import { createApplyDTO } from './DTOs/createApply.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -8,7 +8,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class ApplyController {
   constructor(private readonly applyService: ApplyService) {}
 
-  @Post()
+  @Post('/create')
   async apply(@Body() data: createApplyDTO) {
     return await this.applyService.apply(data);
   }
@@ -23,10 +23,14 @@ export class ApplyController {
     return await this.applyService.getApplyByUserId(userId);
   }
 
-  @Delete(":id")
+  @Delete("/delete/:id")
   async deleteApply(@Param() id: string) {
     return await this.applyService.deleteApply(id);
   }
 
+  @Put("/update/:id")
+  async updateApply(@Param() id: string, @Body() data: createApplyDTO) {
+    return await this.applyService.updateApply(id, data);
+  }
 
 }

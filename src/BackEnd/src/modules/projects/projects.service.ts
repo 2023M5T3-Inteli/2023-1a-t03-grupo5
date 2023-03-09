@@ -107,4 +107,16 @@ export class ProjectsService {
         })
         return project;
     }
+
+    async cancelProject(projectId: string) {
+        const project = await this.prisma.project.update({
+            where: {
+                projectId,
+            },
+            data: {
+                blockedSubscription: true,
+            }
+        })
+        return project;
+    }
 }

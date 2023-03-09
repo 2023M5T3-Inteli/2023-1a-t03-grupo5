@@ -41,8 +41,13 @@ export class ProjectsController {
   }
 
   @Put("/approve/:projectId")
-  async approve(@Param("projectId") projectId: string, @Body() data: ProjectDTO) {
+  async approve(@Param("projectId") projectId: string) {
     return this.projectsService.approveProject(projectId);
+  }
+
+  @Put("/cancel/:projectId")
+  async cancel(@Param("projectId") projectId: string) {
+    return this.projectsService.cancelProject(projectId);
   }
 }
 

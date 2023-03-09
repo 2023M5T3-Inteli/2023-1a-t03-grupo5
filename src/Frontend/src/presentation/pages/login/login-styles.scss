@@ -4,7 +4,7 @@
     // deixa os elemento em formato de colunas 
     // flex-direction: column;
     // tamanho da largura da tela toda vw = view width 
-    width: 100vw;
+    // width: 100vw;
     // tamanho da altura da tela toda vh = view hight 
     height: 100vh;
 
@@ -21,6 +21,7 @@
         /* centraliza verticalmente */
         align-items: center;
 
+
         .logo {
             // largura
             width: 180px;
@@ -34,22 +35,27 @@
 
         input {
             width: 50%;
-            height: 25px;
-            // width: 279px;
+            height: 30px;
+            border: 1px solid #A1A1A1;
+            border-radius: 10px;
+            padding-left: 16px;
+
         }
 
         .email {
             margin-bottom: 20px;
         }
 
-        a {
+        .forget {
             width: 50%;
             font-size: 12px;
-            margin-top: 4px;
+            margin-top: 8px;
         }
 
         p {
             font-size: 18px;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
         button {
@@ -59,6 +65,13 @@
             margin-top: 40px;
             // espaçamento inferior
             margin-bottom: 5px;
+            background-color: #0672CB;
+            color: white;
+            font-size: 16px;
+            border-radius: 10px;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
         }
 
         .banner-login {

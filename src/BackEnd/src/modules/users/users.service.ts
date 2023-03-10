@@ -175,7 +175,7 @@ export class UsersService {
         
         data.updatedAt = new Date()
 
-        //Efetua a atualização
+        //Efetua a atualição
         try {
             await this.prisma.user.update({
                 data,

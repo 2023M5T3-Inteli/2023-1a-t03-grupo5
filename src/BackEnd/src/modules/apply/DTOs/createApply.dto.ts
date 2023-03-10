@@ -13,4 +13,10 @@ export class createApplyDTO {
 
     @IsString()
     message: string;
+
+    @IsString()
+    why: string;
+
+    @IsString()
+    which: string;
 }

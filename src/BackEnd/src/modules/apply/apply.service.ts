@@ -38,7 +38,8 @@ export class ApplyService {
           userId: infos.userId,
           projectId: infos.projectId,
           offerId: infos.offerId,
-          message: infos.message,
+          why: infos.why,
+          which: infos.which,
         },
       });
     } catch (err) {

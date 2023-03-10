@@ -7,13 +7,19 @@ import AddIcon from '@mui/icons-material/Add'
 import './home-styles.scss'
 import Modal from '../../components/modal/modal'
 import CreateProject from '../createProject/createProject'
+import EditProject from '../editProject/editProject'
 
 const Home: React.FC = () => {
   const isMobile = true;
-  const [openModal, setOpenModal] = useState(false)
+  const [openCreateModal, setOpenCreateModal] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false)
 
-  const closeModal = () => {
-    setOpenModal(!openModal)
+  const closeCreateModal = () => {
+    setOpenCreateModal(!openCreateModal)
+  }
+
+  const closeEditModal = () => {
+    setOpenEditModal(!openEditModal)
   }
 
   const projects: Project[] = [
@@ -80,19 +86,22 @@ const Home: React.FC = () => {
   return (
     <div className='home'>
       {
-        openModal && <Modal closeArrow={true} closeModal={() => closeModal()} content={<CreateProject closeModal={() => closeModal()} />} />
+        openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
+      }
+      {
+        openEditModal && <Modal closeArrow={true} closeModal={() => closeEditModal()} content={<EditProject closeModal={() => closeEditModal()} />} />
       }
       {
         projects.map((project: any, index: number) => {
           return (
-            <div key={index} className="grid-4">
+            <div key={index} className="grid-4" onClick={() => setOpenEditModal(!openCreateModal)}>
               <Card {...project}></Card>
             </div>
           )
         })
       }
       <div className="button-container">
-        <div className='add-icon' onClick={() => setOpenModal(!openModal)}>
+        <div className='add-icon' onClick={() => setOpenCreateModal(!openCreateModal)}>
           <AddIcon />
         </div>
         <p className='tooltip'>Criar Projeto</p>

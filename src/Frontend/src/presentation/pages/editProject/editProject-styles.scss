@@ -1,7 +1,7 @@
 @use '/public/styles/spacing.scss' as sp;
 @use '/public/styles/color.scss' as c;
 
-#create-project {
+#edit-project {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,9 +13,9 @@
     }
 
     .container {
-        margin-right: sp.$stack-xs;
-        padding: sp.$stack-md sp.$stack-md;
-        max-height: 380px;
+        margin: sp.$stack-md 0;
+        margin-left: sp.$stack-md;
+        max-height: 300px;
         overflow-y: auto;
 
         .section-container {
@@ -41,7 +41,7 @@
 
     }
 
-    .create-container {
-        margin-bottom: sp.$stack-xs;
+    .edit-container {
+        margin-bottom: sp.$stack-md;
     }
 }

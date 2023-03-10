@@ -5,7 +5,7 @@ import './modal-styles.scss'
 import backArrow from '/back-arrow.png'
 
 type Props = {
-  closeArrow: boolean;
+  closeArrow?: boolean;
   closeModal: Function;
   content: ReactJSXElement
 }

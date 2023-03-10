@@ -18,7 +18,6 @@ const Router: React.FC = () => {
       <Routes>
         <Route path='/' element={<Home />}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
-        <Route path='/CreateProject' element={<CreateProject />}></Route>
       </Routes>
     </BrowserRouter>
   )

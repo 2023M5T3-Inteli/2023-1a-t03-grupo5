@@ -20,7 +20,8 @@
     display: flex;
     justify-content: center;
     padding: sp.$stack-xs;
-    width: 60%;
+    padding-top: sp.$stack-sm;
+    width: 65%;
     min-height: 60%;
     background-color: c.$secundary;
     box-shadow: 0px 3px 3px 0px #00000040;
@@ -30,7 +31,7 @@
   }
 
   .backIcon {
-    padding: sp.$stack-xs sp.$stack-xs;
+    padding: sp.$stack-sm;
     width: 32px;
     position: absolute;
     top: sp.$stack-xs;

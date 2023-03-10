@@ -1,0 +1,17 @@
+@use '/public/styles/color.scss' as c;
+
+.dell-select {
+  select {
+    height: 20px;
+    padding: 8px;
+    height: max-content;
+    border-radius: 9px;
+    border: solid 1px c.$secundary-dark;
+    color: c.$primary;
+    background-color: c.$light;
+  }
+
+  :focus-visible {
+    outline: none;
+  }
+}

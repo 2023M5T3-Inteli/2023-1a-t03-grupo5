@@ -1,10 +1,15 @@
 @use '/public/styles/color.scss' as c;
 
 .dell-button {
-  border: none;
-  border-radius: 9px;
-  height: 36px;
-  padding: 0 8px;
+  display: flex;
+  
+  button {
+    border: none;
+    border-radius: 9px;
+    height: 36px;
+    padding: 0 8px;
+    cursor: pointer;
+  }
 
   .default {
     background-color: c.$primary;
@@ -28,14 +33,14 @@
   }
 
   .small {
-    min-width: 80px;
+    width: 80px;
   }
 
   .medium {
-    min-width: 120px;
+    width: 120px;
   }
 
   .large {
-    min-width: 200px;
+    width: 200px;
   }
 }

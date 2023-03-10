@@ -13,9 +13,9 @@
     }
 
     .container {
-        margin: sp.$stack-md 0;
-        margin-left: sp.$stack-md;
-        max-height: 300px;
+        margin-right: sp.$stack-xs;
+        padding: sp.$stack-md sp.$stack-md;
+        max-height: 380px;
         overflow-y: auto;
 
         .section-container {
@@ -27,11 +27,39 @@
         .input-container {
             display: flex;
             flex-direction: column;
+            min-height: 60px;
+            justify-content: flex-end;
             gap: sp.$stack-xs;
             margin-bottom: sp.$stack-md;
 
             .input-title {
                 color: c.$primary;
+            }
+
+            button {
+                align-self: flex-end;
+            }
+        }
+
+        .role-container {
+            display: flex;
+            gap: 20px;
+
+            .button {
+                width: max-content;
+            }
+        }
+
+        .added-roles {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .added-role-container {
+                display: flex;
+                align-items: center;
+                height: 40px;
+                background-color: c.$secundary-dark;
             }
         }
 
@@ -42,6 +70,6 @@
     }
 
     .edit-container {
-        margin-bottom: sp.$stack-md;
+        margin-bottom: sp.$stack-xs;
     }
 }

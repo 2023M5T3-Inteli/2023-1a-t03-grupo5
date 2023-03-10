@@ -9,24 +9,31 @@ import Modal from '../../components/modal/modal'
 import CreateProject from '../createProject/createProject'
 import EditProject from '../editProject/editProject'
 import VisualizeProject from '../visualizeProject/visualizeProject'
+import ApplicationForm from '../applicationForm/applicationForm'
 
 const Home: React.FC = () => {
   const isMobile = true;
   const [openCreateModal, setOpenCreateModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
   const [openViewModal, setOpenViewModal] = useState(false)
+  const [openApplyModal, setOpenApplyModal] = useState(false)
 
   const closeCreateModal = () => {
     setOpenCreateModal(!openCreateModal)
   }
 
   const toggleEditModal = () => {
-    setOpenEditModal(!openEditModal)
     setOpenViewModal(false)
+    setOpenEditModal(!openEditModal)
   }
 
   const toggleViewModal = () => {
     setOpenViewModal(!openViewModal)
+  }
+
+  const toggleApplyModal = () => {
+    setOpenViewModal(false)
+    setOpenApplyModal(!openApplyModal)
   }
 
   const projects: Project[] = [
@@ -96,10 +103,13 @@ const Home: React.FC = () => {
         openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
       }
       {
-        openEditModal && <Modal closeArrow={true} closeModal={() => toggleEditModal()} content={<EditProject closeModal={() => toggleEditModal()} />}/>
+        openEditModal && <Modal closeArrow={true} closeModal={() => toggleEditModal()} content={<EditProject closeModal={() => toggleEditModal()} />} />
       }
       {
-        openViewModal && <Modal closeArrow={true} closeModal={() => toggleViewModal()} content={<VisualizeProject closeModal={() => toggleEditModal()} openEdit={() => toggleEditModal()}  />}/>
+        openViewModal && <Modal closeArrow={true} closeModal={() => toggleViewModal()} content={<VisualizeProject closeModal={() => toggleEditModal()} openEdit={() => toggleEditModal()} openApply={() => toggleApplyModal()} />} />
+      }
+      {
+        openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />
       }
       {
         projects.map((project: any, index: number) => {

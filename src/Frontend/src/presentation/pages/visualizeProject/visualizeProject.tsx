@@ -4,8 +4,9 @@ import "./visualizeProject-styles.scss"
 import EditIcon from '@mui/icons-material/Edit'
 
 type Props = {
-  closeModal: Function
-  openEdit: Function
+  closeModal: Function;
+  openEdit: Function;
+  openApply: Function;
 }
 
 const VisualizeProject = (props: Props) => {
@@ -57,7 +58,7 @@ const VisualizeProject = (props: Props) => {
         </div>
       </div>
       <div className="grid-12 container-button">
-        <button className="button-visuproject">Vacancies</button>
+        <button className="button-visuproject" onClick={() => props.openApply()}>Subscribe</button>
       </div>
     </div>
 

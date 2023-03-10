@@ -2,12 +2,13 @@ import React from "react"
 import Logo from "/public/imgDell.png"
 import ImgLogin from "/public/img-tela-login.png"
 import "./login-styles.scss"
+import { Link } from "react-router-dom"
 
-let TelaLogin = () => {
-    const botaoConfirma = () => {
-        alert("botão de confirmar");
-    }
+type Props = {
+    changePage: Function
+}
 
+let TelaLogin = (props: Props) => {
     return (
         <div id="login">
             <div className="grid-5 container">
@@ -16,8 +17,10 @@ let TelaLogin = () => {
                 <p>Entre com</p>
                 <input className="email" type="text" placeholder="E-mail" />
                 <input type="text" placeholder="Senha" />
-                <a href="">Esqueceu a senha?</a>
-                <button id="confirma-botao" onClick={botaoConfirma} >Confirma</button>
+                <a className="forget" href="">Esqueceu a senha?</a>
+                <Link to={'/'}>
+                    <button id="confirma-botao" onClick={() => props.changePage(0)}>Confirma</button>
+                </Link>
                 {/* </div> */}
             </div>
 

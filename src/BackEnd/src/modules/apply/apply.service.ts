@@ -142,26 +142,20 @@ export class ApplyService {
     });
 
     if (!applyExists) {
-      throw new BadRequestException('Something bad happened', {
-        cause: new Error(),
-        description: 'Application does not exist',
-      });
+      throw new BadRequestException('Something bad happened', {cause: new Error(), description: 'Application does not exist'});
     }
 
     try {
       await this.prisma.apply.update({
         data: {
-          message: feedback,
+          feedback: feedback,
         },
         where: {
           id: id,
         },
       });
     } catch (err) {
-      throw new InternalServerErrorException('Something bad happened', {
-        cause: new Error(),
-        description: err,
-      });
+      throw new InternalServerErrorException('Something bad happened', {cause: new Error(), description: err});
     }
   }
 }

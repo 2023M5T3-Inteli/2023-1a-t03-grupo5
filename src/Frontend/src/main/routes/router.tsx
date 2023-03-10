@@ -7,6 +7,7 @@ import CreateProject from '../../presentation/pages/createProject/createProject'
 import Login from '../../presentation/pages/login/login'
 import VisualizeProject from '../../presentation/pages/visualizeProject/visualizeProject'
 import ApplicationForm from '../../presentation/pages/applicationForm/applicationForm'
+import VisualizeApplication from '../../presentation/pages/visualizeApplication/visualizeApplication'
 
 const Router: React.FC = () => {
   const [active, setActive] = useState(-1)
@@ -32,6 +33,7 @@ const Router: React.FC = () => {
         {/* <Route path='/login' element={<Login />}></Route> */}
         <Route path='/CreateProject' element={<CreateProject />}></Route>
         <Route path='/VisualizeProject' element={<VisualizeProject />}></Route>
+        <Route path='/VisualizeApplication' element={<VisualizeApplication />}></Route>
       </Routes>
     </BrowserRouter>
   )

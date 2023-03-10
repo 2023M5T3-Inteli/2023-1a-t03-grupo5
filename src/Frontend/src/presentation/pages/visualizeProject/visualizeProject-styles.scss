@@ -1,44 +1,118 @@
 @use '/public/styles/spacing.scss' as sp;
 
-.container-visualize{
-    margin-top: sp.$stack-md;
+.visualize-project{
+    padding: sp.$stack-lg sp.$stack-xl;
+}
+
+.container-visualize {
     display: flex;
     flex-direction: column;
-    margin-top: sp.$stack-sm;
-    h1{
+    h3 {
         margin-top: sp.$stack-sm;
-        align-items: center;
-    }
-    h3{
-        margin-top: sp.$stack-xs;
         color: #0076CE;
+        font-size: large;
+        margin-bottom: sp.$stack-lg;;
     }
-    p{
+    p {
+        margin-top: sp.$stack-md;
+        line-height: 1.75rem;
+        font-size: large;
+        margin-bottom: sp.$stack-md;
+    }
+    h2 {
         margin-top: sp.$stack-sm;
-    }
-    .visualize-project {
-        display: flex;
-        flex-direction: column;
+        color: #0076CE;
+     
     }
 }
 
-.info-project{
-    border: solid 1px #0076CE;
-    width: 15rem;
-    height: 17rem;
+.skills-visualize{
+    width: max-content;
+    height: max-content;
+    background-color: #D9F5FD;
+    border: 2px solid #5CC1EE;
+    border-radius: 5px;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-top: 2%; 
+    padding-bottom: 2%;
+}
+
+.name-project {
+    align-items: center;
+    font-size:45px;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-project {
     border-radius: 0.7rem;
     display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 3rem auto;
     flex-direction: column;
 
-    h2{
+
+    h3 {
         color: #0076CE;
         margin-top: sp.$stack-sm;
     }
-    h3{
-        color: #0076CE;
-        margin-top: sp.$stack-sm;
+}
+
+.project-owner-info {
+    margin-top: sp.$stack-lg;
+    padding: sp.$stack-lg sp.$stack-md;
+    border: 1.5px solid #0076CE;
+    padding: 3rem;
+    border-radius: 10px;
+
+    h2{
+        margin-bottom: sp.$stack-sm;
     }
     p{
         margin-top: sp.$stack-xs;
     }
+    h4{
+        font-size: 22px;
+        margin-top: sp.$stack-sm;
+        color:#0076CE;
+    }
 }
+
+.p-owner{
+    font-size: 25px;
+}
+
+.h2-owner{
+    font-size: 30px;
+}
+
+.info-owner-p{
+ font-size: 20px;
+}
+
+.container-button{
+    align-items: flex-end;
+    justify-content: flex-end;
+    display: flex;
+    width: 100%;
+}
+
+.button-visuproject{
+    color: white;
+    background-color: #0076CE;
+    border-radius: 5px;
+    width: 8rem;
+    height: 3rem;
+    font-size: large;
+    border-color: #0076CE;
+}
+
+
+
+
+

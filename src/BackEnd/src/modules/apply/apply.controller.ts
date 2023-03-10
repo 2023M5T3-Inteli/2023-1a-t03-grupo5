@@ -1,65 +1,29 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApplyService } from './apply.service';
 import { createApplyDTO } from './DTOs/createApply.dto';
-import { ApiTags, ApiResponse, ApiHeader } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Apply')
 @Controller('Apply')
 export class ApplyController {
   constructor(private readonly applyService: ApplyService) {}
 
-  //api header
-  @ApiHeader({
-    name: 'apply',
-    description: 'This route is for the user to apply for a project',
-  })
   @Post()
-  //possible error responses
-  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
-  @ApiResponse({ status: 409, description: 'Error: Conflict'})
-  @ApiResponse({ status: 400, description: 'Error: Bad Request'})
-  @ApiResponse({ status: 422, description: 'Error: Unprocessable Entity'})
   async apply(@Body() data: createApplyDTO) {
     return await this.applyService.apply(data);
   }
 
-  //api header
-  @ApiHeader({
-    name: 'projectId',
-    description: 'Search project by project id',
-  })
   @Get("/getProjectId/:projectId")
-  //possible error responses
-  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
-  @ApiResponse({ status: 404, description: 'Error: Not Found'})
-  @ApiResponse({ status: 400, description: 'Error: Bad Request'})
   async getApplyByProjectId(@Param() projectId: string) {
     return await this.applyService.getApplyByProjectId(projectId);
   }
 
-  //api header
-  @ApiHeader({
-    name: 'userId',
-    description: 'Search project by user id',
-  })
   @Get("/getUserId/:userId")
-  //possible error responses
-  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
-  @ApiResponse({ status: 404, description: 'Error: Not Found'})
-  @ApiResponse({ status: 400, description: 'Error: Bad Request'})
   async getApplyByUserId(@Param() userId: string) {
     return await this.applyService.getApplyByUserId(userId);
   }
 
-  //api header
-  @ApiHeader({
-    name: 'daleteId',
-    description: 'Delete the subscription to the project',
-  })
   @Delete(":id")
-  //possible error responses
-  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
-  @ApiResponse({ status: 404, description: 'Error: Not Found'})
   async deleteApply(@Param() id: string) {
     return await this.applyService.deleteApply(id);
   }

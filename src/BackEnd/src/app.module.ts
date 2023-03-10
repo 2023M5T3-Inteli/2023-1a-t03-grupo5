@@ -5,9 +5,10 @@ import { UnsureAuthenticated } from './Common/middleware/unsureAuthenticated.mid
 import { UnsureAdmin } from './Common/middleware/unsureAdmin.middleware';
 import { ApplyModule } from './modules/apply/apply.module';
 import { HealthController } from './modules/health/health.controller';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
-  imports: [ProjectsModule, UsersModule, ApplyModule],
+  imports: [ProjectsModule, UsersModule, ApplyModule, AuthModule],
   controllers: [HealthController],
   providers: [],
 })
@@ -15,19 +16,9 @@ import { HealthController } from './modules/health/health.controller';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(UnsureAuthenticated)
-      .forRoutes(
-        { path: 'User/Info/:id', method: RequestMethod.GET },
-        { path: 'User/Update/:id', method: RequestMethod.PUT },
-        { path: 'User/getByName/:name', method: RequestMethod.GET },
-        { path: 'User/getAll', method: RequestMethod.GET },
-        { path: 'User/Auth', method: RequestMethod.GET },
-      );
-
-    consumer
       .apply(UnsureAdmin)
       .forRoutes(
-        { path: 'User/Delete/:id', method: RequestMethod.DELETE },
+        { path: 'User/delete/:id', method: RequestMethod.DELETE },
       );
   }
 }

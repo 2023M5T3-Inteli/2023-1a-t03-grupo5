@@ -75,6 +75,7 @@ model Apply {
   user       User     @relation("Applies", fields: [userId], references: [id])
   status     String   @default("Pending")
   message    String?
+  feedback   String?
   isAccepted Boolean  @default(false)
 
   @@map("applies")

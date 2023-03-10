@@ -220,6 +220,7 @@ export class UsersService {
             habilities: user.habilities,
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
+            isAdmin: user.isAdmin,
             projects: user.projects,
             projectsColeader: user.projectsColeader
         }

@@ -16,19 +16,9 @@ import { AuthModule } from './modules/auth/auth.module';
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(UnsureAuthenticated)
-      .forRoutes(
-        { path: 'User/Info/:id', method: RequestMethod.GET },
-        { path: 'User/Update/:id', method: RequestMethod.PUT },
-        { path: 'User/getByName/:name', method: RequestMethod.GET },
-        { path: 'User/getAll', method: RequestMethod.GET },
-        { path: 'User/Auth', method: RequestMethod.GET },
-      );
-
-    consumer
       .apply(UnsureAdmin)
       .forRoutes(
-        { path: 'User/Delete/:id', method: RequestMethod.DELETE },
+        { path: 'User/delete/:id', method: RequestMethod.DELETE },
       );
   }
 }

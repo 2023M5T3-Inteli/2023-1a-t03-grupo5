@@ -11,7 +11,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
-    let user;
+    let user: any;
     
     try {
         user = await this.usersService.getOneByEmail(email);
@@ -37,5 +37,13 @@ export class AuthService {
         }
     }
 
+  }
+
+  async validateAdminUser(id: string) {
+    const user = await this.usersService.getOne(id);
+    if (user.isAdmin) {
+      return user;
+    }
+    return null;
   }
 }

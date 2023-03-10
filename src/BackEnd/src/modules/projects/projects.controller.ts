@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Body, Param, Delete, Get, Put } from '@nestjs/common';
+import { Controller, Post, Body, Param, Delete, Get, Put, Req } from '@nestjs/common';
 import { ProjectDTO } from './dto/Project.dto';
 import { ProjectsService } from './projects.service';
 import { ApiTags } from '@nestjs/swagger';
@@ -41,13 +41,13 @@ export class ProjectsController {
   }
 
   @Put("/approve/:projectId")
-  async approve(@Param("projectId") projectId: string) {
-    return this.projectsService.approveProject(projectId);
+  async approve(@Req() req: any, @Param("projectId") projectId: string) {
+    return this.projectsService.approveProject(projectId, req.user.id);
   }
 
   @Put("/cancel/:projectId")
-  async cancel(@Param("projectId") projectId: string) {
-    return this.projectsService.cancelProject(projectId);
+  async cancel(@Req() req: any, @Param("projectId") projectId: string) {
+    return this.projectsService.cancelProject(projectId, req.user.id);
   }
 }
 

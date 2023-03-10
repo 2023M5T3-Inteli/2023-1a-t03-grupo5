@@ -18,22 +18,23 @@
         align-items: center;
         color: #0672CB;
     }
-
-    h3 {
-        width: 35%;
-        font-size: 20px;
-        margin-bottom: 5px;
-        align-items: center;
-        // align-self: flex-start;
-        color: #0076CE; 
-    }
     p{
         width: 35%;
-        font-size: 18px;
+        font-size: 16px;
         margin-bottom: 5px;
         align-items: center;
         margin-bottom: sp.$stack-sm;
     }
+
+.question-p {
+    width: 35%;
+    font-size: 18px;
+    margin-bottom: 5px;
+    align-items: center;
+    // align-self: flex-start;
+    color: #0076CE; 
+    margin-bottom: sp.$stack-xs;
+} 
 
 .info-person{
     flex-direction: row;
@@ -45,7 +46,6 @@
 .name-p{
     width: 35%;
     font-size: 20px;
-    margin-bottom: 5px;
     align-items: center;
     margin-bottom: sp.$stack-sm;
 }

@@ -78,6 +78,10 @@
         font-size: t.$text-xs;
       }
 
+      a {
+        text-decoration: none;
+      }
+
       :hover {
         color: c.$warning
       }

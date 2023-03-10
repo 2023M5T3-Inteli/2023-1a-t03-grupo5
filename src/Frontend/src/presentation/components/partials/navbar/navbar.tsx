@@ -66,7 +66,9 @@ const Navbar: any = (props: Props) => {
           {
             profileOpened && (
               <div className="options">
-                <div>Sair</div>
+                <Link to={'/login'} onClick={() => props.changePage(-1)}>
+                  <div>Sair</div>
+                </Link>
               </div>
             )
           }

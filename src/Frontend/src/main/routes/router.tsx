@@ -29,9 +29,8 @@ const Router: React.FC = () => {
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/login' element={<Login changePage={changePage} />}></Route>
-        <Route path='/applicationForm' element={<ApplicationForm />}></Route>
+        <Route path='/applies' element={<ApplicationForm />}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
-        <Route path='/VisualizeProject' element={<VisualizeProject />}></Route>
         <Route path='/VisualizeApplication' element={<VisualizeApplication />}></Route>
       </Routes>
     </BrowserRouter>

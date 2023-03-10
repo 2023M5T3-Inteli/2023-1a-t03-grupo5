@@ -1,13 +1,25 @@
-import React from "react";
-import Input from "../../components/input/input";
-import "./visualizeProject-styles.scss";
+import React from "react"
+import Input from "../../components/input/input"
+import "./visualizeProject-styles.scss"
+import EditIcon from '@mui/icons-material/Edit'
 
-const VisualizeProject: React.FC = () => {
+type Props = {
+  closeModal: Function
+  openEdit: Function
+}
+
+const VisualizeProject = (props: Props) => {
+
   return (
     <div className="visualize-project">
       <div className="grid-7 container-visualize">
         <div className="info-section">
-          <h1 className="name-project">Project name</h1>
+          <div className="edit-container">
+            <h1 className="name-project">Project name</h1>
+            <div onClick={() => props.openEdit()}>
+              <EditIcon />
+            </div>
+          </div>
           <h2>Prazo para Inscrição: xx/xx/xx </h2>
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -23,13 +35,13 @@ const VisualizeProject: React.FC = () => {
           <div className="skills-necessary">
             <h2 className="necessary-skills">Necessary Skills</h2>
             <div className="grid-4 ">
-                <p className="skills-visualize">javaScript</p>
+              <p className="skills-visualize">javaScript</p>
             </div>
             <div className="grid-4">
-				<p className="skills-visualize">Python</p>
+              <p className="skills-visualize">Python</p>
             </div>
             <div className="grid-4 ">
-                <p className="skills-visualize">C++</p>
+              <p className="skills-visualize">C++</p>
             </div>
           </div>
         </div>
@@ -45,10 +57,10 @@ const VisualizeProject: React.FC = () => {
         </div>
       </div>
       <div className="grid-12 container-button">
-          <button className="button-visuproject">Vacancies</button>
-        </div>
+        <button className="button-visuproject">Vacancies</button>
+      </div>
     </div>
-    
+
   );
 };
 

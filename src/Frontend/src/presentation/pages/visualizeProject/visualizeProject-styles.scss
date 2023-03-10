@@ -1,12 +1,27 @@
 @use '/public/styles/spacing.scss' as sp;
 
 .visualize-project{
-    padding: sp.$stack-lg sp.$stack-xl;
+    padding: sp.$stack-xl sp.$stack-xl;
+    max-height: 400px;
+    overflow-y: auto;
+
+    .edit-container {
+        display: flex;
+        align-items: center;
+        column-gap: 20px;
+
+        svg {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+    }
 }
 
 .container-visualize {
     display: flex;
     flex-direction: column;
+
     h3 {
         margin-top: sp.$stack-sm;
         color: #0076CE;

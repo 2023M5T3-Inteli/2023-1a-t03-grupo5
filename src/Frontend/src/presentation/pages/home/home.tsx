@@ -8,18 +8,25 @@ import './home-styles.scss'
 import Modal from '../../components/modal/modal'
 import CreateProject from '../createProject/createProject'
 import EditProject from '../editProject/editProject'
+import VisualizeProject from '../visualizeProject/visualizeProject'
 
 const Home: React.FC = () => {
   const isMobile = true;
   const [openCreateModal, setOpenCreateModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
+  const [openViewModal, setOpenViewModal] = useState(false)
 
   const closeCreateModal = () => {
     setOpenCreateModal(!openCreateModal)
   }
 
-  const closeEditModal = () => {
+  const toggleEditModal = () => {
     setOpenEditModal(!openEditModal)
+    setOpenViewModal(false)
+  }
+
+  const toggleViewModal = () => {
+    setOpenViewModal(!openViewModal)
   }
 
   const projects: Project[] = [
@@ -89,12 +96,15 @@ const Home: React.FC = () => {
         openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
       }
       {
-        openEditModal && <Modal closeArrow={true} closeModal={() => closeEditModal()} content={<EditProject closeModal={() => closeEditModal()} />} />
+        openEditModal && <Modal closeArrow={true} closeModal={() => toggleEditModal()} content={<EditProject closeModal={() => toggleEditModal()} />}/>
+      }
+      {
+        openViewModal && <Modal closeArrow={true} closeModal={() => toggleViewModal()} content={<VisualizeProject closeModal={() => toggleEditModal()} openEdit={() => toggleEditModal()}  />}/>
       }
       {
         projects.map((project: any, index: number) => {
           return (
-            <div key={index} className="grid-4" onClick={() => setOpenEditModal(!openCreateModal)}>
+            <div key={index} className="grid-4" onClick={() => setOpenViewModal(!openCreateModal)}>
               <Card {...project}></Card>
             </div>
           )

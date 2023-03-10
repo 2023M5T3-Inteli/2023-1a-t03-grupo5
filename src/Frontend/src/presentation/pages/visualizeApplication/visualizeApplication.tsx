@@ -10,7 +10,7 @@ const visualizeApplication = () => {
 
             <h1>Application Preview</h1>
             <div className="info-person">
-                <p className="name-p">Person Name</p>
+                <p className="name-p">Pedro Baptisa</p>
                 <button>View profile</button>
             </div>
             <p className="question-p">Vaga de interesse</p>

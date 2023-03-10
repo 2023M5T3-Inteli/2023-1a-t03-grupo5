@@ -31,7 +31,6 @@ const Router: React.FC = () => {
         <Route path='/login' element={<Login changePage={changePage} />}></Route>
         <Route path='/applicationForm' element={<ApplicationForm />}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
-        <Route path='/CreateProject' element={<CreateProject />}></Route>
         <Route path='/VisualizeProject' element={<VisualizeProject />}></Route>
         <Route path='/VisualizeApplication' element={<VisualizeApplication />}></Route>
       </Routes>

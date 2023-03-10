@@ -1,7 +1,7 @@
 @use '/public/styles/spacing.scss' as sp;
 @use '/public/styles/color.scss' as c;
 
-#create-project {
+#edit-project {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,7 +69,7 @@
 
     }
 
-    .create-container {
+    .edit-container {
         margin-bottom: sp.$stack-xs;
     }
 }

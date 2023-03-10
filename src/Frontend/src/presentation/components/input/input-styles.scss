@@ -1,0 +1,36 @@
+@use '/public/styles/color.scss' as c;
+
+.dell-input {
+    display: flex;
+
+    input {
+        width: max-content;
+        border-radius: 9px;
+        border: solid 1px c.$secundary-dark;
+        color: c.$primary;
+        padding: 8px;
+        background-color: c.$light;
+        // background-color: c.$secundary;
+    }
+
+    ::placeholder {
+        color: c.$primary;
+        opacity: 0.7;
+    }
+
+    :focus {
+        outline: c.$primary 1px solid;
+    }
+
+    .small {
+        width: 60%;
+    }
+
+    .medium {
+        width: 80%;
+    }
+
+    .large {
+        width: 100%;
+    }
+}

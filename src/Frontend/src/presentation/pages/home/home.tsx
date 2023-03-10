@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Project } from '../../../shared/lib/types'
 import Card from '../../components/card/card'
 
 import AddIcon from '@mui/icons-material/Add'
 
 import './home-styles.scss'
+import Modal from '../../components/modal/modal'
+import CreateProject from '../createProject/createProject'
+import EditProject from '../editProject/editProject'
 
 const Home: React.FC = () => {
   const isMobile = true;
+  const [openCreateModal, setOpenCreateModal] = useState(false)
+  const [openEditModal, setOpenEditModal] = useState(false)
+
+  const closeCreateModal = () => {
+    setOpenCreateModal(!openCreateModal)
+  }
+
+  const closeEditModal = () => {
+    setOpenEditModal(!openEditModal)
+  }
 
   const projects: Project[] = [
     {
@@ -21,7 +34,7 @@ const Home: React.FC = () => {
       startDate: '22/11/2022',
       description: 'Project built with Next',
       vacancies: '5 vacancies'
-    }, 
+    },
     {
       title: 'Project 3',
       startDate: '22/11/2022',
@@ -73,17 +86,25 @@ const Home: React.FC = () => {
   return (
     <div className='home'>
       {
+        openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
+      }
+      {
+        openEditModal && <Modal closeArrow={true} closeModal={() => closeEditModal()} content={<EditProject closeModal={() => closeEditModal()} />} />
+      }
+      {
         projects.map((project: any, index: number) => {
           return (
-            <div key={index} className="grid-4">
+            <div key={index} className="grid-4" onClick={() => setOpenEditModal(!openCreateModal)}>
               <Card {...project}></Card>
             </div>
           )
         })
       }
       <div className="button-container">
-        <AddIcon />
-        <p className='tooltip'>Criar projeto</p>
+        <div className='add-icon' onClick={() => setOpenCreateModal(!openCreateModal)}>
+          <AddIcon />
+        </div>
+        <p className='tooltip'>Criar Projeto</p>
       </div>
     </div>
   )

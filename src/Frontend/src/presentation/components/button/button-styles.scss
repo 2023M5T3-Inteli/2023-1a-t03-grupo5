@@ -1,0 +1,46 @@
+@use '/public/styles/color.scss' as c;
+
+.dell-button {
+  display: flex;
+  
+  button {
+    border: none;
+    border-radius: 9px;
+    height: 36px;
+    padding: 0 8px;
+    cursor: pointer;
+  }
+
+  .default {
+    background-color: c.$primary;
+    color: c.$secundary;
+  }
+
+  :disabled {
+    opacity: 0.7;
+  }
+
+  .secundary {
+    background-color: c.$secundary;
+    color: c.$primary;
+    border: solid 1px c.$primary;
+  }
+
+  .cancel {
+    background-color: c.$secundary;
+    color: c.$warning;
+    border: solid 1px c.$warning;
+  }
+
+  .small {
+    width: 80px;
+  }
+
+  .medium {
+    width: 120px;
+  }
+
+  .large {
+    width: 200px;
+  }
+}

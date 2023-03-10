@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
+    "react-select": "^5.7.0",
     "router-dom": "^2.2.10",
     "sass": "^1.58.3"
   },

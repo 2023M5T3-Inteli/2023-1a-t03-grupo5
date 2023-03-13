@@ -5,8 +5,8 @@ import { BadRequestException } from '@nestjs/common/exceptions';
 import { LoginDTO } from './dto/Login.dto';
 import { Request, Response, NextFunction } from 'express';
 import { ResetPasswordDTO } from './dto/resetPassword.dto';
-import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags, ApiResponse, ApiHeader } from '@nestjs/swagger';
 
 @ApiTags('User')
 @UseGuards(AuthGuard('jwt'))
@@ -14,12 +14,26 @@ import { AuthGuard } from '@nestjs/passport';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  //api header
+  @ApiHeader({
+    name: 'createUser',
+    description: 'Create a new user',
+  })
   @Post("/Create")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 409, description: 'Error: Conflict'})
+  @ApiResponse({ status: 400, description: 'Error: Bad Request'})
+  @ApiResponse({ status: 422, description: 'Error: Unprocessable Entity'})
   async create(@Body() data: CreateUserDTO) {
     return this.usersService.create(data);
   }
 
   @Put("/Update/:id")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 404, description: 'Error: Not Found'})
+  @ApiResponse({ status: 409, description: 'Error: Conflict'})
   async update(@Param("id") id: string, @Body() data: any) {
     if(!id) {
       throw new BadRequestException("Something bad happened", {cause: new Error(), description: "ID must be included"})
@@ -33,6 +47,9 @@ export class UsersController {
   }
 
   @Get("/Info/:id")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 404, description: 'Error: Not Found'})
   async getOne(@Param("id") id: string) {
     if (typeof id === "string") {
       return this.usersService.getOne(id);
@@ -41,17 +58,35 @@ export class UsersController {
     }
   }
 
+  //api header
+  @ApiHeader({
+    name: 'getAll',
+    description: 'Get all users',
+  })
   @Get("/getAll")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   async getAll() {
     return this.usersService.getAll();
   }
 
+  //api header
+  @ApiHeader({
+    name: 'Auth',
+    description: 'User authentication',
+  })
   @Get("/Auth")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 401, description: 'Error: Unauthorized'})
+  @ApiResponse({ status: 404, description: 'Error: Not Found'})
   async Auth() {
     return "Authenticated"
   }
 
   @Get("/getByName/:name")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   async getByName(@Param("name") name: string) {
     if(typeof name === "string") {
       return this.usersService.getUserByName(name);
@@ -61,6 +96,9 @@ export class UsersController {
   }
 
   @Delete("/Delete/:id")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 404, description: 'Error: Not Found'})
   async delete(@Param("id") id: string) {
     if(typeof id === "string") {
       return this.usersService.delete(id);
@@ -70,6 +108,8 @@ export class UsersController {
   }
 
   @Get("/sendForgotEmail/:email")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   async sendForgotEmail(@Param("email") email: string) {
     if(typeof email === "string") {
       return this.usersService.sendForgotPasswordEmail(email);
@@ -78,7 +118,15 @@ export class UsersController {
     }
   }
 
+  //api header
+  @ApiHeader({
+    name: 'resetForgotPassword',
+    description: 'Create new password',
+  })
   @Post("/resetForgotPassword")
+  //possible error responses
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 401, description: 'Error: Unauthorized'})
   async resetPassword(@Body() data: ResetPasswordDTO) {
     return this.usersService.resetPassword(data);
   }

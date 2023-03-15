@@ -9,18 +9,15 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiTags, ApiResponse, ApiHeader } from '@nestjs/swagger';
 
 @ApiTags('User')
-@UseGuards(AuthGuard('jwt'))
 @Controller('User')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  //api header
   @ApiHeader({
     name: 'createUser',
     description: 'Create a new user',
   })
   @Post("/Create")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 409, description: 'Error: Conflict'})
   @ApiResponse({ status: 400, description: 'Error: Bad Request'})
@@ -29,8 +26,8 @@ export class UsersController {
     return this.usersService.create(data);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Put("/Update/:id")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 404, description: 'Error: Not Found'})
   @ApiResponse({ status: 409, description: 'Error: Conflict'})
@@ -46,8 +43,8 @@ export class UsersController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get("/Info/:id")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 404, description: 'Error: Not Found'})
   async getOne(@Param("id") id: string) {
@@ -58,25 +55,23 @@ export class UsersController {
     }
   }
 
-  //api header
   @ApiHeader({
     name: 'getAll',
     description: 'Get all users',
   })
+  @UseGuards(AuthGuard('jwt'))
   @Get("/getAll")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   async getAll() {
     return this.usersService.getAll();
   }
 
-  //api header
   @ApiHeader({
     name: 'Auth',
     description: 'User authentication',
   })
+  @UseGuards(AuthGuard('jwt'))
   @Get("/Auth")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 401, description: 'Error: Unauthorized'})
   @ApiResponse({ status: 404, description: 'Error: Not Found'})
@@ -84,8 +79,8 @@ export class UsersController {
     return "Authenticated"
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get("/getByName/:name")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   async getByName(@Param("name") name: string) {
     if(typeof name === "string") {
@@ -95,8 +90,8 @@ export class UsersController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete("/Delete/:id")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 404, description: 'Error: Not Found'})
   async delete(@Param("id") id: string) {
@@ -107,8 +102,8 @@ export class UsersController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get("/sendForgotEmail/:email")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   async sendForgotEmail(@Param("email") email: string) {
     if(typeof email === "string") {
@@ -118,13 +113,12 @@ export class UsersController {
     }
   }
 
-  //api header
   @ApiHeader({
     name: 'resetForgotPassword',
     description: 'Create new password',
   })
+  @UseGuards(AuthGuard('jwt'))
   @Post("/resetForgotPassword")
-  //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 401, description: 'Error: Unauthorized'})
   async resetPassword(@Body() data: ResetPasswordDTO) {

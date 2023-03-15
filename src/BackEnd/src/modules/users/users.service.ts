@@ -173,7 +173,28 @@ export class UsersService {
             }
         }
         
+        //Verifying if password is being changed
+        if (data.password || data.newPassword) {
+            if (!data.newPassword) {
+                throw new BadRequestException("Something bad happened", {cause: new Error(), description: "New password is required"})
+            }
+
+            //Verify if password is correct
+            const passwordMatch = await bcrypt.compare(data.password, userExists.password)
+
+            if (!passwordMatch) {
+                throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Password doesn't match"})
+            }
+
+            const hashedPassWord = await bcrypt.hash(data.newPassword, 8) 
+            data.password = hashedPassWord
+        }
+
+        //Defining date of update
         data.updatedAt = new Date()
+
+        //Deleting newPassword
+        delete data.newPassword
 
         //Efetua a atualição
         try {
@@ -183,8 +204,8 @@ export class UsersService {
                     id: id
                 }
             })
-        } catch {
-            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: "Problems on update"})
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
         
         return {

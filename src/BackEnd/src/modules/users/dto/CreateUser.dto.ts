@@ -37,7 +37,7 @@ export class CreateUserDTO {
         example: '123456',
     })
     @IsString()
-    CPF: string;
+    cpf: string;
 
      
     @ApiProperty({
@@ -61,10 +61,5 @@ export class CreateUserDTO {
     @IsString()
     n_dell: string;
 
-    @ApiProperty({
-        description: 'Photo URL',
-        example: '',
-    })
-    @IsString()
-    photoURL: string;
+    photoURL?: string;
 }

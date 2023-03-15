@@ -8,6 +8,7 @@ import Login from '../../presentation/pages/login/login'
 import VisualizeProject from '../../presentation/pages/visualizeProject/visualizeProject'
 import ApplicationForm from '../../presentation/pages/applicationForm/applicationForm'
 import VisualizeApplication from '../../presentation/pages/visualizeApplication/visualizeApplication'
+import NotFound from '../../presentation/pages/notFound/404'
 
 const Router: React.FC = () => {
   const [active, setActive] = useState(-1)
@@ -30,6 +31,7 @@ const Router: React.FC = () => {
         <Route path='/' element={<Home />}></Route>
         <Route path='/login' element={<Login changePage={changePage} />}></Route>
         <Route path='/applies' element={<VisualizeApplication />}></Route>
+        <Route path='/404' element={<NotFound />}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
       </Routes>
     </BrowserRouter>

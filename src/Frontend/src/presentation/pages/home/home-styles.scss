@@ -9,6 +9,15 @@
     margin: auto;
   }
 
+  .bodyCards {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px
+    //overflow-y: scroll;
+  }
+
   .button-container {
     position: relative;
     width: 60px;

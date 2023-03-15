@@ -9,7 +9,10 @@
 body {
   height: 100%;
   // background: darkgrey;
-  overflow-y: scroll;
+  background: url('../Background2.png') center 30% no-repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
+  //overflow-y: scroll;
 }
 
 * ::-webkit-scrollbar {

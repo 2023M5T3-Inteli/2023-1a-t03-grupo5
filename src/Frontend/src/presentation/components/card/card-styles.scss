@@ -2,10 +2,16 @@
 @use '/public/styles/color.scss' as c;
 @use '/public/styles/typographic.scss' as t;
 
+@media (max-width: 768px) {
+  .card {
+    width: 200px;
+  }
+}
+
 .card {
   margin: auto;
-  width: 90%;
-  height: 140px;
+  width: 400px;
+  height: 170px;
 
   padding: sp.$stack-md;
   border-radius: 9px;
@@ -20,7 +26,7 @@
     scale: 1.025;
   }
 
-  margin-bottom: sp.$stack-md;
+
   cursor: pointer;
 
   .container {

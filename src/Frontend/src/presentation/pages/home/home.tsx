@@ -112,13 +112,18 @@ const Home: React.FC = () => {
         openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />
       }
       {
-        projects.map((project: any, index: number) => {
-          return (
-            <div key={index} className="grid-4" onClick={() => setOpenViewModal(!openCreateModal)}>
-              <Card {...project}></Card>
-            </div>
-          )
-        })
+        <div className = "bodyCards">
+          {
+          projects.map((project: any, index: number) => {
+            return (
+              <div onClick={() => setOpenViewModal(!openCreateModal)}>
+                <Card {...project}></Card>
+              </div>
+            )
+          })
+          }
+        </div>
+        // 
       }
       <div className="button-container">
         <div className='add-icon' onClick={() => setOpenCreateModal(!openCreateModal)}>

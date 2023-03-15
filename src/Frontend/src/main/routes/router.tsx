@@ -24,9 +24,9 @@ const Router: React.FC = () => {
 
   return (
     <BrowserRouter>
-      {
+      {/* {
         !path.includes('login') && <Navbar page={active} changePage={changePage} />
-      }
+      } */}
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/login' element={<Login changePage={changePage} />}></Route>

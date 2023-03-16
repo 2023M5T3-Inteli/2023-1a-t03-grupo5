@@ -9,13 +9,14 @@ import { Link } from "react-router-dom";
 let NotFound = () => {
     return (
         <div id="not-found">
-        <div className="not-found__container">
-            <h1 className="not-found__title">404</h1>
-            <h2 className="not-found__subtitle">Página não encontrada</h2>
-            <Link to="/">
-            <button className="not-found__button">Voltar</button>
-            </Link>
-        </div>
+            <div className="imageLakitu">
+                <img src="../../../public/Lakitu404.png"></img>
+            </div>
+            <div className="text404">
+                <h1 className="h1404">Oops!</h1>
+                <h1 className="h1404">Page not found :(</h1>
+                <h1 className="h1404">404</h1>
+            </div>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+
 import Input from '../../components/input/input'
 import './createProject-styles.scss'
 import '/public/styles/grid.scss'
@@ -43,10 +44,38 @@ const CreateProject = (props: Props) => {
     }
   ])
 
+  const [tag, setTag] = useState<any>(null)
+  const [tags, setTags] = useState<any>(null)
   const [area, setArea] = useState('')
   const [role, setRole] = useState('')
 
   const listRef = useRef<any | null>(null);
+
+  const addTag = (e: any) => {
+    e.preventDefault()
+    if (tag) {
+      if (tags) {
+        setTags([...tags, tag])
+      }
+      else {
+        setTags([tag])
+      }
+    }
+    setTag('')
+  }
+
+  const removeTag = (index: number) => {
+    if (index === -1) {
+      setTags(null)
+    }
+    else {
+      flushSync(() => {
+        let newTags = [...tags]
+        newTags = newTags.filter((_: any, i: number) => i !== index)
+        setTags(newTags)
+      })
+    }
+  }
 
   const [addedRoles, setAddedRoles] = useState<any>(null)
   // const [addedRoles, setAddedRoles] = useState([
@@ -131,8 +160,46 @@ const CreateProject = (props: Props) => {
                 placeholder={"Enter the project description"}
                 type='text'
               />
-
             </div>
+
+            <div className="input-container">
+              <h4 className="input-title">Tags *</h4>
+              <form onSubmit={addTag}>
+                <Input
+                  size='medium'
+                  placeholder={"Enter new tag"}
+                  type={"text"}
+                  value={tag}
+                  onChange={(value: any) => setTag(value)}
+                />
+              </form>
+            </div>
+
+            {
+              tags &&
+              <div className='tags-container'>
+                {
+                  tags.map((tag: any, index: number) => {
+                    return (
+                      <>
+                        <div className='tag grid-3'>
+                          {tag}
+                          <div className='remove-icon' onClick={() => removeTag(index)}>
+                            <CloseIcon />
+                          </div>
+                        </div>
+                      </>
+
+                    )
+                  })
+                }
+                {
+                  tags.length > 0 &&
+                  <div className='tag-remove grid-3' onClick={() => removeTag(-1)}>Clear all</div>
+                }
+              </div>
+            }
+
             <div className="input-container">
               <h4 className="input-title">Project co-leader</h4>
               <Input

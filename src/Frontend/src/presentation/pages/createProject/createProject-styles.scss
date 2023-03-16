@@ -87,6 +87,37 @@
             }
         }
 
+        .tags-container {
+            div {
+                display: flex;
+                height: 32px;
+                align-items: center;
+                width: max-content;
+            }
+
+            .tag {
+                padding: sp.$stack-xs;
+                margin: 0 sp.$stack-xs;
+                border-radius: 12px;
+                background-color: c.$secundary-dark;
+                margin-bottom: sp.$stack-sm;
+
+                .remove-icon {
+                    cursor: pointer;
+                    margin-left: sp.$stack-xs;
+                }
+            }
+            .tag-remove {
+                cursor: pointer;
+                background-color: c.$highlight-light;
+                color: c.$secundary;
+                padding: sp.$stack-xs;
+                margin: 0 sp.$stack-xs;
+                margin-bottom: sp.$stack-sm;
+                border-radius: 12px;
+            }
+        }
+
         .role-container {
             display: flex;
             width: 85%;

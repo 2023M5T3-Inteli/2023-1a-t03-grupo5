@@ -12,7 +12,7 @@ type InputProps = {
 }
 
 const Input = (props: InputProps) => {
-  const [value, setValue] = useState(props.value || '')
+  const [value, setValue] = useState('')
 
   const changeValue = (value: any) => {
     setValue(value)

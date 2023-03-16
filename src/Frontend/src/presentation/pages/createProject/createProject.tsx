@@ -67,7 +67,7 @@ const CreateProject = (props: Props) => {
           setAddedRoles([{
             area: area,
             role: role,
-            vacancies: 0
+            vacancies: 1
           }])
         }
         else {
@@ -79,7 +79,7 @@ const CreateProject = (props: Props) => {
             setAddedRoles([...addedRoles, {
               area: area,
               role: role,
-              vacancies: 0
+              vacancies: 1
             }])
           }
         }

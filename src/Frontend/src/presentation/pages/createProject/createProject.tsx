@@ -179,7 +179,7 @@ const CreateProject = (props: Props) => {
             {
               addedRoles && addedRoles.length > 0 && (
                 <div className="added-roles">
-                  <p className='added-roles-title'>Added Roles</p>
+                  <p className='added-roles-title'>Roles / Vacancies</p>
                   {
                     addedRoles.map((role: any, index: number) => {
                       return (

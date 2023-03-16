@@ -12,8 +12,10 @@
   }
 
   .default {
-    background-color: c.$primary;
+    background-color: c.$highlight;
     color: c.$secundary;
+    border: solid 1px c.$highlight-dark;
+    font-weight: bold;
   }
 
   :disabled {
@@ -27,9 +29,16 @@
   }
 
   .cancel {
-    background-color: c.$secundary;
+    background-color: c.$highlight-light;
+    font-weight: bold;
     color: c.$warning;
     border: solid 1px c.$warning;
+  }
+
+  .terceary {
+    background-color: c.$highlight-light;
+    color: c.$secundary;
+    border: solid 1px c.$highlight-light;
   }
 
   .small {

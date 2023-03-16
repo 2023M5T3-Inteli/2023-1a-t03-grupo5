@@ -4,7 +4,6 @@ import { Project } from '../../../shared/lib/types'
 import './card-styles.scss'
 
 const Card: any = (props: any) => {
-  console.log(props)
   return (
     <div className='card'>
       <div className='bodyCard'>

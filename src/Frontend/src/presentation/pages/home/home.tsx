@@ -10,6 +10,7 @@ import CreateProject from '../createProject/createProject'
 import EditProject from '../editProject/editProject'
 import VisualizeProject from '../visualizeProject/visualizeProject'
 import ApplicationForm from '../applicationForm/applicationForm'
+import DeleteProject from '../deleteProject/deleteProject'
 
 const Home: React.FC = () => {
   const isMobile = true;
@@ -17,6 +18,7 @@ const Home: React.FC = () => {
   const [openEditModal, setOpenEditModal] = useState(false)
   const [openViewModal, setOpenViewModal] = useState(false)
   const [openApplyModal, setOpenApplyModal] = useState(false)
+  const [openConfirmModal, setOpenConfirmModal] = useState(true)
 
   const closeCreateModal = () => {
     setOpenCreateModal(!openCreateModal)
@@ -34,6 +36,10 @@ const Home: React.FC = () => {
   const toggleApplyModal = () => {
     setOpenViewModal(false)
     setOpenApplyModal(!openApplyModal)
+  }
+
+  const toggleConfirmModal = () => {
+    setOpenConfirmModal(!openConfirmModal)
   }
 
   const projects: Project[] = [
@@ -125,6 +131,9 @@ const Home: React.FC = () => {
         </div>
         // 
       }
+      {/* {
+        openConfirmModal && <Modal type="warning" closeModal={() => toggleConfirmModal()} content={<DeleteProject closeModal={() => toggleConfirmModal()} />} />
+      } */}
       <div className="button-container">
         <div className='add-icon' onClick={() => setOpenCreateModal(!openCreateModal)}>
           <AddIcon />

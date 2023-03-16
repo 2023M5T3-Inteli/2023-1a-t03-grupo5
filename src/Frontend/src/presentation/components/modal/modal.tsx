@@ -1,23 +1,26 @@
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
+import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 import React from 'react'
 import './modal-styles.scss'
 
-import backArrow from '/back-arrow.png'
+import CloseIcon from '@mui/icons-material/Close'
 
 type Props = {
   closeArrow?: boolean;
   closeModal: Function;
-  content: ReactJSXElement
+  content: ReactJSXElement;
+  type?: 'warning';
 }
 
 const Modal = (props: Props) => {
   return (
     <div className='modal'>
       {/* <div>Modal</div> */}
-      <div className="modal-container">
+      <div className={`modal-container ${props.type && 'small'}`}>
         {
           props.closeArrow &&
-          <img src={backArrow} alt="seta para voltar" className='backIcon' onClick={() => props.closeModal()} />
+          <div className='backIcon' onClick={() => props.closeModal()}>
+            <CloseIcon />
+          </div>
         }
         {
           props.content

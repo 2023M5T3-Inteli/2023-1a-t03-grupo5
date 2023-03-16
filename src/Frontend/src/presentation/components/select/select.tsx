@@ -10,11 +10,12 @@ type Props = {
   options: Options[];
   default: string;
   onChange: Function;
+  size?: 'small' | 'medium' | 'large';
 }
 
 const Select = (props: Props) => {
   return (
-    <div className="dell-select">
+    <div className={`dell-select ${props.size}`}>
       <select onChange={(e) => props.onChange(e.target.value)}>
         <option hidden>{props.default}</option>
         {

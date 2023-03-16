@@ -6,12 +6,24 @@
     padding: 8px;
     height: max-content;
     border-radius: 9px;
-    border: solid 1px c.$secundary-dark;
+    border: solid 1px c.$highlight-dark;
     color: c.$primary;
-    background-color: c.$light;
+    background-color: c.$secundary;
   }
 
   :focus-visible {
     outline: none;
+  }
+
+  .small {
+    width: 40%;
+  }
+
+  .medium {
+    width: 40%;
+  }
+
+  .large {
+    width: 40%;
   }
 }

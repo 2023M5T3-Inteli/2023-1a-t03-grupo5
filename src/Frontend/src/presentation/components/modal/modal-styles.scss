@@ -16,27 +16,37 @@
   background-color: #00000040;
 
   .modal-container {
-    position:relative;
+    position: relative;
     display: flex;
     justify-content: center;
-    padding: sp.$stack-xs;
-    padding-top: sp.$stack-sm;
     width: 65%;
     min-height: 60%;
-    background-color: c.$secundary;
-    box-shadow: 0px 3px 3px 0px #00000040;
+    padding: sp.$stack-xs;
+    // padding-top: sp.$stack-sm;
+    background-color: c.$background;
+    box-shadow: 4px 4px 6px 0px #00000040;
     // border: solid 1px c.$secundary-dark;
-    border: solid 1px c.$secundary-dark;
+    border: solid 1px c.$highlight-dark;
     border-radius: 30px;
   }
 
   .backIcon {
     padding: sp.$stack-sm;
-    width: 32px;
     position: absolute;
     top: sp.$stack-xs;
-    left: sp.$stack-xs;
+    right: sp.$stack-xs;
     align-self: flex-start;
     cursor: pointer;
+    color: c.$primary;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .small {
+    width: 40%;
+    min-height: 35%;
   }
 }

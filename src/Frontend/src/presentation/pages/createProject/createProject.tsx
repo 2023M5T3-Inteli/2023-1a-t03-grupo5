@@ -36,6 +36,10 @@ const CreateProject = (props: Props) => {
     {
       value: 'Marketing',
       label: 'Marketing'
+    },
+    {
+      value: 'Shadowing',
+      label: 'Shadowing'
     }
   ])
 
@@ -54,35 +58,40 @@ const CreateProject = (props: Props) => {
   // ])
 
   const addRoles = () => {
-    console.log(addedRoles)
-    flushSync(() => {
-      if (!addedRoles) {
-        setAddedRoles([{
-          area: area,
-          role: role,
-          vacancies: 0
-        }])
-      }
-      // if (addedRoles[0].area == '') {
-      //   setAddedRoles([{
-      //     area: area,
-      //     role: role,
-      //     vacancies: vacancies
-      //   }])
-      // }
-      else {
-        setAddedRoles([...addedRoles, {
-          area: area,
-          role: role,
-          vacancies: 0
-        }])
-      }
-    })
+    if (area && role || area === "Shadowing") {
+      flushSync(() => {
+        if (!addedRoles) {
+          if (area === "Shadowing") {
+            setRole("Shadowing")
+          }
+          setAddedRoles([{
+            area: area,
+            role: role,
+            vacancies: 0
+          }])
+        }
+        else {
+          let find = addedRoles.some((el: any) => el.role == role)
+          if (!find) {
+            if (area === "Shadowing") {
+              setRole("Shadowing")
+            }
+            setAddedRoles([...addedRoles, {
+              area: area,
+              role: role,
+              vacancies: 0
+            }])
+          }
+        }
+      })
+      setRole("")
 
-    const element = document.getElementsByClassName('added-roles')[0]
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const element = document.getElementsByClassName('added-roles')[0]
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+    console.log(addedRoles)
   }
 
   const updateRole = (value: number, index: number) => {
@@ -92,8 +101,11 @@ const CreateProject = (props: Props) => {
   }
 
   const removeRole = (index: number) => {
-    let newRoles = addedRoles.filter((_: any, i: number) => i !== index)
-    setAddedRoles(newRoles)
+    flushSync(() => {
+      let newRoles = [...addedRoles]
+      newRoles = newRoles.filter((_: any, i: number) => i !== index)
+      setAddedRoles(newRoles)
+    })
   }
 
   return (
@@ -129,6 +141,9 @@ const CreateProject = (props: Props) => {
                 type={"text"}
               />
             </div>
+
+            {/* <div className="divider"></div> */}
+
             <div className="role-container">
               <div className="input-container">
                 <h4 className="input-title ">Area</h4>
@@ -136,13 +151,25 @@ const CreateProject = (props: Props) => {
               </div>
               <div className="input-container">
                 <h4 className="input-title ">Role</h4>
-                <Input
-
-                  size='large'
-                  placeholder={"e.g. DevOps"}
-                  type={""}
-                  onChange={(role: any) => setRole(role)}
-                />
+                {
+                  area == "Shadowing" ? (
+                    <Input
+                      disabled={true}
+                      size='large'
+                      placeholder={"e.g. DevOps"}
+                      type={""}
+                      value={role}
+                      onChange={(role: any) => setRole(role)}
+                    />
+                  ) :
+                    <Input
+                      size='large'
+                      placeholder={"e.g. DevOps"}
+                      value={role}
+                      type={""}
+                      onChange={(role: any) => setRole(role)}
+                    />
+                }
               </div>
               <div className="input-container button">
                 <Button type='terceary' text='Add' size='small' onClick={() => addRoles()}></Button>
@@ -156,14 +183,17 @@ const CreateProject = (props: Props) => {
                   {
                     addedRoles.map((role: any, index: number) => {
                       return (
-                        <div className='added-role'>
+                        <div className='added-role' key={`${role.area}-${role.role}-${index}`}>
                           <div className="container">
                             <div className='area'>
                               <p className="area-name">{role.area}</p>
                             </div>
-                            <div className='role'>
-                              <p className="role-name">{role.role}</p>
-                            </div>
+                            {
+                              role.role !== 'Shadowing' &&
+                              <div className='role'>
+                                <p className="role-name">{role.role}</p>
+                              </div>
+                            }
                           </div>
                           <div className='vacancies'>
                             <Input type="number" value={role.vacancies} size="small" placeholder='0' onChange={(value: number) => updateRole(value, index)} />

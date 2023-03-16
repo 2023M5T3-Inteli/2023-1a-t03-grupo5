@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './input-styles.scss'
 
 type InputProps = {
@@ -7,7 +7,8 @@ type InputProps = {
   type: any;
   size?: 'small' | 'medium' | 'large';
   value?: any;
-  onChange?: Function
+  onChange?: Function;
+  disabled?: boolean;
 }
 
 const Input = (props: InputProps) => {
@@ -20,9 +21,13 @@ const Input = (props: InputProps) => {
     }
   }
 
+  useEffect(() => {
+    setValue(props.value)
+  }, [props.value])
+
   return (
     <div className='dell-input'>
-      <input type={props.type} placeholder={'' + props.placeholder} className={`${props.className} ${props.size}`} value={value} onChange={(e) => changeValue(e.target.value)}></input>
+      <input type={props.type} disabled={props.disabled} placeholder={'' + props.placeholder} className={`${props.className} ${props.size} ${props.disabled && "disabled"}`} value={value} onChange={(e) => changeValue(e.target.value)}></input>
     </div>
   )
 }

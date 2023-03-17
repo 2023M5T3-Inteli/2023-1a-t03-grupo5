@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import Navbar from '../../presentation/components/partials/navbar/navbar'
 import Home from '../../presentation/pages/home/home'
 // import Login from '../../presentation/pages/login/login'
 import CreateProject from '../../presentation/pages/createProject/createProject'
@@ -9,6 +8,7 @@ import VisualizeProject from '../../presentation/pages/visualizeProject/visualiz
 import ApplicationForm from '../../presentation/pages/applicationForm/applicationForm'
 import VisualizeApplication from '../../presentation/pages/visualizeApplication/visualizeApplication'
 import NotFound from '../../presentation/pages/notFound/404'
+import SideBar from '../../presentation/components/partials/SideBar/SideBar'
 
 const Router: React.FC = () => {
   const [active, setActive] = useState(-1)
@@ -24,9 +24,9 @@ const Router: React.FC = () => {
 
   return (
     <BrowserRouter>
-      {/* {
-        !path.includes('login') && <Navbar page={active} changePage={changePage} />
-      } */}
+      {
+        !path.includes('login', '404') && <SideBar page={active} changePage={changePage} />
+      }
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path='/login' element={<Login changePage={changePage} />}></Route>

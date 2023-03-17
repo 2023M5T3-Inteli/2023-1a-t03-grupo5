@@ -1,0 +1,19 @@
+@use '/public/styles/typographic.scss' as t;
+@use '/public/styles/spacing.scss' as sp;
+@use '/public/styles/color.scss' as c;
+
+.sidebar {
+  position: absolute;
+  width: 4%;
+  height: 9%;
+  z-index: 1;
+  background-color: red;
+  .btnOpenSideBar {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin-top: 6.5px;
+    margin-left: 5px;
+  }
+}

@@ -1,6 +1,6 @@
 export interface Project {
   title: string,
-  startDate: string,
+  status: string,
   description: string,
-  vacancies: string
+  peoples: string
 }

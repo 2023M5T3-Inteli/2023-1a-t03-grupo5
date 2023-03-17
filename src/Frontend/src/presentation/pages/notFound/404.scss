@@ -13,12 +13,29 @@
         display: flex;
         flex-direction: column;
         color: white;
-        text-align: center;
+        align-items: center;
         gap: 28px;
         width: 480px;
         .h1404 {
             font-size: 42pt;
             font-weight: 700;
+        }
+        .btn404 {
+            width: 270px;
+            height: 50px;
+            background-color: rgba(6, 114, 203, 0.6);
+            color: white;
+            font-size: 20px;
+            border-radius: 6px;
+            border: none;
+            transition: 1s;
+            border: 4px solid rgb(6, 114, 203);
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(6, 114, 203, 0.8);
+                scale: 1.07;
+            }
         }
     }
 }

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Project } from '../../../shared/lib/types'
 
 import UserIcon from '/public/user.png'
 import ArrowRight from '/public/arrow-right.png'
+import StarIcon from '/public/star.png'
 
 import './card-styles.scss'
 
@@ -11,30 +11,45 @@ const Card: any = (props: any) => {
     <div className='card'>
       <div className='body-card'>
         <div className="container">
-          <div className='grid-8 name-project'>
-            <h2 className='title'>{props.title}</h2>
+          <div className='first-container'>
+            <div>
+              <h2 className='title'>{props.title}</h2>
+            </div>
+
+            <div className='status'>
+              <div className='people'>
+                <p>{props.peoples}</p>
+                <span>
+                  <img width={24} src={UserIcon} />
+                </span>
+              </div>
+              <div className='status-div'>
+                <p>{props.status}</p>
+                {
+                  props.status == "Finished" ?
+                    <span className='red-circle'></span> :
+                    <span className='green-circle'></span>
+                }
+              </div>
+            </div>
+
+          </div>
+          <div className='second-container'>
             <p className='description'>{props.description}</p>
           </div>
-          <div className='grid-4 status'>
-            <div className='people'>
-              <p>50</p>
-              <span>
-                <img width={24} src={UserIcon} />
-              </span>
-            </div>
-            <div className='status-div'>
-              <p>Status</p>
-              <span className='green-circle'></span>
-            </div>
+          <div className='fav-icon-div'>
+            <div><img width={28} src={StarIcon} /></div>
           </div>
         </div>
+
         <div className='more-details'>
           <div className='details-left'>
             <p className='more-details-text'>More Details</p>
           </div>
           <div className='details-right'>
             <div>
-              <img src={ArrowRight}></img></div>
+              <img src={ArrowRight} />
+            </div>
           </div>
         </div>
       </div>

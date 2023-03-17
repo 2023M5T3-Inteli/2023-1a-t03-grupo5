@@ -16,6 +16,7 @@ let NotFound = () => {
                 <h1 className="h1404">Oops!</h1>
                 <h1 className="h1404">Page not found :(</h1>
                 <h1 className="h1404">404</h1>
+                <Link to={"/"}><button className="btn404">Voltar</button></Link>
             </div>
         </div>
     )

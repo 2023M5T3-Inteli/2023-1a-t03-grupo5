@@ -38,10 +38,6 @@ let Ranking = () => {
             name: "Victor",
             points: 25
         },
-        {
-            name: "Victor",
-            points: 25
-        },
     ]
 
    
@@ -102,7 +98,7 @@ let Ranking = () => {
                     <div className="tableDiv">
                         <div className="container">
                             {
-                                ranking1.map((item: any, index: any) => {
+                                ranking.map((item: any, index: any) => {
                                     return (
                                         <div className="containerTable">
                                             <div className="firstContainer">
@@ -137,7 +133,7 @@ let Ranking = () => {
                 <div>
                     <div className="paginationDiv">
                         <div className="pages">
-                            {
+                            {/* {
                                 busy ? <div>Carregando...</div> :
                                 pages.map((index: any) => {
                                     i++
@@ -147,7 +143,7 @@ let Ranking = () => {
                                         </div>
                                     )
                                 })
-                            }
+                            } */}
                         </div>
                     </div>
                 </div>

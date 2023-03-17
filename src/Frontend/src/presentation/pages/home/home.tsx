@@ -45,61 +45,61 @@ const Home: React.FC = () => {
   const projects: Project[] = [
     {
       title: 'Project 1',
-      startDate: '22/11/2022',
-      description: 'We are find people with skills in React and Nest',
-      vacancies: '10 vacancies'
+      status: 'Finalizado',
+      description: 'We are find people with skills in React and Nest aaaaaaaaaaaaaaaaaaaaaaaaaafgfghjghghggjhhgjhgggfg',
+      peoples: '10'
     },
     {
       title: 'Project 2',
-      startDate: '22/11/2022',
+      status: 'Em andamento',
       description: 'Project built with Next',
-      vacancies: '5 vacancies'
+      peoples: '5'
     },
     {
       title: 'Project 3',
-      startDate: '22/11/2022',
+      status: 'Em andamento',
       description: 'Project built with Next',
-      vacancies: '15 vacancies'
+      peoples: '15'
     },
     {
       title: 'Project 1',
-      startDate: '22/11/2022',
+      status: 'Em andamento',
       description: 'Project built with Next',
-      vacancies: '7 vacancies'
+      peoples: '7'
     },
     {
       title: 'Project 2',
-      startDate: '22/11/2022',
+      status: 'Em andamento',
       description: 'Project built with Next',
-      vacancies: '12 vacancies'
+      peoples: '12'
     }, {
       title: 'Project 3',
-      startDate: '22/11/2022',
+      status: 'Finalizado',
       description: 'Project built with Next',
-      vacancies: '8 vacancies'
+      peoples: '8'
     },
     {
       title: 'Project 3',
-      startDate: '22/11/2022',
+      status: 'Em andamento',
       description: 'Project built with Next',
-      vacancies: '3 vacancies'
+      peoples: '3'
     },
     {
       title: 'Project 1',
-      startDate: '22/11/2022',
+      status: 'Finalizado',
       description: 'Project built with Next',
-      vacancies: '1 vacancy'
+      peoples: '1'
     },
     {
       title: 'Project 2',
-      startDate: '22/11/2022',
+      status: 'Em andamento',
       description: 'Project built with Next',
-      vacancies: '5 vacancies'
+      peoples: '5'
     }, {
       title: 'Project 3',
-      startDate: '22/11/2022',
+      status: 'Em andamento',
       description: 'Project built with Next',
-      vacancies: '4 vacancies'
+      peoples: '4'
     }
   ]
 
@@ -120,7 +120,7 @@ const Home: React.FC = () => {
       {
         <div className = "bodyCards">
           {
-          projects.map((project: any, index: number) => {
+          projects.map((project: any) => {
             return (
               <div onClick={() => setOpenViewModal(!openCreateModal)}>
                 <Card {...project}></Card>

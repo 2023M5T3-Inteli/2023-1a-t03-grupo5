@@ -11,7 +11,7 @@
 .card {
   margin: auto;
   width: 400px;
-  height: 250px;
+  height: 280px;
 
   //padding: 10px;
   border-radius: 16px;
@@ -38,41 +38,56 @@
     height: 100%;
     justify-content: space-between;
     .container {
+      position: relative;
       display: flex;
-      flex-direction: row;
-      gap: sp.$stack-xs;
+      flex-direction: column;
+      gap: sp.$stack-md;
     
       height: 100%;
-      .nameProject {
+      .firstContainer {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         gap: 8px;
-        justify-content: space-evenly;
-      }
-      .status {
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        margin-top: 28px;
-        align-items: flex-end;
-        .people {
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 30px;
+        margin-right: 30px;
+        .status {
           display: flex;
-          flex-direction: row;
-          gap: 5px;
-          align-items: center;
-        }
-        .statusDiv {
-          display: flex;
-          flex-direction: row;
-          gap: 5px;
-          align-items: center;
-          .greenCircle {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: #00FF66;
+          flex-direction: column;
+          width: 50%;
+          gap: 18px;
+          margin-top: 28px;
+          align-items: flex-end;
+          .people {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-items: center;
+          }
+          .statusDiv {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+            align-items: center;
+            .greenCircle {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background-color: #00FF66;
+            }
+            .redCircle {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background-color: red;
+            }
           }
         }
+      }
+      .secondContainer {
+        width: 100%;
+        height: auto;
       }
     }
     .moreDetails {
@@ -91,6 +106,11 @@
         margin-right: 5px;
       }
     }
+    .favIconDiv {
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+    }
   }
   
 
@@ -99,7 +119,11 @@
   }
 
   .description {
-    font-size: t.$text-sm
+    font-size: t.$text-sm;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: auto;
+    word-wrap: break-word;
   }
 
   .moreDetailsText {

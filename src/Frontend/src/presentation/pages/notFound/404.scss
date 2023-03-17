@@ -8,7 +8,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;    
-    gap: 250px;
+    gap: 200px;
+    @media screen and (max-width:768px) {
+        flex-direction: column;
+        gap: 0px;
+    }
     .text404 {
         display: flex;
         flex-direction: column;

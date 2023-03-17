@@ -9,6 +9,8 @@ import ApplicationForm from '../../presentation/pages/applicationForm/applicatio
 import VisualizeApplication from '../../presentation/pages/visualizeApplication/visualizeApplication'
 import NotFound from '../../presentation/pages/notFound/404'
 import SideBar from '../../presentation/components/partials/SideBar/SideBar'
+import MyProjects from '../../presentation/pages/myProjects/myProjects'
+import Ranking from '../../presentation/pages/ranking/Ranking'
 
 const Router: React.FC = () => {
   const [active, setActive] = useState(-1)
@@ -32,6 +34,8 @@ const Router: React.FC = () => {
         <Route path='/login' element={<Login changePage={changePage} />}></Route>
         <Route path='/applies' element={<VisualizeApplication />}></Route>
         <Route path='/404' element={<NotFound />}></Route>
+        <Route path='/projects' element={<MyProjects />}></Route>
+        <Route path='/ranking' element={<Ranking/>}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
       </Routes>
     </BrowserRouter>

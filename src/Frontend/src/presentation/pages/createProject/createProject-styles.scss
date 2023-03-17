@@ -88,6 +88,8 @@
         }
 
         .tags-container {
+            max-width: 85%;
+
             div {
                 display: flex;
                 height: 32px;
@@ -107,6 +109,7 @@
                     margin-left: sp.$stack-xs;
                 }
             }
+
             .tag-remove {
                 cursor: pointer;
                 background-color: c.$highlight-light;

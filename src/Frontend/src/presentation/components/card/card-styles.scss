@@ -26,12 +26,11 @@
     scale: 1.07;
   }
 
-  transition: 1s;
-
+  transition: 0.4s;
 
   cursor: pointer;
 
-  .bodyCard {
+  .body-card {
     border-radius: 16px;
     display: flex;
     flex-direction: column;
@@ -43,7 +42,7 @@
       gap: sp.$stack-xs;
     
       height: 100%;
-      .nameProject {
+      .name-project {
         display: flex;
         flex-direction: column;
         gap: 8px;
@@ -61,12 +60,12 @@
           gap: 5px;
           align-items: center;
         }
-        .statusDiv {
+        .status-div {
           display: flex;
           flex-direction: row;
           gap: 5px;
           align-items: center;
-          .greenCircle {
+          .green-circle {
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -75,7 +74,7 @@
         }
       }
     }
-    .moreDetails {
+    .more-details {
       border-bottom-left-radius: 16px;
       border-bottom-right-radius: 16px;
       background-color: #1E1E1E;
@@ -84,15 +83,14 @@
       align-items: center;
       justify-content: space-between;
       height: 30%;
-      .detailsLeft {
+      .details-left {
         margin-left: 15px;
       }
-      .detailsRight {
+      .details-right {
         margin-right: 5px;
       }
     }
   }
-  
 
   .title {
     font-size: t.$text-xl;
@@ -102,7 +100,7 @@
     font-size: t.$text-sm
   }
 
-  .moreDetailsText {
+  .more-details-text {
     font-size: t.$text-md
   }
 }

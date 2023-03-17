@@ -86,7 +86,10 @@ const CreateProject = (props: Props) => {
   //   }
   // ])
 
-  const addRoles = () => {
+  const addRoles = (e?: any) => {
+    if(e) {
+      e.preventDefault()
+    }
     if (area && role || area === "Shadowing") {
       flushSync(() => {
         if (!addedRoles) {
@@ -218,25 +221,27 @@ const CreateProject = (props: Props) => {
               </div>
               <div className="input-container">
                 <h4 className="input-title ">Role</h4>
-                {
-                  area == "Shadowing" ? (
-                    <Input
-                      disabled={true}
-                      size='large'
-                      placeholder={"e.g. DevOps"}
-                      type={""}
-                      value={role}
-                      onChange={(role: any) => setRole(role)}
-                    />
-                  ) :
-                    <Input
-                      size='large'
-                      placeholder={"e.g. DevOps"}
-                      value={role}
-                      type={""}
-                      onChange={(role: any) => setRole(role)}
-                    />
-                }
+                <form onSubmit={addRoles}>
+                  {
+                    area == "Shadowing" ? (
+                      <Input
+                        disabled={true}
+                        size='large'
+                        placeholder={"e.g. DevOps"}
+                        type={""}
+                        value={role}
+                        onChange={(role: any) => setRole(role)}
+                      />
+                    ) :
+                      <Input
+                        size='large'
+                        placeholder={"e.g. DevOps"}
+                        value={role}
+                        type={""}
+                        onChange={(role: any) => setRole(role)}
+                      />
+                  }
+                </form>
               </div>
               <div className="input-container button">
                 <Button type='terceary' text='Add' size='small' onClick={() => addRoles()}></Button>

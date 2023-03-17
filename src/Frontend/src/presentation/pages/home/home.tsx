@@ -45,59 +45,59 @@ const Home: React.FC = () => {
   const projects: Project[] = [
     {
       title: 'Project 1',
-      status: 'Finalizado',
-      description: 'We are find people with skills in React and Nest aaaaaaaaaaaaaaaaaaaaaaaaaafgfghjghghggjhhgjhgggfg',
+      status: 'Finished',
+      description: 'We are find people with skills in React and Nest joas',
       peoples: '10'
     },
     {
       title: 'Project 2',
-      status: 'Em andamento',
+      status: 'On Going',
       description: 'Project built with Next',
       peoples: '5'
     },
     {
       title: 'Project 3',
-      status: 'Em andamento',
+      status: 'On Going',
       description: 'Project built with Next',
       peoples: '15'
     },
     {
       title: 'Project 1',
-      status: 'Em andamento',
+      status: 'On Going',
       description: 'Project built with Next',
       peoples: '7'
     },
     {
       title: 'Project 2',
-      status: 'Em andamento',
+      status: 'On Going',
       description: 'Project built with Next',
       peoples: '12'
     }, {
       title: 'Project 3',
-      status: 'Finalizado',
+      status: 'Finished',
       description: 'Project built with Next',
       peoples: '8'
     },
     {
       title: 'Project 3',
-      status: 'Em andamento',
+      status: 'On Going',
       description: 'Project built with Next',
       peoples: '3'
     },
     {
       title: 'Project 1',
-      status: 'Finalizado',
+      status: 'Finished',
       description: 'Project built with Next',
       peoples: '1'
     },
     {
       title: 'Project 2',
-      status: 'Em andamento',
+      status: 'On Going',
       description: 'Project built with Next',
       peoples: '5'
     }, {
       title: 'Project 3',
-      status: 'Em andamento',
+      status: 'On Going',
       description: 'Project built with Next',
       peoples: '4'
     }
@@ -118,7 +118,7 @@ const Home: React.FC = () => {
         openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />
       }
       {
-        <div className = "bodyCards">
+        <div className = "body-cards">
           {
           projects.map((project: any) => {
             return (

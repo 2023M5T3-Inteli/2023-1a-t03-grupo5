@@ -78,13 +78,6 @@ const CreateProject = (props: Props) => {
   }
 
   const [addedRoles, setAddedRoles] = useState<any>(null)
-  // const [addedRoles, setAddedRoles] = useState([
-  //   {
-  //     area: '',
-  //     role: '',
-  //     vacancies: 0
-  //   }
-  // ])
 
   const addRoles = (e?: any) => {
     if(e) {
@@ -173,6 +166,7 @@ const CreateProject = (props: Props) => {
                   placeholder={"Enter new tag"}
                   type={"text"}
                   value={tag}
+                  autocomplete="off"
                   onChange={(value: any) => setTag(value)}
                 />
               </form>

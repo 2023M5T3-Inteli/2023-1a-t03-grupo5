@@ -9,6 +9,7 @@ type InputProps = {
   value?: any;
   onChange?: Function;
   disabled?: boolean;
+  autocomplete?: "off" | "on";
 }
 
 const Input = (props: InputProps) => {
@@ -16,7 +17,7 @@ const Input = (props: InputProps) => {
 
   const changeValue = (value: any) => {
     setValue(value)
-    if(props.onChange) {
+    if (props.onChange) {
       props.onChange(value)
     }
   }
@@ -27,7 +28,15 @@ const Input = (props: InputProps) => {
 
   return (
     <div className='dell-input'>
-      <input type={props.type} disabled={props.disabled} placeholder={'' + props.placeholder} className={`${props.className} ${props.size} ${props.disabled && "disabled"}`} value={value} onChange={(e) => changeValue(e.target.value)}></input>
+      <input
+        type={props.type}
+        autoComplete={props.autocomplete ? props.autocomplete : "on"}
+        disabled={props.disabled}
+        placeholder={'' + props.placeholder}
+        className={`${props.className} ${props.size} ${props.disabled && "disabled"}`}
+        value={value}
+        onChange={(e) => changeValue(e.target.value)}
+      />
     </div>
   )
 }

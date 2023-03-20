@@ -1,134 +1,101 @@
 @use '/public/styles/spacing.scss' as sp;
 
-.visualize-project {
-    padding: sp.$stack-xl sp.$stack-xl;
-    margin: 0 sp.$stack-md;
-    max-height: 400px;
-    overflow-y: auto;
-
-    .edit-container {
-        display: flex;
-        align-items: center;
-        column-gap: 20px;
-
-        svg {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-    }
-
-    .container-visualize {
-        display: flex;
-        flex-direction: column;
-
-        h3 {
-            margin-top: sp.$stack-sm;
-            color: #0076CE;
-            font-size: large;
-            margin-bottom: sp.$stack-lg;
-            ;
-        }
-
-        p {
-            margin-top: sp.$stack-md;
-            line-height: 1.75rem;
-            font-size: large;
-            margin-bottom: sp.$stack-md;
-        }
-
-        h2 {
-            margin-top: sp.$stack-sm;
-            color: #0076CE;
-
-        }
-    }
-
-    .skills-visualize {
-        width: max-content;
-        height: max-content;
-        background-color: #D9F5FD;
-        border: 2px solid #5CC1EE;
-        border-radius: 5px;
-        padding-left: 4%;
-        padding-right: 4%;
-        padding-top: 2%;
-        padding-bottom: 2%;
-    }
-
-    .name-project {
-        align-items: center;
-        font-size: 45px;
-    }
-
-    .info-section {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .info-project {
-        border-radius: 0.7rem;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        margin: 3rem auto;
-        flex-direction: column;
-
-
-        h3 {
-            color: #0076CE;
-            margin-top: sp.$stack-sm;
-        }
-    }
-
-    .project-owner-info {
-        margin-top: sp.$stack-lg;
-        padding: sp.$stack-lg sp.$stack-md;
-        border: 1.5px solid #0076CE;
-        padding: 3rem;
-        border-radius: 10px;
-
-        h2 {
-            margin-bottom: sp.$stack-sm;
-        }
-
-        p {
-            margin-top: sp.$stack-xs;
-        }
-
-        h4 {
-            font-size: 22px;
-            margin-top: sp.$stack-sm;
-            color: #0076CE;
-        }
-    }
-
-    .p-owner {
-        font-size: 25px;
-    }
-
-    .h2-owner {
-        font-size: 30px;
-    }
-
-    .info-owner-p {
-        font-size: 20px;
-    }
-
-    .container-button {
-        align-items: flex-end;
-        justify-content: flex-end;
-        display: flex;
-        width: 100%;
-    }
-
-    .button-visuproject {
-        color: white;
-        background-color: #0076CE;
-        border-radius: 5px;
-        width: 8rem;
-        height: 3rem;
-        font-size: large;
-        border-color: #0076CE;
-    }
+.visualize-project{
+  justify-content: center;
+  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
+
+.card-visualize{
+
+    width: 80%;
+    height: 80%;
+    border-radius: 15px;
+    background-color: #2B2B2B;
+    box-shadow: 8px 8px 24px 0px rgba(0,0,0,0.5);
+-webkit-box-shadow: 8px 8px 24px 0px rgba(0,0,0,0.5);
+-moz-box-shadow: 8px 8px 24px 0px rgba(0,0,0,0.5);
+    padding: 2rem 3rem;
+    h1{
+      font-size: 30px;
+    }
+
+.p-visualize{
+  font-size: 24px;
+  margin-top: 2rem;
+}
+
+.tags-visualize{
+    width: 80%;
+    height: 80%;
+    margin-top: 2rem;
+    border-radius: 10px;
+    background-color: #1D1D1D;
+    box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
+    padding: 1rem 1.5rem;
+    align-items: center;
+}
+
+.card-tag{
+  background-color: #2B2B2B;
+  border-radius: 5px;
+  margin-left: 1rem;
+}
+
+.tag-p{
+  padding: 0.75rem 0.75rem;
+}
+
+.line{
+  border: 0.25px solid #111010;
+  height: 500px;
+}
+
+.line2{
+  border: 0.25px solid #111010;
+  width: 300px;
+  margin-top: 1.5rem;
+}
+
+.visualize-info{
+  display: flex;
+  flex-direction: column;
+  color: #FFFFFF;
+}
+
+.status-info{
+  display: flex;
+  flex-direction: column;
+  color: #FFFFFF;
+  align-items: center;
+
+}
+
+.people{
+  display: flex;
+  flex-direction: row;
+  vertical-align: baseline;
+}
+
+// .visualize-project{
+//     padding: sp.$stack-xl sp.$stack-xl;
+//     margin: 0 sp.$stack-md;
+//     max-height: 400px;
+
+//     .edit-container {
+//         display: flex;
+//         align-items: center;
+//         column-gap: 20px;
+
+//         svg {
+//             width: 30px;
+//             height: 30px;
+//             cursor: pointer;
+//         }
+//     }
+// }
+

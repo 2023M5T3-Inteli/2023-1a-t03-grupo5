@@ -111,9 +111,9 @@ const Home: React.FC = () => {
       {
         openEditModal && <Modal closeArrow={true} closeModal={() => toggleEditModal()} content={<EditProject closeModal={() => toggleEditModal()} />} />
       }
-      {
+      {/* {
         openViewModal && <Modal closeArrow={true} closeModal={() => toggleViewModal()} content={<VisualizeProject closeModal={() => toggleEditModal()} openEdit={() => toggleEditModal()} openApply={() => toggleApplyModal()} />} />
-      }
+      } */}
       {
         openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />
       }
@@ -122,7 +122,7 @@ const Home: React.FC = () => {
           {
           projects.map((project: any) => {
             return (
-              <div onClick={() => setOpenViewModal(!openCreateModal)}>
+              <div onClick={() => setOpenEditModal(!openEditModal)}>
                 <Card {...project}></Card>
               </div>
             )

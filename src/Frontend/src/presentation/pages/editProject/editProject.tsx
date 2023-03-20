@@ -6,20 +6,16 @@ import '/public/styles/grid.scss'
 import Button from '../../components/button/button'
 import Textarea from '../../components/textarea/textarea'
 import Select from '../../components/select/select'
+import { flushSync } from 'react-dom'
+
+import CloseIcon from '@mui/icons-material/Close'
 
 type Props = {
   closeModal: Function
 }
 
 const EditProject = (props: Props) => {
-  const [canEdit, setCanEdit] = useState(false)
-  const [data, setData] = useState({
-    name: 'Project 1',
-    date: '2022-05-27',
-    coLeader: 'Co-leader 1',
-    description: 'Project of computers manufactory'
-  })
-
+  const [disableEdit, setCanEdit] = useState(true)
   const [areaOptions, setAreaOptions] = useState([
     {
       value: 'Technology',
@@ -35,55 +31,142 @@ const EditProject = (props: Props) => {
     },
     {
       value: 'Commercial',
-      label: 'Comemrcial'
+      label: 'Commercial'
     },
     {
       value: 'Marketing',
       label: 'Marketing'
+    },
+    {
+      value: 'Shadowing',
+      label: 'Shadowing'
     }
   ])
 
+  const [data, setData] = useState<any>({
+    name: "Project 1",
+    description: "A project about IOT",
+    tags: ['React', 'Python', 'MongoDB'],
+    coLeader: "Thiago Pontes",
+    addedRoles: [
+      {
+        area: "Technology",
+        role: "DevOps",
+        vacancies: 2
+      },
+      {
+        area: "Technology",
+        role: "React Frontend",
+        vacancies: 3
+      },
+      {
+        area: "Technology",
+        role: "Python Backend",
+        vacancies: 5
+      }
+    ],
+    badge: "NFT",
+    startDate: "2023-07-19",
+    endDate: "2023-11-30",
+    endSubscription: "2023-07-21"
+  })
+
+  const [tag, setTag] = useState<any>(null)
   const [area, setArea] = useState('')
   const [role, setRole] = useState('')
-  const [vaccancies, setVaccancies] = useState(0)
 
-  const [addedRoles, setAddedRoles] = useState([
-    {
-      area: 'Technology',
-      role: 'Frontend Developer',
-      vaccancies: 4
-    },
-    {
-      area: 'Design',
-      role: 'UX Writter',
-      vaccancies: 2
-    },
-    {
-      area: 'Marketing',
-      role: 'Media analyst',
-      vaccancies: 1
+  const addTag = (e: any) => {
+    e.preventDefault()
+    if (tag) {
+      if (data.tags) {
+        setData({ ...data, tags: [...data.tags, tag] })
+      }
+      else {
+        setData({ ...data, tags: [tag] })
+      }
     }
-  ])
+    setTag('')
+  }
 
-  const addRoles = () => {
-    setAddedRoles([{
-      area: area,
-      role: role,
-      vaccancies: vaccancies
-    }])
+  const removeTag = (index: number) => {
+    if (index === -1) {
+      setData({ ...data, tags: null })
+    }
+    else {
+      flushSync(() => {
+        let newTags = [...data.tags]
+        newTags = newTags.filter((_: any, i: number) => i !== index)
+        setData({ ...data, tags: newTags })
+      })
+    }
+  }
+
+  const addRoles = (e?: any) => {
+    if (e) {
+      e.preventDefault()
+    }
+    if (area && role || area === "Shadowing") {
+      flushSync(() => {
+        if (!data.addedRoles) {
+          if (area === "Shadowing") {
+            setRole("Shadowing")
+          }
+          setData({
+            ...data, addedRoles: [{
+              area: area,
+              role: role,
+              vacancies: 1
+            }]
+          })
+        }
+        else {
+          let find = data.addedRoles.some((el: any) => el.role == role)
+          if (!find) {
+            if (area === "Shadowing") {
+              setRole("Shadowing")
+            }
+            setData({
+              ...data, addedRoles: [...data.addedRoles, {
+                area: area,
+                role: role,
+                vacancies: 1
+              }]
+            })
+          }
+        }
+      })
+      setRole("")
+
+      const element = document.getElementsByClassName('added-roles')[0]
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
+
+  const updateRole = (value: number, index: number) => {
+    let updatedRole = data.addedRoles[index]
+    updatedRole.vacancies = value
+    console.log(data.addedRoles)
+  }
+
+  const removeRole = (index: number) => {
+    flushSync(() => {
+      let newRoles = [...data.addedRoles]
+      newRoles = newRoles.filter((_: any, i: number) => i !== index)
+      setData({ ...data, addedRoles: newRoles })
+    })
   }
 
   return (
     <div id="edit-project">
-      <h1 className="title">Edit Project</h1>
-
       <div className="container">
+        <h1 className="title">Edit project</h1>
         <div className="grid-12">
-          <div className="section-container grid-6">
+          <div className="left-side section-container grid-8">
             <div className="input-container">
               <h4 className="input-title">Project name *</h4>
               <Input
-                className="Inputedit"
                 size='medium'
                 placeholder={"Enter the project name"}
                 type={"text"}
@@ -92,65 +175,183 @@ const EditProject = (props: Props) => {
             </div>
 
             <div className="input-container">
-              <h4 className="input-title">Dead Line *</h4>
+              <h4 className="input-title">Project Description *</h4>
               <Input
-                className="Inputedit"
-                size='small'
-                placeholder={"xx/xx/xxxx"}
-                type={"date"}
-                value={data.date}
+                size='medium'
+                placeholder={"Enter the project description"}
+                type='text'
+                value={data.description}
               />
             </div>
 
             <div className="input-container">
+              <h4 className="input-title">Tags</h4>
+              <form onSubmit={addTag}>
+                <Input
+                  size='medium'
+                  placeholder={"Enter new tag"}
+                  type={"text"}
+                  value={tag}
+                  autocomplete="off"
+                  onChange={(value: any) => setTag(value)}
+                />
+              </form>
+            </div>
+
+            {
+              data.tags &&
+              <div className='tags-container'>
+                {
+                  data.tags.map((tag: any, index: number) => {
+                    return (
+                      <>
+                        <div className='tag grid-3'>
+                          {tag}
+                          <div className='remove-icon' onClick={() => removeTag(index)}>
+                            <CloseIcon />
+                          </div>
+                        </div>
+                      </>
+
+                    )
+                  })
+                }
+                {
+                  data.tags.length > 0 &&
+                  <div className='tag-remove grid-3' onClick={() => removeTag(-1)}>Clear all</div>
+                }
+              </div>
+            }
+
+            <div className="input-container">
               <h4 className="input-title">Project co-leader</h4>
               <Input
-                className="Inputedit"
-                size='small'
+                size='medium'
                 placeholder={"Co-leader name"}
                 type={"text"}
                 value={data.coLeader}
               />
             </div>
-          </div>
-          <div className="section-container grid-6">
-            <div className="input-container">
-              <h4 className="input-title">Project Description</h4>
-              <Textarea
-                size='large'
-                className="InputEditdescription"
-                placeholder={"Enter the project description"}
-                value={data.description}
-              />
-            </div>
-          </div>
-        </div>
-        <div className="grid-12 inputRow">
-          <div className="grid-8 role-container">
-            <div className="input-container">
-              <h4 className="input-title ">Area</h4>
-              <Select options={areaOptions} default="Select vaccancy area" onChange={(value: string) => setArea(value)} />
-            </div>
-            <div className="input-container">
-              <h4 className="input-title ">Role</h4>
-              <Input
-                className="InputCreate"
-                size='medium'
-                placeholder={"e.g. DevOps"}
-                type={""}
-              />
-            </div>
-            <div className="input-container button">
-              <Button type='default' text='Add' size='small' onClick={() => addRoles()}></Button>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="edit-container">
-        <Button type="default" text="Save" size="large" disabled={canEdit} onClick={() => false} />
+            <div className="role-container">
+              <div className="input-container">
+                <h4 className="input-title ">Area</h4>
+                <Select options={areaOptions} default="Vacancy area" onChange={(value: string) => setArea(value)} />
+              </div>
+              <div className="input-container">
+                <h4 className="input-title ">Role</h4>
+                <form onSubmit={addRoles}>
+                  {
+                    area == "Shadowing" ? (
+                      <Input
+                        disabled={true}
+                        size='large'
+                        placeholder={"e.g. DevOps"}
+                        type={""}
+                        value={role}
+                        onChange={(role: any) => setRole(role)}
+                      />
+                    ) :
+                      <Input
+                        size='large'
+                        placeholder={"e.g. DevOps"}
+                        value={role}
+                        type={""}
+                        onChange={(role: any) => setRole(role)}
+                      />
+                  }
+                </form>
+              </div>
+              <div className="input-container button">
+                <Button type='terceary' text='Add' size='small' onClick={() => addRoles()}></Button>
+              </div>
+            </div>
+
+            {
+              data.addedRoles && data.addedRoles.length > 0 && (
+                <div className="added-roles">
+                  <p className='added-roles-title'>Roles / Vacancies</p>
+                  {
+                    data.addedRoles.map((role: any, index: number) => {
+                      return (
+                        <div className='added-role' key={`${role.area}-${role.role}-${index}`}>
+                          <div className="container">
+                            <div className='area'>
+                              <p className="area-name">{role.area}</p>
+                            </div>
+                            {
+                              role.role !== 'Shadowing' &&
+                              <div className='role'>
+                                <p className="role-name">{role.role}</p>
+                              </div>
+                            }
+                          </div>
+                          <div className='vacancies'>
+                            <Input type="number" value={role.vacancies} size="small" placeholder='0' onChange={(value: number) => updateRole(value, index)} />
+                          </div>
+                          <div className='remove-role' onClick={() => removeRole(index)}>
+                            <CloseIcon />
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              )
+            }
+
+          </div>
+
+          <div className="right-side section-container grid-4">
+            <div className="input-container">
+              <h4 className="input-title">End of subscription *</h4>
+              <Input
+                size='large'
+                placeholder={"xx/xx/xxxx"}
+                type={"date"}
+                value={data.endSubscription}
+              />
+            </div>
+
+            <div className="input-container">
+              <h4 className="input-title ">Import badge</h4>
+              <Input
+                size='large'
+                placeholder={""}
+                type={"text"}
+                value={data.badge}
+              />
+            </div>
+
+            <div className="divider"></div>
+
+            <div className="input-container">
+              <h4 className="input-title">Project start *</h4>
+              <Input
+                size='large'
+                placeholder={"xx/xx/xxxx"}
+                type={"date"}
+                value={data.startDate}
+              />
+            </div>
+
+            <div className="input-container">
+              <h4 className="input-title">Project end *</h4>
+              <Input
+                size='large'
+                placeholder={"xx/xx/xxxx"}
+                type={"date"}
+                value={data.endDate}
+              />
+            </div>
+
+            <div className="edit-container">
+              <Button type="default" text="Save" size="medium" disabled={disableEdit} onClick={() => false} />
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </div >
   )
 }
 

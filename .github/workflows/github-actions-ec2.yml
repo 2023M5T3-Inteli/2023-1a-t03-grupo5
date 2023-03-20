@@ -4,7 +4,7 @@ name: Push-to-EC2
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -18,7 +18,7 @@ jobs:
       - name: Deploy to Server 1
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.key-us-east-1-prod-cloudio }}
-          REMOTE_HOST: ${{ secrets.alb-lakitu-dev-1837832140.us-east-1.elb.amazonaws.com }}
-          REMOTE_USER: ${{ secrets.ubuntu }}
-          TARGET: ${{ secrets.src\BackEnd\src }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ${{ secrets.TAGET }}

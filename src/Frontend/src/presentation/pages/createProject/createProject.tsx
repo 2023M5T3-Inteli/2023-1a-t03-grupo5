@@ -49,8 +49,6 @@ const CreateProject = (props: Props) => {
   const [area, setArea] = useState('')
   const [role, setRole] = useState('')
 
-  const listRef = useRef<any | null>(null);
-
   const addTag = (e: any) => {
     e.preventDefault()
     if (tag) {
@@ -122,7 +120,6 @@ const CreateProject = (props: Props) => {
   const updateRole = (value: number, index: number) => {
     let updatedRole = addedRoles[index]
     updatedRole.vacancies = value
-    // setAddedRoles([...addedRoles, updatedRole])
   }
 
   const removeRole = (index: number) => {
@@ -149,7 +146,7 @@ const CreateProject = (props: Props) => {
             </div>
 
             <div className="input-container">
-              <h4 className="input-title">Project Description</h4>
+              <h4 className="input-title">Project Description *</h4>
               <Input
                 size='medium'
                 className="InputCreatedescription"
@@ -159,7 +156,7 @@ const CreateProject = (props: Props) => {
             </div>
 
             <div className="input-container">
-              <h4 className="input-title">Tags *</h4>
+              <h4 className="input-title">Tags</h4>
               <form onSubmit={addTag}>
                 <Input
                   size='medium'
@@ -205,8 +202,6 @@ const CreateProject = (props: Props) => {
                 type={"text"}
               />
             </div>
-
-            {/* <div className="divider"></div> */}
 
             <div className="role-container">
               <div className="input-container">
@@ -321,9 +316,6 @@ const CreateProject = (props: Props) => {
             </div>
           </div>
         </div>
-        {/* <div className="grid-12 inputRow">
-
-        </div> */}
       </div>
     </div >
   )

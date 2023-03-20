@@ -15,8 +15,8 @@ type Props = {
 
 const Select = (props: Props) => {
   return (
-    <div className={`dell-select ${props.size}`}>
-      <select onChange={(e) => props.onChange(e.target.value)}>
+    <div className="dell-select">
+      <select className={props.size} onChange={(e) => props.onChange(e.target.value)}>
         <option hidden>{props.default}</option>
         {
           props.options.map((option, index) => {

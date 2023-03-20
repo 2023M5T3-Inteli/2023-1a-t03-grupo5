@@ -44,19 +44,54 @@ const CreateProject = (props: Props) => {
     }
   ])
 
+  const [usersOptions, setUsersOptions] = useState([
+    {
+      value: "Thiago Pontes",
+      label: "Thiago Pontes"
+    },
+    {
+      value: "Marina Duarte",
+      label: "Marina Duarte"
+    },
+    {
+      value: "Rafael Rodrigues",
+      label: "Rafael Rodrigues"
+    },
+    {
+      value: "Paula Diniz",
+      label: "Paula Diniz"
+    },
+    {
+      value: "Nathalia Melo",
+      label: "Nathalia Melo"
+    },
+  ])
+
+  const [data, setData] = useState<any>({
+    name: "",
+    description: "",
+    tags: [],
+    coLeader: "",
+    addedRoles: [],
+    badge: "",
+    startDate: "",
+    endDate: "",
+    endSubscription: ""
+  })
+
   const [tag, setTag] = useState<any>(null)
-  const [tags, setTags] = useState<any>(null)
+  // const [tags, setTags] = useState<any>(null)
   const [area, setArea] = useState('')
   const [role, setRole] = useState('')
 
   const addTag = (e: any) => {
     e.preventDefault()
     if (tag) {
-      if (tags) {
-        setTags([...tags, tag])
+      if (data.tags) {
+        setData({ ...data, tags: [...data.tags, tag] })
       }
       else {
-        setTags([tag])
+        setData({ ...data, tag: [tag] })
       }
     }
     setTag('')
@@ -64,46 +99,50 @@ const CreateProject = (props: Props) => {
 
   const removeTag = (index: number) => {
     if (index === -1) {
-      setTags(null)
+      setData({ ...data, tags: [] })
     }
     else {
       flushSync(() => {
-        let newTags = [...tags]
+        let newTags = [...data.tags]
         newTags = newTags.filter((_: any, i: number) => i !== index)
-        setTags(newTags)
+        setData({ ...data, tags: newTags })
       })
     }
   }
 
-  const [addedRoles, setAddedRoles] = useState<any>(null)
+  // const [addedRoles, setAddedRoles] = useState<any>(null)
 
   const addRoles = (e?: any) => {
-    if(e) {
+    if (e) {
       e.preventDefault()
     }
     if (area && role || area === "Shadowing") {
       flushSync(() => {
-        if (!addedRoles) {
+        if (!data.addedRoles) {
           if (area === "Shadowing") {
             setRole("Shadowing")
           }
-          setAddedRoles([{
-            area: area,
-            role: role,
-            vacancies: 1
-          }])
+          setData({
+            ...data, addedRoles: [{
+              area: area,
+              role: role,
+              vacancies: 1
+            }]
+          })
         }
         else {
-          let find = addedRoles.some((el: any) => el.role == role)
+          let find = data.addedRoles.some((el: any) => el.role == role)
           if (!find) {
             if (area === "Shadowing") {
               setRole("Shadowing")
             }
-            setAddedRoles([...addedRoles, {
-              area: area,
-              role: role,
-              vacancies: 1
-            }])
+            setData({
+              ...data, addedRoles: [...data.addedRoles, {
+                area: area,
+                role: role,
+                vacancies: 1
+              }]
+            })
           }
         }
       })
@@ -114,19 +153,18 @@ const CreateProject = (props: Props) => {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
-    console.log(addedRoles)
   }
 
   const updateRole = (value: number, index: number) => {
-    let updatedRole = addedRoles[index]
+    let updatedRole = data.addedRoles[index]
     updatedRole.vacancies = value
   }
 
   const removeRole = (index: number) => {
     flushSync(() => {
-      let newRoles = [...addedRoles]
+      let newRoles = [...data.addedRoles]
       newRoles = newRoles.filter((_: any, i: number) => i !== index)
-      setAddedRoles(newRoles)
+      setData({ ...data, addedRoles: newRoles })
     })
   }
 
@@ -142,6 +180,7 @@ const CreateProject = (props: Props) => {
                 size='medium'
                 placeholder={"Enter the project name"}
                 type={"text"}
+                onChange={(value: any) => setData({ ...data, name: value })}
               />
             </div>
 
@@ -152,6 +191,7 @@ const CreateProject = (props: Props) => {
                 className="InputCreatedescription"
                 placeholder={"Enter the project description"}
                 type='text'
+                onChange={(value: any) => setData({ ...data, description: value })}
               />
             </div>
 
@@ -170,10 +210,10 @@ const CreateProject = (props: Props) => {
             </div>
 
             {
-              tags &&
+              data.tags &&
               <div className='tags-container'>
                 {
-                  tags.map((tag: any, index: number) => {
+                  data.tags.map((tag: any, index: number) => {
                     return (
                       <>
                         <div className='tag grid-3'>
@@ -188,19 +228,15 @@ const CreateProject = (props: Props) => {
                   })
                 }
                 {
-                  tags.length > 0 &&
+                  data.tags.length > 0 &&
                   <div className='tag-remove grid-3' onClick={() => removeTag(-1)}>Clear all</div>
                 }
               </div>
             }
 
             <div className="input-container">
-              <h4 className="input-title">Project co-leader</h4>
-              <Input
-                size='medium'
-                placeholder={"Co-leader name"}
-                type={"text"}
-              />
+              <h4 className="input-title ">Co-leader</h4>
+              <Select options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coLeader: value })} />
             </div>
 
             <div className="role-container">
@@ -238,11 +274,11 @@ const CreateProject = (props: Props) => {
             </div>
 
             {
-              addedRoles && addedRoles.length > 0 && (
+              data.addedRoles && data.addedRoles.length > 0 && (
                 <div className="added-roles">
                   <p className='added-roles-title'>Roles / Vacancies</p>
                   {
-                    addedRoles.map((role: any, index: number) => {
+                    data.addedRoles.map((role: any, index: number) => {
                       return (
                         <div className='added-role' key={`${role.area}-${role.role}-${index}`}>
                           <div className="container">
@@ -269,7 +305,6 @@ const CreateProject = (props: Props) => {
                 </div>
               )
             }
-
           </div>
 
           <div className="right-side section-container grid-4">
@@ -279,6 +314,8 @@ const CreateProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
+                value={data.endSubscription}
+                onChange={(value: any) => setData({ ...data, endSubscription: value })}
               />
             </div>
 
@@ -288,6 +325,8 @@ const CreateProject = (props: Props) => {
                 size='large'
                 placeholder={""}
                 type={"text"}
+                value={data.badge}
+                onChange={(value: any) => setData({ ...data, badge: value })}
               />
             </div>
 
@@ -299,6 +338,8 @@ const CreateProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
+                value={data.startDate}
+                onChange={(value: any) => setData({ ...data, startDate: value })}
               />
             </div>
 
@@ -308,6 +349,8 @@ const CreateProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
+                value={data.endDate}
+                onChange={(value: any) => setData({ ...data, endDate: value })}
               />
             </div>
 

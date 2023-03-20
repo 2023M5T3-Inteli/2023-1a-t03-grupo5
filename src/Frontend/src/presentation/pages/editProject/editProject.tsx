@@ -43,6 +43,29 @@ const EditProject = (props: Props) => {
     }
   ])
 
+  const [usersOptions, setUsersOptions] = useState([
+    {
+      value: "Thiago Pontes",
+      label: "Thiago Pontes"
+    },
+    {
+      value: "Marina Duarte",
+      label: "Marina Duarte"
+    },
+    {
+      value: "Rafael Rodrigues",
+      label: "Rafael Rodrigues"
+    },
+    {
+      value: "Paula Diniz",
+      label: "Paula Diniz"
+    },
+    {
+      value: "Nathalia Melo",
+      label: "Nathalia Melo"
+    },
+  ])
+
   const [data, setData] = useState<any>({
     name: "Project 1",
     description: "A project about IOT",
@@ -147,7 +170,6 @@ const EditProject = (props: Props) => {
   const updateRole = (value: number, index: number) => {
     let updatedRole = data.addedRoles[index]
     updatedRole.vacancies = value
-    console.log(data.addedRoles)
   }
 
   const removeRole = (index: number) => {
@@ -171,6 +193,7 @@ const EditProject = (props: Props) => {
                 placeholder={"Enter the project name"}
                 type={"text"}
                 value={data.name}
+                onChange={(value: any) => setData({...data, name: value})}
               />
             </div>
 
@@ -181,6 +204,7 @@ const EditProject = (props: Props) => {
                 placeholder={"Enter the project description"}
                 type='text'
                 value={data.description}
+                onChange={(value: any) => setData({...data, description: value})}
               />
             </div>
 
@@ -224,13 +248,8 @@ const EditProject = (props: Props) => {
             }
 
             <div className="input-container">
-              <h4 className="input-title">Project co-leader</h4>
-              <Input
-                size='medium'
-                placeholder={"Co-leader name"}
-                type={"text"}
-                value={data.coLeader}
-              />
+            <h4 className="input-title ">Co-leader</h4>
+              <Select options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coLeader: value })} />
             </div>
 
             <div className="role-container">
@@ -299,7 +318,6 @@ const EditProject = (props: Props) => {
                 </div>
               )
             }
-
           </div>
 
           <div className="right-side section-container grid-4">
@@ -310,6 +328,7 @@ const EditProject = (props: Props) => {
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
                 value={data.endSubscription}
+                onChange={(value: any) => setData({...data, endSubscription: value})}
               />
             </div>
 
@@ -320,6 +339,7 @@ const EditProject = (props: Props) => {
                 placeholder={""}
                 type={"text"}
                 value={data.badge}
+                onChange={(value: any) => setData({...data, badge: value})}
               />
             </div>
 
@@ -332,6 +352,7 @@ const EditProject = (props: Props) => {
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
                 value={data.startDate}
+                onChange={(value: any) => setData({...data, startDate: value})}
               />
             </div>
 
@@ -342,6 +363,7 @@ const EditProject = (props: Props) => {
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
                 value={data.endDate}
+                onChange={(value: any) => setData({...data, endDate: value})}
               />
             </div>
 

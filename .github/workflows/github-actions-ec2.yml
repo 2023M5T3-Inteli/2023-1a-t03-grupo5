@@ -23,8 +23,8 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.TARGET }}
           SCRIPT_AFTER: |
-            cd 2023-1a-t03-grupo5\src\BackEnd\src
             git pull
+            cd 2023-1a-t03-grupo5\src\BackEnd\src
             npm install
             npm run build
             pm2 restart all

@@ -8,7 +8,7 @@
 
 ## Nome do Grupo
 
-## Integrantes: <a href="https://www.linkedin.com/in/victorbarq/">Goku Sayajin</a>, <a href="https://www.linkedin.com/in/victorbarq/">Saitama One</a>, <a href="https://www.linkedin.com/in/victorbarq/">Ikki de Fenix</a>, <a href="https://www.linkedin.com/in/victorbarq/">Yusuke Urameshi</a>, <a href="https://www.linkedin.com/in/victorbarq/">Roronoa Zoro</a>
+## Integrantes: <a href="https://www.linkedin.com/in/felipe-saadi/">Felipe Saadi</a>, <a href="https://www.linkedin.com/in/gabriel-nascimento-b80933217/">Gabriel Nascimento</a>, <a href="https://www.linkedin.com/in/jo%C3%A3o-lucas-gonzalez/">João Lucas Gonzalez</a>, <a href="https://www.linkedin.com/in/lu%C3%ADsa-vit%C3%B3ria-leite-silva-681443230/">Luísa Silva</a>, <a href="https://www.linkedin.com/in/mariana-silva-paula/">Mariana Silva</a>, <a href="https://www.linkedin.com/in/pedro-hagge/">Pedro Baptista</a>, <a href="https://www.linkedin.com/in/victor-severiano-de-carvalho-b57a05237/">Victor Carvalho</a>
 
 ## Descrição
 

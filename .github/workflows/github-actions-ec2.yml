@@ -23,9 +23,10 @@ jobs:
           TARGET: ${{ secrets.TARGET }}
           SCRIPT_AFTER: |
             git pull
-            cd 2023-1a-t03-grupo5/src/BackEnd/src
+            cd 2023-1a-t03-grupo5
             npm install
-            npm run build
-            pm2 restart all
+            pm2 stop all
+            pm2 start "npm run start"
+            
 
 

@@ -3,7 +3,7 @@ import axios from "axios"
 const ProjectService = {
   findByID: async (id: String) => {
     try {
-      const response = await axios.get(`/api/project/${id}`)
+      const response = await axios.get(`/Project/findByID/${id}`)
       return response.data
     }
     catch (error) {
@@ -12,7 +12,7 @@ const ProjectService = {
   },
   findAll: async () => {
     try {
-      const response = await axios.get('/api/project')
+      const response = await axios.get('/Project/findAll')
       return response.data
     }
     catch (error) {
@@ -21,7 +21,7 @@ const ProjectService = {
   },
   create: async (data: any) => {
     try {
-      const response = await axios.post('/api/project', { data })
+      const response = await axios.post('/Project/create', { data })
       return response.data
     }
     catch (error) {

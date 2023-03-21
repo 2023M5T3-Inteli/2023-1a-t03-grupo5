@@ -1,10 +1,9 @@
 name: Push-to-EC2
 
-# Trigger deployment only on push to master branch
 on:
   push:
     branches:
-      - main
+      - deploy-dev
 
 jobs:
   deploy:
@@ -23,10 +22,11 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.TARGET }}
           SCRIPT_AFTER: |
-            git pull
-            cd 2023-1a-t03-grupo5\src\BackEnd\src
-            npm install
-            npm run build
-            pm2 restart all
+            cd 2023-1a-t03-grupo5
+            sudo npm install
+            pm2 install
+            pm2 stop all
+            pm2 start "npm run start"
+            
 
 

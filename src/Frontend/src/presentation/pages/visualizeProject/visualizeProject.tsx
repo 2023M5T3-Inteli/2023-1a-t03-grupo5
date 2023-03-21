@@ -7,6 +7,7 @@ import StarIcon from '../../../../public/star.png'
 import AwardIcon from '../../../../public/award.png'
 import Button from '../../components/button/button'
 
+
 // type Props = {
 //   closeModal: Function;
 //   openEdit: Function;
@@ -73,7 +74,7 @@ const VisualizeProject: React.FC = () => {
               <p className="p-badge">Badge</p>
             </div>
             
-            <div className="badge-center"><img width={150} src={AwardIcon} /></div>
+            <div className="badge-center"><img className="image-bagde" src="/public/Ellipse2.png"/></div>
 
             <div className="badge-center"><Button type="default" text="Subscribe" size="large" /></div>
           </div>

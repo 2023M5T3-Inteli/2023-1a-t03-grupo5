@@ -1,36 +1,26 @@
 #login {
-    // deixa flexivel
     display: flex;
-    // deixa os elemento em formato de colunas 
-    // flex-direction: column;
-    // tamanho da largura da tela toda vw = view width 
-    // width: 100vw;
-    // tamanho da altura da tela toda vh = view hight 
     height: 100vh;
 
-    .container {
-        // 
+    .left-side {
+
+        background-color: #232323;
+        margin: auto;
+        width: 40%;
+        height: 90%;
+        border-radius: 15px;
         display: flex;
-        // muda o sentido dos elementos
-        flex-direction: column;
-        // background-color: red;
+        margin-top: 30px;
+        margin-bottom: 30px;
 
-        /* centraliza horizontalmente */
-        justify-content: center;
-
-        /* centraliza verticalmente */
-        align-items: center;
-
+        //margin: 40px 40px 40px 60px;, onde a ordem é top, right, bottom, left.
 
         .logo {
-            // largura
-            width: 180px;
-            height: 180px;
-            // espaçamento superior
-            margin-top: 40px;
-            // espaçamento inferior
-            margin-bottom: 40px;
-
+            // width: 180px;
+            // height: 180px;
+            width: 35%;
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
 
         input {
@@ -44,38 +34,63 @@
 
         .email {
             margin-bottom: 20px;
+            background-color: #383838;
+            color: #FFFFFF;
+        }
+
+        .pass {
+            margin-bottom: 20px;
+            background-color: #383838;
+            color: #FFFFFF;
         }
 
         .forget {
             width: 50%;
             font-size: 12px;
-            margin-top: 8px;
+            margin-top: 4px;
+            color: #FFFFFF;
         }
 
         p {
-            font-size: 18px;
-            align-items: center;
-            margin-bottom: 20px;
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #FFFFFF;
         }
 
         button {
-            height: 45px;
-            width: 180px;
-            // espaçamento superior
+            height: 40px; //40
+            width: 130px; // 5
             margin-top: 40px;
-            // espaçamento inferior
-            margin-bottom: 5px;
-            background-color: #0672CB;
-            color: white;
-            font-size: 16px;
+            margin-bottom: 20px;
+            background-color: #00FF66;
+            color: #363636;
             border-radius: 10px;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
+            font-size: 20px;
+        }
+    }
+
+    .right-side {
+
+        .lakitu-image {
+            width: 50%;
+
         }
 
-        .banner-login {
-            width: 80%;
+        .motivation-text {
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 40px;
+            text-align: left;
         }
+    }
+
+    .container {
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

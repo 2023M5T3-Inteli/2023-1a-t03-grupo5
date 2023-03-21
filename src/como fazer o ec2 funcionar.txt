@@ -5,3 +5,4 @@ yarn
 install pm2
 pm2 start "yarn run start"
 hello world
+oi

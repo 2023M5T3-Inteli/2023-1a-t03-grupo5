@@ -27,6 +27,15 @@ const ProjectService = {
     catch (error) {
       return []
     }
+  },
+  edit: async (data: any) => {
+    try {
+      const response = await axios.put(`/Project/update/${data.projectId}`, { data })
+      return response.data
+    }
+    catch (error) {
+      return []
+    }
   }
 }
 

@@ -120,9 +120,9 @@ const Home: React.FC = () => {
       {
         <div className = "body-cards">
           {
-          projects.map((project: any) => {
+          projects.map((project: any, index: number) => {
             return (
-              <div onClick={() => setOpenEditModal(!openEditModal)}>
+              <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
                 <Card {...project}></Card>
               </div>
             )

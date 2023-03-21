@@ -5,18 +5,18 @@ import './createProject-styles.scss'
 import '/public/styles/grid.scss'
 
 import Button from '../../components/button/button'
-import Textarea from '../../components/textarea/textarea'
 import Select from '../../components/select/select'
 import { flushSync } from 'react-dom'
 
 import CloseIcon from '@mui/icons-material/Close'
+import { createProject } from '../../../main/services/projectService'
 
 type Props = {
   closeModal: Function
 }
 
 const CreateProject = (props: Props) => {
-  const [disableCreate, setCanCreate] = useState(true)
+  const [disableCreate, setDisableCreate] = useState(true)
   const [areaOptions, setAreaOptions] = useState([
     {
       value: 'Technology',
@@ -43,6 +43,7 @@ const CreateProject = (props: Props) => {
       label: 'Shadowing'
     }
   ])
+
 
   const [usersOptions, setUsersOptions] = useState([
     {
@@ -79,7 +80,7 @@ const CreateProject = (props: Props) => {
     endSubscription: ""
   })
 
-  const [tag, setTag] = useState<any>(null)
+  const [tag, setTag] = useState('')
   // const [tags, setTags] = useState<any>(null)
   const [area, setArea] = useState('')
   const [role, setRole] = useState('')
@@ -168,6 +169,32 @@ const CreateProject = (props: Props) => {
     })
   }
 
+  const validateFields = () => {
+    console.log('entrou', disableCreate)
+    if (
+      data.name &&
+      data.description &&
+      data.addedRoles &&
+      data.endSubscription &&
+      data.startDate &&
+      data.endDate
+    ) {
+      setDisableCreate(false)
+    }
+    else {
+      setDisableCreate(true)
+    }
+  }
+
+  const submit = async () => {
+    let response = await createProject(data)
+    console.log(response)
+  }
+
+  useEffect(() => {
+    validateFields()
+  }, [data])
+
   return (
     <div id="create-project">
       <div className="container">
@@ -180,6 +207,7 @@ const CreateProject = (props: Props) => {
                 size='medium'
                 placeholder={"Enter the project name"}
                 type={"text"}
+                value={data.name}
                 onChange={(value: any) => setData({ ...data, name: value })}
               />
             </div>
@@ -191,6 +219,7 @@ const CreateProject = (props: Props) => {
                 className="InputCreatedescription"
                 placeholder={"Enter the project description"}
                 type='text'
+                value={data.description}
                 onChange={(value: any) => setData({ ...data, description: value })}
               />
             </div>
@@ -216,7 +245,7 @@ const CreateProject = (props: Props) => {
                   data.tags.map((tag: any, index: number) => {
                     return (
                       <>
-                        <div className='tag grid-3'>
+                        <div className='tag grid-3' key={`${tag}-${index}`}>
                           {tag}
                           <div className='remove-icon' onClick={() => removeTag(index)}>
                             <CloseIcon />
@@ -355,7 +384,7 @@ const CreateProject = (props: Props) => {
             </div>
 
             <div className="create-container">
-              <Button type="default" text="Create" size="medium" disabled={disableCreate} onClick={() => false} />
+              <Button type="default" text="Create" size="medium" disabled={disableCreate} onClick={() => submit()} />
             </div>
           </div>
         </div>

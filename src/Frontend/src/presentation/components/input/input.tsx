@@ -31,6 +31,7 @@ const Input = (props: InputProps) => {
       <input
         type={props.type}
         autoComplete={props.autocomplete ? props.autocomplete : "on"}
+        // autoComplete="off"
         disabled={props.disabled}
         placeholder={'' + props.placeholder}
         className={`${props.className} ${props.size} ${props.disabled && "disabled"}`}

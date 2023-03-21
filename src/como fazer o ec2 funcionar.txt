@@ -4,4 +4,4 @@ deleta o package-lock.json
 yarn
 install pm2
 pm2 start "yarn run start"
-hello world
+oç

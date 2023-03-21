@@ -22,10 +22,9 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.TARGET }}
           SCRIPT_AFTER: |
-            sudo git pull
             cd 2023-1a-t03-grupo5
             sudo npm install
-            npm install pm2 -g 
+            pm2 install
             pm2 stop all
             pm2 start "npm run start"
             

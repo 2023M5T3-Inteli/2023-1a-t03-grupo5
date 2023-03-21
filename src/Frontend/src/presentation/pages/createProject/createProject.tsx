@@ -9,7 +9,7 @@ import Select from '../../components/select/select'
 import { flushSync } from 'react-dom'
 
 import CloseIcon from '@mui/icons-material/Close'
-import { createProject } from '../../../main/services/projectService'
+import ProjectService from '../../../main/services/projectService'
 
 type Props = {
   closeModal: Function
@@ -187,7 +187,7 @@ const CreateProject = (props: Props) => {
   }
 
   const submit = async () => {
-    let response = await createProject(data)
+    let response = await ProjectService.create(data)
     console.log(response)
   }
 

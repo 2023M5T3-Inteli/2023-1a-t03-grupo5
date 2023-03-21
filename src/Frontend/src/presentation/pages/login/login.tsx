@@ -1,33 +1,82 @@
-import React from "react"
-import Logo from "/public/imgDell.png"
+import React, { useEffect } from "react"
+import Logo from "/public/imageDell.png"
+import Lakitu from "/public/image-lakitu.png";
 import ImgLogin from "/public/img-tela-login.png"
 import "./login-styles.scss"
 import { Link } from "react-router-dom"
+import { useState } from "react"
+import axios from "axios"
+// import cors from "cors"
 
 type Props = {
     changePage: Function
 }
 
 let TelaLogin = (props: Props) => {
+
+    const [email, setEmail] = useState('')
+    const [pass, setPass] = useState('')
+
+
+    // const submit = () => {
+    //     //alert(`Email: ${email}, Senha: ${pass} `);
+    // }
+
+    // async é usada para indicar que a função é assíncrona e que retornará uma promessa.
+    // faz uma requisição HTTP POST usando a biblioteca Axios para uma URL específica e com alguns dados no corpo da requisição.
+
+    const handleInput = async () => {
+        try {
+            console.log(email);
+            console.log(pass)
+            const response = await axios.post(
+                "http://localhost:3001/auth/login", {
+                email: email,
+                password: pass
+            });
+
+            console.log(response)
+
+            console.log(email, pass);
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    // useEffect limita a execução da função handleInput, o [] no final faz com execute apenas uma vez 
+    // useEffect(() => {
+    //     handleInput();
+    // }, [])
+
     return (
         <div id="login">
-            <div className="grid-5 container">
-                {/* <div id="lado_esquerdo"> */}
+            <div className="grid-7 container left-side">
                 <img className="logo" src={Logo} alt="" />
-                <p>Entre com</p>
-                <input className="email" type="text" placeholder="E-mail" />
-                <input type="text" placeholder="Senha" />
-                <a className="forget" href="">Esqueceu a senha?</a>
+                <p>Email</p>
+                <input className="email" type="text" placeholder="E-mail" value={email} onChange={(eventInput) => setEmail(eventInput.target.value)} />
+                <p>Password</p>
+                <input className="pass" type="password" placeholder="Senha" value={pass} onChange={(eventPassword) => setPass(eventPassword.target.value)} />
+                <a className="forget" href="">Forget the password?</a>
                 <Link to={'/'}>
-                    <button id="confirma-botao" onClick={() => props.changePage(0)}>Confirma</button>
+                    <button id="confirma-botao" onClick={() => {
+                        // submit()
+                        handleInput();
+                        // props.changePage(0)
+                    }}>Login</button>
                 </Link>
-                {/* </div> */}
+
             </div>
 
-            <div className="grid-7 container">
-                <img className="banner-login" src={ImgLogin} alt="" />
+            <div className="grid-5 container right-side">
+                <h1 className="motivation-text">LEARN &</h1>
+                <h1 className="motivation-text">DISCOVER</h1>
+                <h1 className="motivation-text"> WHILE YOU’RE</h1>
+                <h1 className="motivation-text">WORKING!</h1>
+                <img className="lakitu-image" src={Lakitu} alt="" />
             </div>
-        </div>
+        </div >
+
     )
 }
 

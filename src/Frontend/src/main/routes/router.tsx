@@ -35,9 +35,10 @@ const Router: React.FC = () => {
         <Route path='/applies' element={<VisualizeApplication />}></Route>
         <Route path='/404' element={<NotFound />}></Route>
         <Route path='/projects' element={<MyProjects />}></Route>
-        <Route path='/ranking' element={<Ranking/>}></Route>
+        <Route path='/ranking' element={<Ranking />}></Route>
         <Route path='/VisualizeProject' element={<VisualizeProject />}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
+        <Route path='/applicationForm' element={<ApplicationForm />}></Route>
       </Routes>
     </BrowserRouter>
   )

@@ -45,23 +45,23 @@ const EditProject = (props: Props) => {
 
   const [usersOptions, setUsersOptions] = useState([
     {
-      value: "Thiago Pontes",
+      value: "1",
       label: "Thiago Pontes"
     },
     {
-      value: "Marina Duarte",
+      value: "2",
       label: "Marina Duarte"
     },
     {
-      value: "Rafael Rodrigues",
+      value: "3",
       label: "Rafael Rodrigues"
     },
     {
-      value: "Paula Diniz",
+      value: "4",
       label: "Paula Diniz"
     },
     {
-      value: "Nathalia Melo",
+      value: "5",
       label: "Nathalia Melo"
     },
   ])
@@ -229,7 +229,7 @@ const EditProject = (props: Props) => {
                   data.tags.map((tag: any, index: number) => {
                     return (
                       <>
-                        <div className='tag grid-3'>
+                        <div className='tag grid-3' key={`${tag}-${index}`}>
                           {tag}
                           <div className='remove-icon' onClick={() => removeTag(index)}>
                             <CloseIcon />

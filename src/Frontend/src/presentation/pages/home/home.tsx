@@ -11,6 +11,7 @@ import EditProject from '../editProject/editProject'
 import VisualizeProject from '../visualizeProject/visualizeProject'
 import ApplicationForm from '../applicationForm/applicationForm'
 import DeleteProject from '../deleteProject/deleteProject'
+import SearchBar from '../../components/searchBar/searchBar'
 
 const Home: React.FC = () => {
   const isMobile = true;
@@ -19,6 +20,7 @@ const Home: React.FC = () => {
   const [openViewModal, setOpenViewModal] = useState(false)
   const [openApplyModal, setOpenApplyModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(true)
+  const [search, setSearch] = useState("")
 
   const closeCreateModal = () => {
     setOpenCreateModal(!openCreateModal)
@@ -103,8 +105,27 @@ const Home: React.FC = () => {
     }
   ]
 
+  // useEffect(() => {
+  //   filter
+  // }, [search])
+
+  const filter = () => {
+    return projects.map((project: any, index: number) => {
+      if (project.name.includes(search)) {
+        return (
+          <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
+            <Card {...project}></Card>
+          </div>
+        )
+      }
+    })
+  }
+
   return (
     <div className='home'>
+      <div className='search-container'>
+        <SearchBar onChange={(value: string) => setSearch(value)} />
+      </div>
       {
         openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
       }
@@ -118,15 +139,15 @@ const Home: React.FC = () => {
         openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />
       }
       {
-        <div className = "body-cards">
+        <div className="body-cards">
           {
-          projects.map((project: any, index: number) => {
-            return (
-              <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
-                <Card {...project}></Card>
-              </div>
-            )
-          })
+            projects.map((project: any, index: number) => {
+              return (
+                <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
+                  <Card {...project}></Card>
+                </div>
+              )
+            })
           }
         </div>
         // 

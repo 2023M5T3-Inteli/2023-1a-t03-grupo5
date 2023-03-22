@@ -4,10 +4,14 @@
 .home {
   padding: sp.$stack-lg sp.$stack-xs;
   // padding: sp.$stack-md 0; 
-
-  .grid {
-    margin: auto;
+  
+  .search-container {
+    margin-left: sp.$stack-lg;
+    margin-bottom: sp.$stack-md;
   }
+  // .grid {
+  //   margin: auto;
+  // }
 
   .body-cards {
     display: flex;

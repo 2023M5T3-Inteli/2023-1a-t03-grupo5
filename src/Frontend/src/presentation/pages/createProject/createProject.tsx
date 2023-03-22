@@ -47,23 +47,23 @@ const CreateProject = (props: Props) => {
 
   const [usersOptions, setUsersOptions] = useState([
     {
-      value: "Thiago Pontes",
+      value: "1",
       label: "Thiago Pontes"
     },
     {
-      value: "Marina Duarte",
+      value: "2",
       label: "Marina Duarte"
     },
     {
-      value: "Rafael Rodrigues",
+      value: "3",
       label: "Rafael Rodrigues"
     },
     {
-      value: "Paula Diniz",
+      value: "4",
       label: "Paula Diniz"
     },
     {
-      value: "Nathalia Melo",
+      value: "5",
       label: "Nathalia Melo"
     },
   ])
@@ -72,7 +72,8 @@ const CreateProject = (props: Props) => {
     name: "",
     description: "",
     tags: [],
-    coLeader: "",
+    ownerId: "1",
+    coleaderId: "",
     addedRoles: [],
     badge: "",
     startDate: "",
@@ -265,7 +266,7 @@ const CreateProject = (props: Props) => {
 
             <div className="input-container">
               <h4 className="input-title ">Co-leader</h4>
-              <Select options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coLeader: value })} />
+              <Select options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
             </div>
 
             <div className="role-container">

@@ -40,19 +40,9 @@ May the force be with you!
   &emsp;|-->workflows<br>
   &emsp;|-->android<br>
   &emsp;|-->HTML<br>
-|-->imagens<br>
 |-->src<br>
   &emsp;|-->Backend<br>
-    &emsp;|-->dist<br>
-    &emsp;|-->prisma<br>
-    &emsp;|-->src<br>
-    &emsp;|-->test<br>
-    &emsp;|-->node_modules<br>
   &emsp;|-->Frontend<br>
-    &emsp;|-->dist<br>
-    &emsp;|-->src<br>
-    &emsp;|-->test<br>
-    &emsp;|-->node_modules<br>
 |readme.md<br>
 
 A pasta raiz contem dois arquivos que devem ser alterados:

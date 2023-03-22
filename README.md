@@ -33,16 +33,26 @@ May the force be with you!
 
 -Raiz<br>
 |<br>
-|-->docs<br>
 |-->documentos<br>
   &emsp;|-->antigos<br>
-  &emsp;|GDD.docx ou Documentação.docx<br>
-|-->executáveis<br>
-  &emsp;|-->windows<br>
+  &emsp;|Documentação.docx<br>
+|-->.github<br>
+  &emsp;|-->workflows<br>
   &emsp;|-->android<br>
   &emsp;|-->HTML<br>
 |-->imagens<br>
 |-->src<br>
+  &emsp;|-->Backend<br>
+    &emsp;|-->dist<br>
+    &emsp;|-->prisma<br>
+    &emsp;|-->src<br>
+    &emsp;|-->test<br>
+    &emsp;|-->node_modules<br>
+  &emsp;|-->Frontend<br>
+    &emsp;|-->dist<br>
+    &emsp;|-->src<br>
+    &emsp;|-->test<br>
+    &emsp;|-->node_modules<br>
 |readme.md<br>
 
 A pasta raiz contem dois arquivos que devem ser alterados:

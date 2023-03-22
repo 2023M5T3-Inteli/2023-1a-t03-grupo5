@@ -12,6 +12,9 @@ import VisualizeProject from '../visualizeProject/visualizeProject'
 import ApplicationForm from '../applicationForm/applicationForm'
 import DeleteProject from '../deleteProject/deleteProject'
 
+//import axios script
+import projectService from '../../../main/services/projectService'
+
 const Home: React.FC = () => {
   const isMobile = true;
   const [openCreateModal, setOpenCreateModal] = useState(false)
@@ -19,6 +22,7 @@ const Home: React.FC = () => {
   const [openViewModal, setOpenViewModal] = useState(false)
   const [openApplyModal, setOpenApplyModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(true)
+  const [projects, setProjects] = useState([])
 
   const closeCreateModal = () => {
     setOpenCreateModal(!openCreateModal)
@@ -42,66 +46,72 @@ const Home: React.FC = () => {
     setOpenConfirmModal(!openConfirmModal)
   }
 
-  const projects: Project[] = [
-    {
-      title: 'Project 1',
-      status: 'Finished',
-      description: 'We are find people with skills in React and Nest joas',
-      peoples: '10'
-    },
-    {
-      title: 'Project 2',
-      status: 'On Going',
-      description: 'Project built with Next',
-      peoples: '5'
-    },
-    {
-      title: 'Project 3',
-      status: 'On Going',
-      description: 'Project built with Next',
-      peoples: '15'
-    },
-    {
-      title: 'Project 1',
-      status: 'On Going',
-      description: 'Project built with Next',
-      peoples: '7'
-    },
-    {
-      title: 'Project 2',
-      status: 'On Going',
-      description: 'Project built with Next',
-      peoples: '12'
-    }, {
-      title: 'Project 3',
-      status: 'Finished',
-      description: 'Project built with Next',
-      peoples: '8'
-    },
-    {
-      title: 'Project 3',
-      status: 'On Going',
-      description: 'Project built with Next',
-      peoples: '3'
-    },
-    {
-      title: 'Project 1',
-      status: 'Finished',
-      description: 'Project built with Next',
-      peoples: '1'
-    },
-    {
-      title: 'Project 2',
-      status: 'On Going',
-      description: 'Project built with Next',
-      peoples: '5'
-    }, {
-      title: 'Project 3',
-      status: 'On Going',
-      description: 'Project built with Next',
-      peoples: '4'
-    }
-  ]
+    useEffect(() => {
+      projectService.findAll().then((response) => {
+        setProjects(response.data)
+      })
+    }, [])
+  
+  // const projects: Project[] = [
+  //   {
+  //     title: 'Project 1',
+  //     status: 'Finished',
+  //     description: 'We are find people with skills in React and Nest joas',
+  //     peoples: '10'
+  //   },
+  //   {
+  //     title: 'Project 2',
+  //     status: 'On Going',
+  //     description: 'Project built with Next',
+  //     peoples: '5'
+  //   },
+  //   {
+  //     title: 'Project 3',
+  //     status: 'On Going',
+  //     description: 'Project built with Next',
+  //     peoples: '15'
+  //   },
+  //   {
+  //     title: 'Project 1',
+  //     status: 'On Going',
+  //     description: 'Project built with Next',
+  //     peoples: '7'
+  //   },
+  //   {
+  //     title: 'Project 2',
+  //     status: 'On Going',
+  //     description: 'Project built with Next',
+  //     peoples: '12'
+  //   }, {
+  //     title: 'Project 3',
+  //     status: 'Finished',
+  //     description: 'Project built with Next',
+  //     peoples: '8'
+  //   },
+  //   {
+  //     title: 'Project 3',
+  //     status: 'On Going',
+  //     description: 'Project built with Next',
+  //     peoples: '3'
+  //   },
+  //   {
+  //     title: 'Project 1',
+  //     status: 'Finished',
+  //     description: 'Project built with Next',
+  //     peoples: '1'
+  //   },
+  //   {
+  //     title: 'Project 2',
+  //     status: 'On Going',
+  //     description: 'Project built with Next',
+  //     peoples: '5'
+  //   }, {
+  //     title: 'Project 3',
+  //     status: 'On Going',
+  //     description: 'Project built with Next',
+  //     peoples: '4'
+  //   }
+  // ]
 
   return (
     <div className='home'>

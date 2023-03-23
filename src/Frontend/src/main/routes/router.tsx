@@ -8,7 +8,7 @@ import VisualizeProject from '../../presentation/pages/visualizeProject/visualiz
 import ApplicationForm from '../../presentation/pages/applicationForm/applicationForm'
 import VisualizeApplication from '../../presentation/pages/visualizeApplication/visualizeApplication'
 import NotFound from '../../presentation/pages/notFound/404'
-import SideBar from '../../presentation/components/partials/SideBar/SideBar'
+import Sidebar from '../../presentation/components/partials/sideBar/sidebar'
 import MyProjects from '../../presentation/pages/myProjects/myProjects'
 import Ranking from '../../presentation/pages/ranking/Ranking'
 import Perfil from '../../presentation/pages/perfil/perfil'
@@ -29,7 +29,7 @@ const Router: React.FC = () => {
   return (
     <BrowserRouter>
       {
-        !path.includes('login' || '404') && <Navbar page={active} changePage={changePage} />
+        !path.includes('login' || '404') && <Sidebar page={active} changePage={changePage} />
       }
       <Routes>
         <Route path='/' element={<Home />}></Route>
@@ -41,7 +41,7 @@ const Router: React.FC = () => {
         <Route path='/VisualizeProject' element={<VisualizeProject />}></Route>
         <Route path='/perfil' element={<Perfil />}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
-        {/* <Route path='/applicationForm' element={<ApplicationForm />}></Route> */}
+        <Route path='/applicationForm' element={<ApplicationForm closeModal={() => false}/>}></Route>
       </Routes>
     </BrowserRouter>
   )

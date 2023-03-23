@@ -12,6 +12,7 @@ import VisualizeProject from '../visualizeProject/visualizeProject'
 import ApplicationForm from '../applicationForm/applicationForm'
 import DeleteProject from '../deleteProject/deleteProject'
 import SearchBar from '../../components/searchBar/searchBar'
+import { Link } from 'react-router-dom'
 
 const Home: React.FC = () => {
   const isMobile = true;
@@ -143,9 +144,14 @@ const Home: React.FC = () => {
           {
             projects.map((project: any, index: number) => {
               return (
-                <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
-                  <Card {...project}></Card>
-                </div>
+                <Link to="/visualizeProject">
+                  {/* <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
+                    <Card {...project}></Card>
+                  </div> */}
+                  <div className='grid-4' key={index}>
+                    <Card {...project}></Card>
+                  </div>
+                </Link>
               )
             })
           }
@@ -155,12 +161,12 @@ const Home: React.FC = () => {
       {/* {
         openConfirmModal && <Modal type="warning" closeModal={() => toggleConfirmModal()} content={<DeleteProject closeModal={() => toggleConfirmModal()} />} />
       } */}
-      <div className="button-container">
+      {/* <div className="button-container">
         <div className='add-icon' onClick={() => setOpenCreateModal(!openCreateModal)}>
           <AddIcon />
         </div>
         <p className='tooltip'>Criar Projeto</p>
-      </div>
+      </div> */}
     </div>
   )
 }

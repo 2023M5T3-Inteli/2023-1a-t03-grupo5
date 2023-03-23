@@ -6,6 +6,10 @@
   font-family: t.$font-primary;
 }
 
+#root {
+  display: flex;
+}
+
 body {
   height: 100%;
   // background: darkgrey;

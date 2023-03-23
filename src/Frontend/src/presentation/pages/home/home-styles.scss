@@ -13,14 +13,21 @@
   //   margin: auto;
   // }
 
-  .body-cards {
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px
-    //overflow-y: scroll;
+  a {
+    text-decoration: none;
   }
+
+  .card {
+    margin-bottom: 20px;
+  }
+  // .body-cards {
+  //   display: flex;
+  //   width: 100%;
+  //   flex-wrap: wrap;
+  //   justify-content: center;
+  //   gap: 40px;
+  //   //overflow-y: scroll;
+  // }
 
   .button-container {
     position: relative;

@@ -9,7 +9,8 @@ let Perfil = () => {
     const [user, setUser] = useState({
         name: '',
         area: '',
-        habilities: ''
+        habilities: '',
+        photoURL: ''
     });
 
     const getUser = async () => {
@@ -31,6 +32,9 @@ let Perfil = () => {
                             <div className="photo">
                                 <img className="imgPerfil" src ={"/imgPerfil.png"}></img>
                             </div>
+                            {/* <div className="photo">
+                                <img className="imgPerfil" src ={user.photoURL}></img>
+                            </div> */}
                             <div className="nameDiv">
                                 <h1 className="name">{user.name}</h1>
                             </div>

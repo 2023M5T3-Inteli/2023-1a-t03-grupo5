@@ -39,6 +39,11 @@
       // margin-left: 5px;
     }
 
+    a {
+      color: c.$primary;
+      text-decoration: none;
+    }
+
     .sidebar-items {
       margin-top: sp.$stack-lg;
       display: flex;
@@ -47,11 +52,6 @@
       justify-content: center;
       gap: sp.$stack-sm;
       color: c.$primary;
-
-      a {
-        color: c.$primary;
-        text-decoration: none;
-      }
 
       .item {
         svg {
@@ -168,5 +168,12 @@
         }
       }
     }
+
+    .logout {
+      svg {
+        margin-left: sp.$stack-xs;
+      }
+    }
   }
+
 }

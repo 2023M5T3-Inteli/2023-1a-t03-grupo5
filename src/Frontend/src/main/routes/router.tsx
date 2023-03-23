@@ -8,7 +8,7 @@ import VisualizeProject from '../../presentation/pages/visualizeProject/visualiz
 import ApplicationForm from '../../presentation/pages/applicationForm/applicationForm'
 import VisualizeApplication from '../../presentation/pages/visualizeApplication/visualizeApplication'
 import NotFound from '../../presentation/pages/notFound/404'
-import Sidebar from '../../presentation/components/partials/sideBar/sidebar'
+import Sidebar from '../../presentation/components/partials/sidebar/sidebar'
 import MyProjects from '../../presentation/pages/myProjects/myProjects'
 import Ranking from '../../presentation/pages/ranking/Ranking'
 import Perfil from '../../presentation/pages/perfil/perfil'

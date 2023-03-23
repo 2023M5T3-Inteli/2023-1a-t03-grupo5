@@ -141,6 +141,7 @@ const Sidebar: any = (props: Props) => {
         </div> */}
 
         <Link to="/login" className="logout" onClick={() => props.changePage(-1)}>
+          {menuOpened && <p>Sair</p>}
           <PowerSettingsNewIcon />
         </Link>
 

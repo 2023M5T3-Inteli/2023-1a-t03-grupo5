@@ -96,26 +96,6 @@ const VisualizeProject: React.FC = () => {
 
           <div  className="info-down"> 
 
-            <div className="badge-visualize badge-center">
-              <img width={28} src={AwardIcon} />
-              <p className="p-badge">Badge</p>
-            </div>
-
-            <div className="info-visualize">
-              <div className="icons-visualize"><img width={28} src={AwardIcon} /></div>
-              <div className="p-visualize"><p >Status: Available</p></div>
-            </div>
-
-            <div className="info-visualize">
-              <div className="icons-visualize"><img width={28} src={UserIcon} /></div>
-              <div className="p-visualize"><p >Expiration date:</p>
-                <p>23/02/2023</p></div>
-            </div>
-
-            <div className="line2"></div>
-
-            <div className="info-down">
-
               <div className="badge-visualize badge-center">
                 <img width={28} src={AwardIcon} />
                 <p className="p-badge">Badge</p>
@@ -131,7 +111,6 @@ const VisualizeProject: React.FC = () => {
 
         </div>
       </div>
-    </div>
     </div>
 
   );

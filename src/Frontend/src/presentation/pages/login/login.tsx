@@ -62,7 +62,7 @@ let TelaLogin = (props: Props) => {
                     <button id="confirma-botao" onClick={() => {
                         // submit()
                         handleInput();
-                        // props.changePage(0)
+                        props.changePage(0)
                     }}>Login</button>
                 </Link>
 

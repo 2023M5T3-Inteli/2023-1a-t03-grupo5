@@ -68,13 +68,29 @@
           color: c.$highlight;
         }
       }
-      
+
       .add-button {
         cursor: pointer;
       }
     }
 
     transition: all 0.2s;
+  }
+
+  .logout {
+    position: absolute;
+    bottom: sp.$stack-md;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    svg {
+      width: 32px;
+      height: 32px;
+      color: c.$primary;
+    }
   }
 
   .profile {
@@ -109,7 +125,7 @@
       box-shadow: 0px 3px 3px 0px #00000040;
       border-radius: 3px;
       cursor: pointer;
-      
+
       div {
         width: 60px;
         padding: sp.$stack-xs;
@@ -137,7 +153,7 @@
       // align-items: flex-start;
       text-align: center;
       // margin-left: sp.$stack-md;
-  
+
       .item {
         display: flex;
         height: 32px;

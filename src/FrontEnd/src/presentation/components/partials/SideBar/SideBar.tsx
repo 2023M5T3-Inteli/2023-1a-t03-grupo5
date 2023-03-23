@@ -17,7 +17,10 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import PersonIcon from '@mui/icons-material/Person'
 import PermIdentityIcon from '@mui/icons-material/PermIdentity'
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import LogoutIcon from '@mui/icons-material/Logout'
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
 
 import Modal from '../../modal/modal'
 import CreateProject from '../../../pages/createProject/createProject'
@@ -136,6 +139,11 @@ const Sidebar: any = (props: Props) => {
             )
           }
         </div> */}
+
+        <Link to="/login" className="logout" onClick={() => props.changePage(-1)}>
+          <PowerSettingsNewIcon />
+        </Link>
+
       </div>
 
       {

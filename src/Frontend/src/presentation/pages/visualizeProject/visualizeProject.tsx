@@ -7,6 +7,9 @@ import StarIcon from '../../../../public/star.png'
 import AwardIcon from '../../../../public/award.png'
 import Button from '../../components/button/button'
 import { Link } from "react-router-dom";
+import {useState, useEffect} from "react";
+import ProjectService from "../../../main/services/projectService";
+import UserService from "../../../main/services/userService"
 
 
 // type Props = {
@@ -15,28 +18,51 @@ import { Link } from "react-router-dom";
 //   openApply: Function;
 // }
 
+
 const VisualizeProject: React.FC = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await ProjectService.findByID("24df9c0a-1e15-49fa-959c-d3ea17577eda")
+      .then(res => res);
+      
+      setProject(response);
+    }
+    
+    fetchData()
+
+    const fetchUser = async () => {
+      const response = await UserService.findByID("24df9c0a-1e15-49fa-959c-d3ea17577eda")
+      .then(res => res);
+      
+      setProject(response);
+    }
+
+    fetchUser()
+
+  },[])
+
+  const [project, setProject] = useState({
+    name: "Loading...", 
+    description: "loading...",
+    ownerId:"loading...",
+    coleaderId: "loading...",
+    status: "loading...",
+    end:"xx/xx/xxx",
+  })
+
   return (
     <div className="visualize-project">
       <div className="container-visualize">
         <div className=" grid-8 project-info" >
-          <div className=" project-start">
-            <h1>Project Title</h1>
-            <img width={28} src={StarIcon} />
-          </div>
-          <p className="p-project">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+        <div className=" project-start">
+        <h1>{project.name}</h1>
+        <img width={28} src={StarIcon} />
+        </div>
+        <p className="p-project">
+            {project.description}
           </p>
-          <p className="p-project">Leader: Gabriel Batista</p>
-          <p className="p-project">Co leader: Victor Santos</p>
+          <p className="p-project">Leader:{project.ownerId}</p>
+          <p className="p-project">Co leader:{project.coleaderId}</p>
 
           <div className="tags-visualize">
             <h2 className="h2-tag">Tags:</h2>
@@ -50,9 +76,29 @@ const VisualizeProject: React.FC = () => {
         <div className="grid-4 right-side">
           <div className="status-info" >
 
-            <div className="info-visualize">
-              <div className="icons-visualize"><img width={28} src={UserIcon} /></div>
-              <div className="p-visualize"><p >25/50</p></div>
+          <div className="info-visualize">
+            <div className="icons-visualize"><img width={28} src={UserIcon} /></div>
+            <div className="p-visualize"><p >25/50</p></div>
+          </div>
+
+          <div className="info-visualize">
+            <div className="icons-visualize"><img width={28} src={AwardIcon} /></div>
+            <div className="p-visualize"><p >Status: {project.status}</p></div>
+          </div>
+
+          <div className="info-visualize">
+            <div className="icons-visualize"><img width={28} src={UserIcon} /></div>
+            <div className="p-visualize"><p >Expiration date:</p>
+            <p>{new Date(project.end).getMonth()}/{new Date(project.end).getDate()}/{new Date(project.end).getFullYear()}</p></div>
+          </div>
+
+          <div className="line2"></div>
+
+          <div  className="info-down"> 
+
+            <div className="badge-visualize badge-center">
+              <img width={28} src={AwardIcon} />
+              <p className="p-badge">Badge</p>
             </div>
 
             <div className="info-visualize">
@@ -85,10 +131,10 @@ const VisualizeProject: React.FC = () => {
 
         </div>
       </div>
-
+    </div>
     </div>
 
   );
 };
 
-export default VisualizeProject;
+export default VisualizeProject

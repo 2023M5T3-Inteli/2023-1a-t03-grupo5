@@ -9,7 +9,7 @@ let Perfil = () => {
     const [user, setUser] = useState({
         name: '',
         area: '',
-
+        habilities: ''
     });
 
     const getUser = async () => {
@@ -57,6 +57,9 @@ let Perfil = () => {
                             <div className="tagsDiv">
                                 <p className="tagTextTitle">Tags: </p>
                                 <div className="tags">
+                                    {/* <div className="tag">
+                                        <p className="tagText">{user.habilities}</p>
+                                    </div> */}
                                     <div className="tag">
                                         <p className="tagText">Tag 2</p>
                                     </div>

@@ -55,6 +55,15 @@ export class UsersController {
     }
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Get("/Info")
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 404, description: 'Error: Not Found'})
+  async getUser(@Req() req:any) {
+    console.log(req.user)
+    return this.usersService.getUser(req.user.id)
+  }
+
   @ApiHeader({
     name: 'getAll',
     description: 'Get all users',

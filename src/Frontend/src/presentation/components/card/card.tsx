@@ -7,26 +7,29 @@ import StarIcon from '/public/star.png'
 import './card-styles.scss'
 
 const Card: any = (props: any) => {
+
+  console.log(props)
+
   return (
     <div className='card'>
       <div className='body-card'>
         <div className="container">
           <div className='first-container'>
             <div>
-              <h2 className='title'>{props.title}</h2>
+              <h2 className='title'>{props.name}</h2>
             </div>
 
             <div className='status'>
               <div className='people'>
-                <p>{props.peoples}</p>
+                <p>{props.applies.length}</p>
                 <span>
                   <img width={24} src={UserIcon} />
                 </span>
               </div>
               <div className='status-div'>
-                <p>{props.status}</p>
+                <p>{props.blockedSubscription ? "Finished" : "Opened"}</p>
                 {
-                  props.status == "Finished" ?
+                  props.blockedSubscription ?
                     <span className='red-circle'></span> :
                     <span className='green-circle'></span>
                 }

@@ -3,9 +3,11 @@ import Logo from "/public/imageDell.png"
 import Lakitu from "/public/image-lakitu.png";
 import ImgLogin from "/public/img-tela-login.png"
 import "./login-styles.scss"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
+import cookie from 'react-cookies'
+
 // import cors from "cors"
 
 type Props = {
@@ -16,6 +18,8 @@ let TelaLogin = (props: Props) => {
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
+
+    const navigate = useNavigate()
 
 
     // const submit = () => {
@@ -36,6 +40,10 @@ let TelaLogin = (props: Props) => {
             });
 
             console.log(response)
+
+            cookie.save("token", response.data.token)
+
+            navigate("/")
 
             console.log(email, pass);
 
@@ -58,13 +66,11 @@ let TelaLogin = (props: Props) => {
                 <p>Password</p>
                 <input className="pass" type="password" placeholder="Senha" value={pass} onChange={(eventPassword) => setPass(eventPassword.target.value)} />
                 <a className="forget" href="">Forget the password?</a>
-                <Link to={'/'}>
-                    <button id="confirma-botao" onClick={() => {
-                        // submit()
-                        handleInput();
-                        props.changePage(0)
-                    }}>Login</button>
-                </Link>
+                <button id="confirma-botao" onClick={() => {
+                    // submit()
+                    handleInput();
+                    props.changePage(0)
+                }}>Login</button>
 
             </div>
 

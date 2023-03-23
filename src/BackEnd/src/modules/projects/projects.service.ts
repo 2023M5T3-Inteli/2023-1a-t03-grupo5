@@ -41,7 +41,11 @@ export class ProjectsService {
 
     async getAllProjects(){
         try {
-            const allProjects = await this.prisma.project.findMany({});
+            const allProjects = await this.prisma.project.findMany({
+                include: {
+                    applies: true
+                }
+            });
             return allProjects;
         } catch (err) {
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})

@@ -247,6 +247,38 @@ export class UsersService {
         }
     }
 
+    async getUser(id: string) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                id: id
+            },
+            include: {
+                projects: true,
+                projectsColeader: true
+            }
+        });
+
+        if (!user) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "User not found"})
+        }
+
+        return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            bornDate: user.bornDate,
+            gender: user.gender,
+            n_dell: user.n_dell,
+            managerId: user.managerId,
+            habilities: user.habilities,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+            isAdmin: user.isAdmin,
+            projects: user.projects,
+            projectsColeader: user.projectsColeader
+        }
+    }
+
     async getOneByEmail(email: string) {
         const user = await this.prisma.user.findUnique({
             where: {

@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./perfil-styles.scss";
 import { Link } from "react-router-dom";
+import userService from "../../../main/services/userService";
 
 
 //404 page
 let Perfil = () => {
+    const [user, setUser] = useState({
+        name: '',
+        area: '',
+
+    });
+
+    const getUser = async () => {
+        const user = await userService.validate();
+        console.log(user)
+        setUser(user);
+    }
+
+    useEffect(() => {
+        getUser()
+    }, []);
+
     return (
         <div className="containerPerfil">
             <div className="backgroundPerfil">
@@ -15,10 +32,10 @@ let Perfil = () => {
                                 <img className="imgPerfil" src ={"/imgPerfil.png"}></img>
                             </div>
                             <div className="nameDiv">
-                                <h1 className="name">Victor Carvalho</h1>
+                                <h1 className="name">{user.name}</h1>
                             </div>
                             <div className="areaDiv">
-                                <p className="area">Software Engineer</p>
+                                <p className="area">{user.area}</p>
                             </div>
                             <div className="linkedinDiv">
                                 <img width={36} src={"/linkedin.png"}></img>

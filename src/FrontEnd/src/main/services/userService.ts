@@ -1,4 +1,5 @@
 import axios from "axios";
+import cookie from "react-cookies";
 
 const PORT = 3001;
 const HOST = "localhost";
@@ -8,6 +9,21 @@ const UserService = {
   findByID: async (id: String) => {
     try {
       const response = await axios.get(`${API_URL}/user/info/${id}`);
+      return response.data;
+    } catch (error) {
+      return [];
+    }
+  },
+
+  validate: async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+
+    try {
+      const response = await axios.get(`${API_URL}/user/Info`, config);
       return response.data;
     } catch (error) {
       return [];

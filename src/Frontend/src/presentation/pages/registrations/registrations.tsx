@@ -1,8 +1,10 @@
 import "./registrations-styles.scss";
-import React from "react";
+import React ,{useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 
 let Registrations = () => {
+
+    
     return (
         <div className="bodyRegistrations">
             <div className="containerRegistrations">

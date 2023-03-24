@@ -22,7 +22,7 @@ type Props = {
 const EditProject = (props: Props) => {
   const location = useLocation()
   const [loading, setLoading] = useState(true)
-  const [disableEdit, setCanEdit] = useState(true)
+  const [disableEdit, setDisableEdit] = useState(true)
   const [areaOptions, setAreaOptions] = useState([
     {
       value: 'Technology',
@@ -74,6 +74,7 @@ const EditProject = (props: Props) => {
   ])
 
   const [data, setData] = useState<any>({
+    projectId: "",
     name: "",
     description: "",
     tags: [],
@@ -214,6 +215,39 @@ const EditProject = (props: Props) => {
     setLoading(false)
   }
 
+  const validateFields = () => {
+    console.log('entrou', disableEdit)
+    if (
+      data.name &&
+      data.description &&
+      data.roles &&
+      data.endSubscription &&
+      data.start &&
+      data.end
+    ) {
+      setDisableEdit(false)
+    }
+    else {
+      setDisableEdit(true)
+    }
+  }
+
+  const submit = async () => {
+    let response = await ProjectService.edit({
+      projectId: data.projectId,
+      name: data.name,
+      description: data.description,
+      tags: JSON.stringify(data.tags),
+      roles: JSON.stringify(data.roles),
+      start: new Date(data.start),
+      end: new Date(data.end),
+      badge: data.badge,
+      endSubscription: new Date(data.endSubscription),
+      coleaderId: data.coleaderId,
+    })
+    console.log(response)
+  }
+
   useEffect(() => {
     getProject(location.state.projectId)
 
@@ -221,6 +255,11 @@ const EditProject = (props: Props) => {
 
   useEffect(() => {
     createOptions()
+  }, [data])
+
+  useEffect(() => {
+    validateFields()
+    console.log(data)
   }, [data])
 
   return (
@@ -397,8 +436,8 @@ const EditProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
-                value={data.startDate}
-                onChange={(value: any) => setData({ ...data, startDate: value })}
+                value={data.start}
+                onChange={(value: any) => setData({ ...data, start: value })}
               />
             </div>
 
@@ -408,13 +447,13 @@ const EditProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
-                value={data.endDate}
-                onChange={(value: any) => setData({ ...data, endDate: value })}
+                value={data.end}
+                onChange={(value: any) => setData({ ...data, end: value })}
               />
             </div>
 
             <div className="edit-container">
-              <Button type="default" text="Save" size="medium" disabled={disableEdit} onClick={() => false} />
+              <Button type="default" text="Save" size="medium" disabled={disableEdit} onClick={() => submit()} />
             </div>
           </div>
         </div>

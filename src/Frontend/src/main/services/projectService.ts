@@ -42,7 +42,7 @@ const ProjectService = {
   },
   edit: async (data: any) => {
     try {
-      const response = await axios.put(`/Project/update/${data.projectId}`, { data })
+      const response = await axios.put(`/Project/update/${data.projectId}`, data)
       return response.data
     }
     catch (error) {

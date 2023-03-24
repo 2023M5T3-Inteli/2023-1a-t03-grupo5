@@ -40,7 +40,7 @@ const ApplicationForm = (props: Props) => {
                 <div className="grid-6 left-side">
                     <h1>Application Form</h1>
                     <div className="input-container">
-                        <p>Vacancy of interest</p>
+                        <p>Role of interest</p>
 
                         <div >
                             <Input

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Input from '../../components/input/input'
 import './editProject-styles.scss'
 import '/public/styles/grid.scss'
@@ -8,13 +8,20 @@ import Textarea from '../../components/textarea/textarea'
 import Select from '../../components/select/select'
 import { flushSync } from 'react-dom'
 
+import ProjectService from '../../../main/services/projectService'
+import UserService from '../../../main/services/userService'
+
 import CloseIcon from '@mui/icons-material/Close'
+import { useLocation } from 'react-router-dom'
+import Loading from '../../components/loading/loading'
 
 type Props = {
   closeModal: Function
 }
 
 const EditProject = (props: Props) => {
+  const location = useLocation()
+  const [loading, setLoading] = useState(true)
   const [disableEdit, setCanEdit] = useState(true)
   const [areaOptions, setAreaOptions] = useState([
     {
@@ -67,31 +74,31 @@ const EditProject = (props: Props) => {
   ])
 
   const [data, setData] = useState<any>({
-    name: "Project 1",
-    description: "A project about IOT",
-    tags: ['React', 'Python', 'MongoDB'],
-    coleaderId: "1",
+    name: "",
+    description: "",
+    tags: [],
+    coleaderId: "",
     roles: [
-      {
-        area: "Technology",
-        role: "DevOps",
-        vacancies: 2
-      },
-      {
-        area: "Technology",
-        role: "React Frontend",
-        vacancies: 3
-      },
-      {
-        area: "Technology",
-        role: "Python Backend",
-        vacancies: 5
-      }
+      // {
+      //   area: "Technology",
+      //   role: "DevOps",
+      //   vacancies: 2
+      // },
+      // {
+      //   area: "Technology",
+      //   role: "React Frontend",
+      //   vacancies: 3
+      // },
+      // {
+      //   area: "Technology",
+      //   role: "Python Backend",
+      //   vacancies: 5
+      // }
     ],
-    badge: "NFT",
-    start: "2023-07-19",
-    end: "2023-11-30",
-    endSubscription: "2023-07-21"
+    badge: "",
+    start: "",
+    end: "",
+    endSubscription: ""
   })
 
   const [tag, setTag] = useState<any>(null)
@@ -180,8 +187,47 @@ const EditProject = (props: Props) => {
     })
   }
 
+  const getProject = async (id: string) => {
+    const response = await ProjectService.findByID(id);
+
+    console.log(response)
+
+    response.roles = JSON.parse(response.roles)
+    response.tags = JSON.parse(response.tags)
+    setData(response)
+  }
+
+  const createOptions = async () => {
+    const response = await UserService.findAll()
+
+    let options: any = []
+    response.map((user: any) => {
+      options.push({
+        value: user.id,
+        label: user.name
+      })
+    })
+
+    console.log(response)
+    setUsersOptions(options)
+
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    getProject(location.state.projectId)
+
+  }, [])
+
+  useEffect(() => {
+    createOptions()
+  }, [data])
+
   return (
     <div id="edit-project">
+      {
+        loading && <Loading />
+      }
       <div className="container">
         <h1 className="title">Edit project</h1>
         <div className="grid-12">
@@ -193,7 +239,7 @@ const EditProject = (props: Props) => {
                 placeholder={"Enter the project name"}
                 type={"text"}
                 value={data.name}
-                onChange={(value: any) => setData({...data, name: value})}
+                onChange={(value: any) => setData({ ...data, name: value })}
               />
             </div>
 
@@ -204,7 +250,7 @@ const EditProject = (props: Props) => {
                 placeholder={"Enter the project description"}
                 type='text'
                 value={data.description}
-                onChange={(value: any) => setData({...data, description: value})}
+                onChange={(value: any) => setData({ ...data, description: value })}
               />
             </div>
 
@@ -248,8 +294,8 @@ const EditProject = (props: Props) => {
             }
 
             <div className="input-container">
-            <h4 className="input-title ">Co-leader</h4>
-              <Select options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
+              <h4 className="input-title ">Co-leader</h4>
+              <Select value={data.coleaderId} options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
             </div>
 
             <div className="role-container">
@@ -328,7 +374,7 @@ const EditProject = (props: Props) => {
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
                 value={data.endSubscription}
-                onChange={(value: any) => setData({...data, endSubscription: value})}
+                onChange={(value: any) => setData({ ...data, endSubscription: value })}
               />
             </div>
 
@@ -339,7 +385,7 @@ const EditProject = (props: Props) => {
                 placeholder={""}
                 type={"text"}
                 value={data.badge}
-                onChange={(value: any) => setData({...data, badge: value})}
+                onChange={(value: any) => setData({ ...data, badge: value })}
               />
             </div>
 
@@ -352,7 +398,7 @@ const EditProject = (props: Props) => {
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
                 value={data.startDate}
-                onChange={(value: any) => setData({...data, startDate: value})}
+                onChange={(value: any) => setData({ ...data, startDate: value })}
               />
             </div>
 
@@ -363,7 +409,7 @@ const EditProject = (props: Props) => {
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
                 value={data.endDate}
-                onChange={(value: any) => setData({...data, endDate: value})}
+                onChange={(value: any) => setData({ ...data, endDate: value })}
               />
             </div>
 

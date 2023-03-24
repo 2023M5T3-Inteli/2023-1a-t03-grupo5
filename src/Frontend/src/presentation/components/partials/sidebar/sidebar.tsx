@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import cookie from 'react-cookies'
+
 import './sidebar-styles.scss'
 import Logo from '/logo.png'
 
@@ -66,6 +68,11 @@ const Sidebar: any = (props: Props) => {
       icon: <HowToRegIcon />
     },
   ]
+
+  const logout = () => {
+    cookie.remove("token")
+    props.changePage(0)
+  }
 
   return (
     <div className={`sidebar ${menuOpened && 'sidebar-opened'}`}>
@@ -140,7 +147,7 @@ const Sidebar: any = (props: Props) => {
           }
         </div> */}
 
-        <Link to="/login" className="logout" onClick={() => props.changePage(-1)}>
+        <Link to="/login" className="logout" onClick={() => logout()}>
           {menuOpened && <p>Sair</p>}
           <PowerSettingsNewIcon />
         </Link>

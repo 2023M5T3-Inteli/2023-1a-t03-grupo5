@@ -5,14 +5,14 @@ const PORT = 3001;
 const HOST = "localhost";
 const API_URL = `http://${HOST}:${PORT}`;
 
-const config = {
-  headers: {
-    Authorization: `Bearer ${cookie.load("token")}`,
-  },
-};
-
 const UserService = {
   findByID: async (id: String) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+
     try {
       const response = await axios.get(`${API_URL}/user/info/${id}`, config);
       return response.data;
@@ -22,17 +22,29 @@ const UserService = {
   },
 
   validate: async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+
     try {
       const response = await axios.get(`${API_URL}/user/Info`, config);
       return response.data;
     } catch (error) {
-      return [];
+      return error.response.status;
     }
   },
 
   findAll: async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+
     try {
-      const response = await axios.get(`${API_URL}/user/find-all`);
+      const response = await axios.get(`${API_URL}/user/getAll`, config);
       return response.data;
     } catch (error) {
       return [];
@@ -40,6 +52,12 @@ const UserService = {
   },
 
   update: async (id: String, data: any) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+
     try {
       const response = await axios.put(`${API_URL}/user/update/${id}`, data);
       return response.data;
@@ -49,6 +67,12 @@ const UserService = {
   },
 
   create: async (data: any) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+
     try {
       const response = await axios.post(`${API_URL}/user/create`, data);
       return response.data;
@@ -58,6 +82,12 @@ const UserService = {
   },
 
   delete: async (id: String) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+
     try {
       const response = await axios.delete(`${API_URL}/user/delete/${id}`);
       return response.data;
@@ -67,6 +97,12 @@ const UserService = {
   },
 
   getByName: async (name: String) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+    
     try {
       const response = await axios.get(`${API_URL}/user/find-by-name/${name}`);
       return response.data;

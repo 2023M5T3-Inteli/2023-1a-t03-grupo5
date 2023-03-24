@@ -12,7 +12,8 @@ import Input from "../../components/input/input";
 // import cors from "cors"
 
 type Props = {
-    changePage: Function
+    validate: Function;
+    changePage: Function;
 }
 
 let TelaLogin = (props: Props) => {
@@ -44,7 +45,9 @@ let TelaLogin = (props: Props) => {
 
             cookie.save("token", response.data.token)
 
-            navigate("/")
+            // props.validate()
+            
+            window.location.href = '/'
 
             console.log(email, pass);
 

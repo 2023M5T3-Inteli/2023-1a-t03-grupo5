@@ -94,13 +94,13 @@ const Profile = () => {
                             </div>
                             <div className="highligthsDiv">
                                 <div className="itemHighligth">
-                                    <img className="imgHighlight" width={110} src={"/imgProfile.png"}></img>
+                                    <img className="imgHighlight" width={110} src={"/Ellipse2.png"}></img>
                                 </div>
                                 <div className="itemHighligth">
-                                    <img className="imgHighlight" width={110} src={"/imgProfile.png"}></img>
+                                    <img className="imgHighlight" width={110} src={"/Ellipse2.png"}></img>
                                 </div>
                                 <div className="itemHighligth">
-                                    <img className="imgHighlight" width={110} src={"/imgProfile.png"}></img>
+                                    <img className="imgHighlight" width={110} src={"/Ellipse2.png"}></img>
                                 </div>
                             </div>
                         </div>

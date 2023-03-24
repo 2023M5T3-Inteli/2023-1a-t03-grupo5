@@ -1,3 +1,5 @@
+@use '/public/styles/color.scss' as c;
+
 .loading {
   z-index: 1;
   position: fixed;
@@ -16,8 +18,8 @@
   height: 64px;
   margin: 8px;
   border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
+  border: 6px solid c.$primary;
+  border-color: c.$primary transparent c.$primary transparent;
   animation: loading 1.2s linear infinite;
 }
 

@@ -41,6 +41,7 @@ export class ProjectsService {
         
             return project;
         } catch (err) {
+            console.log(err)
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
         

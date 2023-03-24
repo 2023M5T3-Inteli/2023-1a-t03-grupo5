@@ -6,8 +6,8 @@ import UserIcon from '../../../../public/user.png'
 import StarIcon from '../../../../public/star.png'
 import AwardIcon from '../../../../public/award.png'
 import Button from '../../components/button/button'
-import { Link } from "react-router-dom";
-import {useState, useEffect} from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import ProjectService from "../../../main/services/projectService";
 import UserService from "../../../main/services/userService"
 import Loading from "../../components/loading/loading";
@@ -19,57 +19,79 @@ import Loading from "../../components/loading/loading";
 //   openApply: Function;
 // }
 
+type Props = {
+  user: any;
+}
 
-const VisualizeProject: React.FC = () => {
+const VisualizeProject: React.FC<Props> = (props: Props) => {
+  const location = useLocation()
   const [loading, setLoading] = useState(true)
-  const [project, setProject] = useState({
-    name: "Loading...", 
+  const [project, setProject] = useState<any>({
+    name: "Loading...",
     description: "loading...",
-    ownerId:"loading...",
+    ownerId: "loading...",
     coleaderId: "loading...",
     status: "loading...",
-    end:"xx/xx/xxx",
+    end: "xx/xx/xxx",
+    tags: "",
+    roles: ""
   })
+  const [isOwner, setIsOwner] = useState(false)
   const [ownerName, setOwnerName] = useState("")
   const [coleaderName, setColeaderName] = useState("")
 
   const getUser = async (id: string) => {
-    const response = await UserService.findByID("1d344c78-15d2-453d-848c-d31ac003cd48")
+    console.log(id)
+    const response = await UserService.findByID(id)
     console.log(response)
 
     return response
   }
 
   const getProject = async () => {
-    const response = await ProjectService.findByID("d252a33c-5f3d-4194-a5b3-7241cfa738d6")
+    console.log(location.state)
+    const response = await ProjectService.findByID(location.state.projectId)
+    response.tags = JSON.parse(response.tags)
+    response.roles = JSON.parse(response.roles)
     setProject(response)
     console.log(response)
-    
-    let owner = await getUser(project.ownerId)
-    let coleader = await getUser(project.coleaderId)
+
+    let owner = await getUser(response.ownerId)
+    let coleader = await getUser(response.coleaderId)
 
     setOwnerName(owner.name)
     setColeaderName(coleader.name)
+
+    if(props.user.id === response.ownerId || props.user.id === response.coleaderId) {
+      setIsOwner(true)
+    }
+
+    console.log(owner, coleader)
 
     setLoading(false)
   }
 
   useEffect(() => {
-    
     getProject()
 
-  },[])
+  }, [])
 
   return (
     <div className="visualize-project">
       {loading && <Loading />}
       <div className="container-visualize">
         <div className=" grid-8 project-info" >
-        <div className=" project-start">
-        <h1>{project.name}</h1>
-        <img width={28} src={StarIcon} />
-        </div>
-        <p className="p-project">
+          <div className=" project-start">
+            <h1>{project.name}</h1>
+            {/* <img width={28} src={StarIcon} /> */}
+            { 
+            isOwner && 
+            <Link to="/editProject" state={{projectId: location.state.projectId}}>
+              <EditIcon  className="edit-icon"/> 
+            </Link>
+            }
+          </div>
+          <p className="p-project">
             {project.description}
           </p>
           <p className="p-project">Leader: {ownerName}</p>
@@ -77,9 +99,15 @@ const VisualizeProject: React.FC = () => {
 
           <div className="tags-visualize">
             <h2 className="h2-tag">Tags:</h2>
-            <div className="card-tag">
-              <p className="tag-p p-tag">Python</p>
-            </div>
+            {
+              project.tags && project.tags.map((tag: string, index: number) => {
+                return (
+                  <div className="card-tag" key={`${tag}-${index}`}>
+                    <p className="tag-p p-tag">{tag}</p>
+                  </div>
+                )
+              })
+            }
           </div>
 
         </div>
@@ -87,25 +115,25 @@ const VisualizeProject: React.FC = () => {
         <div className="grid-4 right-side">
           <div className="status-info" >
 
-          <div className="info-visualize">
-            <div className="icons-visualize"><img width={28} src={UserIcon} /></div>
-            <div className="p-visualize"><p >25/50</p></div>
-          </div>
+            <div className="info-visualize">
+              <div className="icons-visualize"><img width={28} src={UserIcon} /></div>
+              <div className="p-visualize"><p >25/50</p></div>
+            </div>
 
-          <div className="info-visualize">
-            <div className="icons-visualize"><img width={28} src={AwardIcon} /></div>
-            <div className="p-visualize"><p >Status: {project.status}</p></div>
-          </div>
+            <div className="info-visualize">
+              <div className="icons-visualize"><img width={28} src={AwardIcon} /></div>
+              <div className="p-visualize"><p >Status: {project.status}</p></div>
+            </div>
 
-          <div className="info-visualize">
-            <div className="icons-visualize"><img width={28} src={UserIcon} /></div>
-            <div className="p-visualize"><p >Expiration date:</p>
-            <p>{new Date(project.end).getMonth()}/{new Date(project.end).getDate()}/{new Date(project.end).getFullYear()}</p></div>
-          </div>
+            <div className="info-visualize">
+              <div className="icons-visualize"><img width={28} src={UserIcon} /></div>
+              <div className="p-visualize"><p >Expiration date:</p>
+                <p>{new Date(project.end).getMonth()}/{new Date(project.end).getDate()}/{new Date(project.end).getFullYear()}</p></div>
+            </div>
 
-          <div className="line2"></div>
+            <div className="line2"></div>
 
-          <div  className="info-down"> 
+            <div className="info-down">
 
               <div className="badge-visualize badge-center">
                 <img width={28} src={AwardIcon} />

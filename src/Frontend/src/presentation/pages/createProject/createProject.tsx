@@ -10,6 +10,7 @@ import { flushSync } from 'react-dom'
 
 import CloseIcon from '@mui/icons-material/Close'
 import ProjectService from '../../../main/services/projectService'
+import UserService from '../../../main/services/userService'
 
 type Props = {
   closeModal: Function
@@ -85,6 +86,21 @@ const CreateProject = (props: Props) => {
   // const [tags, setTags] = useState<any>(null)
   const [area, setArea] = useState('')
   const [role, setRole] = useState('')
+
+  const createOptions = async () => {
+    const response = await UserService.findAll()
+
+    let options: any = []
+    response.map((user: any) => {
+      options.push({
+        value: user.id,
+        label: user.name
+      })
+    })
+
+    console.log(response)
+    setUsersOptions(options)
+  }
 
   const addTag = (e: any) => {
     e.preventDefault()
@@ -175,7 +191,7 @@ const CreateProject = (props: Props) => {
     if (
       data.name &&
       data.description &&
-      data.addedRoles &&
+      data.roles &&
       data.endSubscription &&
       data.start &&
       data.end
@@ -195,7 +211,7 @@ const CreateProject = (props: Props) => {
       roles: JSON.stringify(data.roles),
       start: new Date(data.start),
       end: new Date(data.end),
-      badge: data.bagde,
+      badge: data.badge,
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
@@ -204,7 +220,12 @@ const CreateProject = (props: Props) => {
 
   useEffect(() => {
     validateFields()
+    console.log(data)
   }, [data])
+
+  useEffect(() => {
+    createOptions()
+  }, [])
 
   // useEffect(() => {
   //   submit()
@@ -318,11 +339,11 @@ const CreateProject = (props: Props) => {
             </div>
 
             {
-              data.addedRoles && data.addedRoles.length > 0 && (
+              data.roles && data.roles.length > 0 && (
                 <div className="added-roles">
                   <p className='added-roles-title'>Roles / Vacancies</p>
                   {
-                    data.addedRoles.map((role: any, index: number) => {
+                    data.roles.map((role: any, index: number) => {
                       return (
                         <div className='added-role' key={`${role.area}-${role.role}-${index}`}>
                           <div className="container">

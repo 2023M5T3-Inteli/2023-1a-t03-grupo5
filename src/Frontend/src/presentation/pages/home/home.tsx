@@ -25,7 +25,7 @@ const Home: React.FC = () => {
   const [openApplyModal, setOpenApplyModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(true)
   const [search, setSearch] = useState("")
-  const [ projects, setProjects ] = useState([])
+  const [projects, setProjects] = useState([])
 
   const closeCreateModal = () => {
     setOpenCreateModal(!openCreateModal)
@@ -129,9 +129,14 @@ const Home: React.FC = () => {
     return projects.map((project: any, index: number) => {
       if (project.name.includes(search)) {
         return (
-          <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
-            <Card {...project}></Card>
-          </div>
+          <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
+            {/* <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
+              <Card {...project}></Card>
+            </div> */}
+            <div className='grid-4'>
+              <Card {...project}></Card>
+            </div>
+          </Link>
         )
       }
     })
@@ -154,22 +159,11 @@ const Home: React.FC = () => {
       {
         openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />
       }
-      { loading && <Loading /> }
+      {loading && <Loading />}
       {
         <div className="body-cards">
           {
-            projects.map((project: any, index: number) => {
-              return (
-                <Link to="/visualizeProject">
-                  {/* <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
-                    <Card {...project}></Card>
-                  </div> */}
-                  <div className='grid-4' key={index}>
-                    <Card {...project}></Card>
-                  </div>
-                </Link>
-              )
-            })
+            filter()
           }
         </div>
         // 

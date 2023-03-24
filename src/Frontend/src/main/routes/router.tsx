@@ -56,7 +56,7 @@ const Router: React.FC = () => {
         showSidebar && <Sidebar page={active} changePage={changePage} />
       }
       <Routes>
-        <Route path='/login' element={<Login validate={() => validateUser()} changePage={changePage} />}></Route>
+        <Route path='/login' element={<Login changePage={changePage} />}></Route>
         {/* <Route path='/404' element={<NotFound />}></Route> */}
         {
           user !== 401 &&

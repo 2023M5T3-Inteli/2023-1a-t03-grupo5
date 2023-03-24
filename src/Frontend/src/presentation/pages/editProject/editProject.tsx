@@ -12,7 +12,7 @@ import ProjectService from '../../../main/services/projectService'
 import UserService from '../../../main/services/userService'
 
 import CloseIcon from '@mui/icons-material/Close'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading'
 
 type Props = {
@@ -20,6 +20,7 @@ type Props = {
 }
 
 const EditProject = (props: Props) => {
+  const navigate = useNavigate()
   const location = useLocation()
   const [loading, setLoading] = useState(true)
   const [disableEdit, setDisableEdit] = useState(true)
@@ -245,7 +246,9 @@ const EditProject = (props: Props) => {
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
-    console.log(response)
+    if(response) {
+      navigate("/")
+    }
   }
 
   useEffect(() => {

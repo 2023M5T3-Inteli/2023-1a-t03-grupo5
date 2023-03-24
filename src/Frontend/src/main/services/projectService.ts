@@ -48,6 +48,15 @@ const ProjectService = {
     catch (error) {
       return []
     }
+  },
+  delete: async (id: string) => {
+    try {
+      const response = await axios.delete(`/Project/delete/${id}`)
+      return response.data
+    }
+    catch (error) {
+      return []
+    }
   }
 }
 

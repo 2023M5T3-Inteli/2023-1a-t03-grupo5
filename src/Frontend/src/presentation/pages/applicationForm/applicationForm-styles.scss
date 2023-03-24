@@ -1,17 +1,18 @@
-#application_form {
+@use '/public/styles/spacing.scss' as sp;
+
+.application-form {
+    width: 100%;
     display: flex;
-    height: 100vh;
+    padding: sp.$stack-lg sp.$stack-md;
 
     .container {
+        width: 100%;
+        height: 100%;
         display: flex;
         // align-items: center;
         background-color: #232323;
         margin: auto;
-        width: 70%;
-        height: 90%;
         border-radius: 15px;
-        margin-top: 30px;
-        margin-bottom: 30px;
 
         .left-side {
             flex-direction: column;

@@ -1,16 +1,19 @@
 import React from "react";
 import "./visualizeProject-styles.scss";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Card from "../../components/card/card";
 import UserIcon from '../../../../public/user.png'
 import StarIcon from '../../../../public/star.png'
 import AwardIcon from '../../../../public/award.png'
 import Button from '../../components/button/button'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ProjectService from "../../../main/services/projectService";
 import UserService from "../../../main/services/userService"
 import Loading from "../../components/loading/loading";
+import DeleteProject from "../deleteProject/deleteProject";
+import Modal from "../../components/modal/modal";
 
 
 // type Props = {
@@ -24,8 +27,10 @@ type Props = {
 }
 
 const VisualizeProject: React.FC<Props> = (props: Props) => {
+  const navigate = useNavigate()
   const location = useLocation()
   const [loading, setLoading] = useState(true)
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [project, setProject] = useState<any>({
     name: "Loading...",
     description: "loading...",
@@ -62,7 +67,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     setOwnerName(owner.name)
     setColeaderName(coleader.name)
 
-    if(props.user.id === response.ownerId || props.user.id === response.coleaderId) {
+    if (props.user.id === response.ownerId || props.user.id === response.coleaderId) {
       setIsOwner(true)
     }
 
@@ -71,10 +76,22 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     setLoading(false)
   }
 
+  const deleteProject = async () => {
+    setOpenDeleteModal(false)
+    let response = await ProjectService.delete(project.projectId)
+    if(response) {
+      navigate("/")
+    }
+  }
+
   useEffect(() => {
     getProject()
 
   }, [])
+
+  const toggleDeleteModal = () => {
+    setOpenDeleteModal(!openDeleteModal)
+  }
 
   return (
     <div className="visualize-project">
@@ -84,13 +101,21 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
           <div className=" project-start">
             <h1>{project.name}</h1>
             {/* <img width={28} src={StarIcon} /> */}
-            { 
-            isOwner && 
-            <Link to="/editProject" state={{projectId: location.state.projectId}}>
-              <EditIcon  className="edit-icon"/> 
-            </Link>
+            {
+              isOwner &&
+              <>
+                <Link to="/editProject" state={{ projectId: location.state.projectId }}>
+                  <EditIcon className="edit-icon" />
+                </Link>
+                <div onClick={() => toggleDeleteModal()}>
+                  <DeleteIcon className="delete-icon" />
+                </div>
+              </>
             }
           </div>
+          {
+            openDeleteModal && <Modal type="warning" closeModal={() => toggleDeleteModal()} content={<DeleteProject delete={() => deleteProject()} closeModal={() => toggleDeleteModal()} />} />
+          }
           <p className="p-project">
             {project.description}
           </p>

@@ -11,12 +11,14 @@ import { flushSync } from 'react-dom'
 import CloseIcon from '@mui/icons-material/Close'
 import ProjectService from '../../../main/services/projectService'
 import UserService from '../../../main/services/userService'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   closeModal: Function
 }
 
 const CreateProject = (props: Props) => {
+  const navigate = useNavigate()
   const [disableCreate, setDisableCreate] = useState(true)
   const [areaOptions, setAreaOptions] = useState([
     {
@@ -215,6 +217,9 @@ const CreateProject = (props: Props) => {
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
+    if(response) {
+      navigate("/")
+    }
     console.log(response)
   }
 

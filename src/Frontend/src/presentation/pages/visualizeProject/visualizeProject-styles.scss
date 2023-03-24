@@ -4,9 +4,10 @@
 .visualize-project{
   // height: 100vh;
   width: 100%;
+  padding: sp.$stack-lg sp.$stack-md;
   display: flex;
 
-  .edit-icon {
+  .edit-icon, .delete-icon {
     margin-left: sp.$stack-md;
     color: c.$primary;
 
@@ -15,27 +16,29 @@
     cursor: pointer;
   }
 
+  .delete-icon {
+    margin-left: sp.$stack-xs;
+  }
+
   .container-visualize{
     display: flex;
       // align-items: center;
       background-color: #232323;
       margin: auto;
-      width: 70%;
+      width: 100%;
       height: auto;
       border-radius: 15px;
-      margin-top: 30px;
-      margin-bottom: 30px;
-      padding: 3rem 2rem;
+      padding: sp.$stack-lg sp.$stack-md;
   }
   .project-start{
     display: flex;
     flex-direction: row;
-    margin-bottom: 3rem;
+    margin-bottom: sp.$stack-lg;
   }
   
   .p-project{
     font-size: 24px;
-    margin-bottom: 2rem;
+    margin-bottom: sp.$stack-lg;
     color: #FFFFFF;
     text-align: justify;
   }
@@ -57,7 +60,7 @@
       box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
       -webkit-box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
       -moz-box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
-      padding: 1rem 1.5rem;
+      padding: sp.$stack-sm sp.$stack-md;
       align-items: center;
   }
   
@@ -67,7 +70,7 @@
     flex-direction: row;
     width: fit-content;
     border-radius: 5px;
-    margin-left: 1rem;
+    margin-left: sp.$stack-sm;
   }
   
   .h2-tag{
@@ -86,7 +89,6 @@
   
   .line{
     border: 0.25px solid #111010;
-    height: 600px;
   }
   
   .right-side{
@@ -107,7 +109,7 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    height: 70px;
+    height: 60px;
   }
   
   .icons-visualize{
@@ -121,7 +123,7 @@
     color: #FFFFFF;
     align-items: center;
     width: 70%;
-    font-size: 24px;
+    font-size: 21px;
     text-align: center;
   }
   
@@ -130,8 +132,7 @@
     width: 100%;
     display: flex;
     align-items: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin: sp.$stack-md 0;
   }
   
   .info-down{
@@ -142,7 +143,7 @@
   .badge-center{
     display: flex;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: sp.$stack-md;
   }
   
   .p-badge{
@@ -155,6 +156,7 @@
   .image-bagde{
     height: auto;
     width: 50%;
+    max-width: 120px;
   }
   
   .badge-visualize{

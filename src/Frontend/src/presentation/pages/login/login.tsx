@@ -12,7 +12,6 @@ import Input from "../../components/input/input";
 // import cors from "cors"
 
 type Props = {
-    validate: Function;
     changePage: Function;
 }
 
@@ -31,7 +30,9 @@ let TelaLogin = (props: Props) => {
     // async é usada para indicar que a função é assíncrona e que retornará uma promessa.
     // faz uma requisição HTTP POST usando a biblioteca Axios para uma URL específica e com alguns dados no corpo da requisição.
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
+
         try {
             console.log(email);
             console.log(pass)
@@ -41,12 +42,16 @@ let TelaLogin = (props: Props) => {
                 password: pass
             });
 
+            props.changePage(0)
+
             console.log(response)
 
             cookie.save("token", response.data.token)
 
             // props.validate()
-            
+
+            props.changePage(0)
+
             window.location.href = '/'
 
             console.log(email, pass);
@@ -66,20 +71,22 @@ let TelaLogin = (props: Props) => {
             <div className="grid-7 container left-side">
                 <img className="logo" src={Logo} alt="" />
                 <div className="input-container">
-                    <p>Email</p>
-                    <Input size="large" type="text" placeholder="E-mail" value={email} onChange={(value: string) => setEmail(value)} />
+                    <form onSubmit={handleSubmit}>
+                        <p>Email</p>
+                        <Input size="large" type="email" placeholder="E-mail" value={email} onChange={(value: string) => setEmail(value)} />
+                    </form >
                 </div>
                 <div className="input-container">
-                    <p>Password</p>
-                    <Input size="large" type="password" placeholder="Senha" value={pass} onChange={(value: string) => setPass(value)} />
-                    <a className="forget" href="">Forget the password?</a>
+                    <form onSubmit={handleSubmit}>
+                        <p>Password</p>
+                        <Input size="large" type="password" placeholder="Senha" value={pass} onChange={(value: string) => setPass(value)} />
+                        <a className="forget" href="">Forget the password?</a>
+                    </form>
                 </div>
-                <button id="confirma-botao" onClick={() => {
+                <button id="confirma-botao" onClick={(e: any) => {
                     // submit()
-                    props.changePage(0)
-                    handleSubmit()
+                    handleSubmit(e)
                 }}>Login</button>
-
             </div>
 
             <div className="grid-5 container right-side">
@@ -90,7 +97,6 @@ let TelaLogin = (props: Props) => {
                 <img className="lakitu-image" src={Lakitu} alt="" />
             </div>
         </div >
-
     )
 }
 

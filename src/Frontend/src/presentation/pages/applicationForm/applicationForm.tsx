@@ -15,7 +15,7 @@ const ApplicationForm = (props: Props) => {
     const [vacancies, setVacancies] = useState('');
 
     function submitApplicationForm() {
-        alert(`Vacancy of interest: ${vacancies}`);
+        console.log(`Vacancy of interest: ${vacancies}`);
     }
 
     function handleVacanciesChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -35,7 +35,7 @@ const ApplicationForm = (props: Props) => {
 
 
     return (
-        <div id="application_form">
+        <div className="application-form">
             <div className="container">
                 <div className="grid-6 left-side">
                     <h1>Application Form</h1>

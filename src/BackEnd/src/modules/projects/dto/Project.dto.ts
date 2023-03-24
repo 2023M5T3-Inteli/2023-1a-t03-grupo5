@@ -3,31 +3,11 @@ import { IsString, IsBoolean, IsDate } from 'class-validator';
 
 export class ProjectDTO {
   @ApiProperty({
-    description: 'Project ID',
-    example: '12345',
-  })
-  projectId: string;
-
-  @ApiProperty({
     description: 'Project name',
     example: 'Desenvolvimento de aplicação',
   })
   @IsString()
   name: string;
-
-  @ApiProperty({
-    description: 'Project description',
-    example: '10/10/2023',
-  })
-  @IsString()
-  createdAt: Date;
-
-  @ApiProperty({
-    description: 'Project description',
-    example: '10/10/2023',
-  })
-  @IsString()
-  updatedAt: Date;
 
   @ApiProperty({
     description: 'Project description',
@@ -37,11 +17,18 @@ export class ProjectDTO {
   description: string;
 
   @ApiProperty({
-    description: 'Project tasks',
-    example: 'tarefas',
+    description: 'Project tags',
+    example: 'tags',
   })
   @IsString()
-  tasks: string;
+  tags: string;
+
+  @ApiProperty({
+    description: 'Project roles',
+    example: 'roles',
+  })
+  @IsString()
+  roles: string;
 
   @ApiProperty({
     description: 'Project start date',
@@ -58,30 +45,23 @@ export class ProjectDTO {
   end: Date;
 
   @ApiProperty({
+    description: 'End subscription date',
+    example: '10/10/2023',
+  })
+  @IsString()
+  endSubscription: Date;
+
+  @ApiProperty({
+    description: 'Badge NFT',
+    example: 'badge',
+  })
+  @IsString()
+  badge: string;
+
+  @ApiProperty({
     description: 'Project coleader ID',
     example: '56',
   })
   @IsString()
   coleaderId: string;
-
-  @ApiProperty({
-    description: 'Project owner ID',
-    example: '20',
-  })
-  @IsString()
-  ownerId: string;
-
-  @ApiProperty({
-    description: 'Project type',
-    example: 'dev',
-  })
-  @IsString()
-  projectType: string;
-
-  @ApiProperty({
-    description: 'Project blocked subscription',
-    example: 'true',
-  })
-  @IsBoolean()
-  blockedSubscription: boolean;
 }

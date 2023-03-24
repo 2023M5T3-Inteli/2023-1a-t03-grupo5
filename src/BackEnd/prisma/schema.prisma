@@ -12,18 +12,20 @@ model Project {
   name                String
   createdAt           DateTime  @default(now())
   updatedAt           DateTime  @updatedAt
-  tasks               String
+  tags                String
+  roles               String
   description         String
-  start               DateTime?
-  end                 DateTime?
-  coleaderId          String?
+  start               DateTime
+  end                 DateTime
+  endSubscription     DateTime
+  coleaderId          String
   applies             Apply[]
   coleader            User?     @relation("Coleader", fields: [coleaderId], references: [id])
   ownerId             String
   owner               User      @relation("Owner", fields: [ownerId], references: [id], onDelete: Cascade)
-  projectType         String
+  badge               String
   blockedSubscription Boolean   @default(false)
-  status              Boolean   @default(false)
+  status              String    @default("Pending")
 
   @@map("projects")
 }

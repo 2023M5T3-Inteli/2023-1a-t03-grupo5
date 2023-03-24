@@ -12,7 +12,11 @@ import { Catch } from '@nestjs/common/decorators';
 export class ProjectsService {
     constructor(private prisma: PrismaService) {}
 
-    async createProject(data: ProjectDTO){
+    async createProject(ownerId: string, data: ProjectDTO){
+
+        console.log(ownerId)
+        console.log(data)
+
         //Doing the creation
         try {
             const project = await this.prisma.project.create({
@@ -21,14 +25,17 @@ export class ProjectsService {
                     name: data.name,
                     start: new Date(),
                     end: new Date(),
-                    tasks: data.tasks,
+                    tags: data.tags,
+                    endSubscription: data.endSubscription,
+                    badge: data.badge,
+                    roles: data.roles,
                     createdAt: new Date(),
                     updatedAt: new Date(),
                     description: data.description,
                     coleaderId: data.coleaderId,
-                    ownerId: data.ownerId,
-                    blockedSubscription: data.blockedSubscription,
-                    projectType: data.projectType,
+                    ownerId: ownerId,
+                    blockedSubscription: true,
+                    status: "Pending"
                 }
             });
         
@@ -186,7 +193,7 @@ export class ProjectsService {
                     projectId,
                 },
                 data: {
-                    status: true,
+                    status: "Approved",
                 }
             })
 

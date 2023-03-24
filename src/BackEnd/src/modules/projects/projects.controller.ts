@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Body, Param, Delete, Get, Put, Req } from '@nestjs/common';
+import { Controller, Post, Body, Param, Delete, Get, Put, Req, UseGuards } from '@nestjs/common';
 import { ProjectDTO } from './dto/Project.dto';
 import { ProjectsService } from './projects.service';
 import { ApiTags, ApiResponse, ApiHeader } from '@nestjs/swagger';
-
+import { AuthGuard } from '@nestjs/passport';
 
 
 @ApiTags('Project')
@@ -16,6 +16,7 @@ export class ProjectsController {
     name: 'createProject',
     description: 'create a new project',
   })
+  @UseGuards(AuthGuard('jwt'))
   @Post("/create")
   //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
@@ -23,9 +24,8 @@ export class ProjectsController {
   @ApiResponse({ status: 400, description: 'Error: Bad Request'})
   @ApiResponse({ status: 422, description: 'Error: Unprocessable Entity'})
   @ApiResponse({ status: 401, description: 'Error: Unauthorized'})
-  async create(@Body() data: ProjectDTO) {
-    console.log(data.blockedSubscription);
-    return this.projectsService.createProject(data);
+  async create(@Req() req, @Body() data: ProjectDTO) {
+    return this.projectsService.createProject(req.user.id, data);
   }
 
   //api header

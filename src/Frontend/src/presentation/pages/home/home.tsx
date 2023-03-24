@@ -14,9 +14,11 @@ import DeleteProject from '../deleteProject/deleteProject'
 import SearchBar from '../../components/searchBar/searchBar'
 import { Link } from 'react-router-dom'
 import ProjectService from '../../../main/services/projectService'
+import Loading from '../../components/loading/loading'
 
 const Home: React.FC = () => {
   const isMobile = true;
+  const [loading, setLoading] = useState(true)
   const [openCreateModal, setOpenCreateModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
   const [openViewModal, setOpenViewModal] = useState(false)
@@ -51,6 +53,7 @@ const Home: React.FC = () => {
     const allProjects = await ProjectService.findAll();
 
     setProjects(allProjects);
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -137,7 +140,7 @@ const Home: React.FC = () => {
   return (
     <div className='home'>
       <div className='search-container'>
-        <SearchBar onChange={(value: string) => setSearch(value)} />
+        <SearchBar value={search} onChange={(value: string) => setSearch(value)} />
       </div>
       {
         openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
@@ -151,6 +154,7 @@ const Home: React.FC = () => {
       {
         openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />
       }
+      { loading && <Loading /> }
       {
         <div className="body-cards">
           {

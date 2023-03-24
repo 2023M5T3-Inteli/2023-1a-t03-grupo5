@@ -10,10 +10,9 @@ import VisualizeApplication from '../../presentation/pages/visualizeApplication/
 import NotFound from '../../presentation/pages/notFound/404'
 import Sidebar from '../../presentation/components/partials/sidebar/sidebar'
 import MyProjects from '../../presentation/pages/myProjects/myProjects'
-import Ranking from '../../presentation/pages/ranking/Ranking'
-import Perfil from '../../presentation/pages/perfil/perfil'
+import Ranking from '../../presentation/pages/ranking/ranking'
+import Profile from '../../presentation/pages/profile/profile'
 import Navbar from '../../presentation/components/partials/navbar/navbar'
-import Registrations from '../../presentation/pages/registrations/registrations'
 
 const Router: React.FC = () => {
   const [active, setActive] = useState(-1)
@@ -40,8 +39,7 @@ const Router: React.FC = () => {
         <Route path='/projects' element={<MyProjects />}></Route>
         <Route path='/ranking' element={<Ranking />}></Route>
         <Route path='/VisualizeProject' element={<VisualizeProject />}></Route>
-        <Route path='/perfil' element={<Perfil />}></Route>
-        <Route path='/registrations' element={<Registrations />}></Route>
+        <Route path='/profile' element={<Profile />}></Route>
         {/* <Route path='/login' element={<Login />}></Route> */}
         <Route path='/applicationForm' element={<ApplicationForm closeModal={() => false}/>}></Route>
       </Routes>

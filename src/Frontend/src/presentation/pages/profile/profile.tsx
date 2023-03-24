@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import "./perfil-styles.scss";
+import "./profile-styles.scss";
 import { Link } from "react-router-dom";
 import userService from "../../../main/services/userService";
 
+import imgProfile from '/public/imgProfile.png'
+import Loading from "../../components/loading/loading";
 
 //404 page
-let Perfil = () => {
+const Profile = () => {
+    const [loading, setLoading] = useState(true)
     const [user, setUser] = useState({
         name: '',
         area: '',
@@ -16,7 +19,8 @@ let Perfil = () => {
     const getUser = async () => {
         const user = await userService.validate();
         console.log(user)
-        setUser(user);
+        setUser(user)
+        setLoading(false)
     }
 
     useEffect(() => {
@@ -24,16 +28,17 @@ let Perfil = () => {
     }, []);
 
     return (
-        <div className="containerPerfil">
-            <div className="backgroundPerfil">
-                <div className="flexPerfil">
+        <div className="profile">
+            {loading && <Loading />}
+            <div className="backgroundProfile">
+                <div className="flexProfile">
                     <div className="first">
                         <div className="infosPessoal">
                             <div className="photo">
-                                <img className="imgPerfil" src ={"/imgPerfil.png"}></img>
+                                <img className="imgProfile" src={imgProfile}></img>
                             </div>
                             {/* <div className="photo">
-                                <img className="imgPerfil" src ={user.photoURL}></img>
+                                <img className="imgProfile" src ={user.photoURL}></img>
                             </div> */}
                             <div className="nameDiv">
                                 <h1 className="name">{user.name}</h1>
@@ -54,7 +59,7 @@ let Perfil = () => {
                         </div>
                     </div>
                     <div className="second">
-                        <div className="ranking">
+                        <div className="ranking-container">
                             <div className="position">
                                 <p className="positionText">Position at Ranking: 1st</p>
                             </div>
@@ -89,21 +94,21 @@ let Perfil = () => {
                             </div>
                             <div className="highligthsDiv">
                                 <div className="itemHighligth">
-                                    <img className="imgHighlight" width={110} src={"/imgPerfil.png"}></img>
+                                    <img className="imgHighlight" width={110} src={"/imgProfile.png"}></img>
                                 </div>
                                 <div className="itemHighligth">
-                                    <img className="imgHighlight" width={110} src={"/imgPerfil.png"}></img>
+                                    <img className="imgHighlight" width={110} src={"/imgProfile.png"}></img>
                                 </div>
                                 <div className="itemHighligth">
-                                    <img className="imgHighlight" width={110} src={"/imgPerfil.png"}></img>
+                                    <img className="imgHighlight" width={110} src={"/imgProfile.png"}></img>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     )
 }
-export default Perfil;
+export default Profile;

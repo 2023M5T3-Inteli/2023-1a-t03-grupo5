@@ -1,4 +1,5 @@
 import axios from "axios"
+import cookie from "react-cookies";
 
 const PORT = 3001;
 const HOST = 'localhost';
@@ -24,8 +25,15 @@ const ProjectService = {
     }
   },
   create: async (data: any) => {
+
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${cookie.load("token")}`
+      }
+    }
+
     try {
-      const response = await axios.post(`${API_URL}/Project/create`, { data })
+      const response = await axios.post(`${API_URL}/Project/create`, data, config)
       return response.data
     }
     catch (error) {

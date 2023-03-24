@@ -74,10 +74,10 @@ const CreateProject = (props: Props) => {
     tags: [],
     ownerId: "1",
     coleaderId: "",
-    addedRoles: [],
+    roles: [],
     badge: "",
-    startDate: "",
-    endDate: "",
+    start: "",
+    end: "",
     endSubscription: ""
   })
 
@@ -120,12 +120,12 @@ const CreateProject = (props: Props) => {
     }
     if (area && role || area === "Shadowing") {
       flushSync(() => {
-        if (!data.addedRoles) {
+        if (!data.roles) {
           if (area === "Shadowing") {
             setRole("Shadowing")
           }
           setData({
-            ...data, addedRoles: [{
+            ...data, roles: [{
               area: area,
               role: role,
               vacancies: 1
@@ -133,13 +133,13 @@ const CreateProject = (props: Props) => {
           })
         }
         else {
-          let find = data.addedRoles.some((el: any) => el.role == role)
+          let find = data.roles.some((el: any) => el.role == role)
           if (!find) {
             if (area === "Shadowing") {
               setRole("Shadowing")
             }
             setData({
-              ...data, addedRoles: [...data.addedRoles, {
+              ...data, roles: [...data.roles, {
                 area: area,
                 role: role,
                 vacancies: 1
@@ -158,15 +158,15 @@ const CreateProject = (props: Props) => {
   }
 
   const updateRole = (value: number, index: number) => {
-    let updatedRole = data.addedRoles[index]
+    let updatedRole = data.roles[index]
     updatedRole.vacancies = value
   }
 
   const removeRole = (index: number) => {
     flushSync(() => {
-      let newRoles = [...data.addedRoles]
+      let newRoles = [...data.roles]
       newRoles = newRoles.filter((_: any, i: number) => i !== index)
-      setData({ ...data, addedRoles: newRoles })
+      setData({ ...data, roles: newRoles })
     })
   }
 
@@ -177,8 +177,8 @@ const CreateProject = (props: Props) => {
       data.description &&
       data.addedRoles &&
       data.endSubscription &&
-      data.startDate &&
-      data.endDate
+      data.start &&
+      data.end
     ) {
       setDisableCreate(false)
     }
@@ -188,13 +188,27 @@ const CreateProject = (props: Props) => {
   }
 
   const submit = async () => {
-    let response = await ProjectService.create(data)
+    let response = await ProjectService.create({
+      name: data.name,
+      description: data.description,
+      tags: JSON.stringify(data.tags),
+      roles: JSON.stringify(data.roles),
+      start: new Date(data.start),
+      end: new Date(data.end),
+      badge: data.bagde,
+      endSubscription: new Date(data.endSubscription),
+      coleaderId: data.coleaderId,
+    })
     console.log(response)
   }
 
   useEffect(() => {
     validateFields()
   }, [data])
+
+  // useEffect(() => {
+  //   submit()
+  // }, [])
 
   return (
     <div id="create-project">
@@ -368,8 +382,8 @@ const CreateProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
-                value={data.startDate}
-                onChange={(value: any) => setData({ ...data, startDate: value })}
+                value={data.start}
+                onChange={(value: any) => setData({ ...data, start: value })}
               />
             </div>
 
@@ -379,8 +393,8 @@ const CreateProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
-                value={data.endDate}
-                onChange={(value: any) => setData({ ...data, endDate: value })}
+                value={data.end}
+                onChange={(value: any) => setData({ ...data, end: value })}
               />
             </div>
 

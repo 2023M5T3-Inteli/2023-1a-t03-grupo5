@@ -73,43 +73,43 @@ let Ranking = () => {
     }, [currentPage])
 
     return (
-        <div className="bodyRanking">
-            <div className="containerRanking">
+        <div className="ranking">
+            <div className="container-ranking">
                 {/* Ranking Title */}
-                <div className="titleDiv">
+                <div className="title-div">
                     <h1 className="title">Ranking</h1>
                     <div><img src = {"/award.png"}/></div>
                 </div>
                 {/* Ranking Filter */}
                 <div>
-                    <div className="filterDiv">
-                        <div className="filterInputDiv">
-                            <input className="inputFilter" placeholder="Search by name"></input>
-                            <div className="iconInputFilter"><img width={28} src={"/search.png"}/></div>
+                    <div className="filter-div">
+                        <div className="filter-input-div">
+                            <input className="input-filter" placeholder="Search by name"></input>
+                            <div className="icon-input-filter"><img width={28} src={"/search.png"}/></div>
                         </div>
-                        <div className="filterInputDiv">
-                            <input className="inputFilter" placeholder="Filter"></input>
-                            <div className="iconInputFilter"><img width={28} src={"/filter.png"}/></div>
+                        <div className="filter-input-div">
+                            <input className="input-filter" placeholder="Filter"></input>
+                            <div className="icon-input-filter"><img width={28} src={"/filter.png"}/></div>
                         </div>
                     </div>
                 </div>
                 {/* Ranking Table */}
                 <div>
-                    <div className="tableDiv">
+                    <div className="table-div">
                         <div className="container">
                             {
                                 ranking.map((item: any, index: any) => {
                                     return (
-                                        <div className="containerTable">
-                                            <div className="firstContainer">
-                                                <p className="nameRanking">{index + 1}. {item.name}</p>
-                                                <div className="awardFirstContainer">
+                                        <div className="container-table">
+                                            <div className="first-container">
+                                                <p className="name-ranking">{index + 1}. {item.name}</p>
+                                                <div className="award-first-container">
                                                     <img width={32} src="/award.png"></img>
                                                     <p>{item.points}</p>
                                                 </div>
                                             </div>
-                                            <div className="secondContainer">
-                                                <button className="btnSecondContainer">See Profile</button>
+                                            <div className="second-container">
+                                                <button className="btn-second-container">See Profile</button>
                                             </div>
                                         </div>
                                     )
@@ -131,7 +131,7 @@ let Ranking = () => {
                     </div>
                 </div>
                 <div>
-                    <div className="paginationDiv">
+                    <div className="pagination-div">
                         <div className="pages">
                             {/* {
                                 busy ? <div>Carregando...</div> :

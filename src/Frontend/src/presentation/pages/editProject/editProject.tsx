@@ -70,8 +70,8 @@ const EditProject = (props: Props) => {
     name: "Project 1",
     description: "A project about IOT",
     tags: ['React', 'Python', 'MongoDB'],
-    coLeader: "Thiago Pontes",
-    addedRoles: [
+    coleaderId: "1",
+    roles: [
       {
         area: "Technology",
         role: "DevOps",
@@ -89,8 +89,8 @@ const EditProject = (props: Props) => {
       }
     ],
     badge: "NFT",
-    startDate: "2023-07-19",
-    endDate: "2023-11-30",
+    start: "2023-07-19",
+    end: "2023-11-30",
     endSubscription: "2023-07-21"
   })
 
@@ -130,12 +130,12 @@ const EditProject = (props: Props) => {
     }
     if (area && role || area === "Shadowing") {
       flushSync(() => {
-        if (!data.addedRoles) {
+        if (!data.roles) {
           if (area === "Shadowing") {
             setRole("Shadowing")
           }
           setData({
-            ...data, addedRoles: [{
+            ...data, roles: [{
               area: area,
               role: role,
               vacancies: 1
@@ -143,13 +143,13 @@ const EditProject = (props: Props) => {
           })
         }
         else {
-          let find = data.addedRoles.some((el: any) => el.role == role)
+          let find = data.roles.some((el: any) => el.role == role)
           if (!find) {
             if (area === "Shadowing") {
               setRole("Shadowing")
             }
             setData({
-              ...data, addedRoles: [...data.addedRoles, {
+              ...data, roles: [...data.roles, {
                 area: area,
                 role: role,
                 vacancies: 1
@@ -168,15 +168,15 @@ const EditProject = (props: Props) => {
   }
 
   const updateRole = (value: number, index: number) => {
-    let updatedRole = data.addedRoles[index]
+    let updatedRole = data.roles[index]
     updatedRole.vacancies = value
   }
 
   const removeRole = (index: number) => {
     flushSync(() => {
-      let newRoles = [...data.addedRoles]
+      let newRoles = [...data.roles]
       newRoles = newRoles.filter((_: any, i: number) => i !== index)
-      setData({ ...data, addedRoles: newRoles })
+      setData({ ...data, roles: newRoles })
     })
   }
 
@@ -249,7 +249,7 @@ const EditProject = (props: Props) => {
 
             <div className="input-container">
             <h4 className="input-title ">Co-leader</h4>
-              <Select options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coLeader: value })} />
+              <Select options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
             </div>
 
             <div className="role-container">
@@ -287,11 +287,11 @@ const EditProject = (props: Props) => {
             </div>
 
             {
-              data.addedRoles && data.addedRoles.length > 0 && (
+              data.roles && data.roles.length > 0 && (
                 <div className="added-roles">
                   <p className='added-roles-title'>Roles / Vacancies</p>
                   {
-                    data.addedRoles.map((role: any, index: number) => {
+                    data.roles.map((role: any, index: number) => {
                       return (
                         <div className='added-role' key={`${role.area}-${role.role}-${index}`}>
                           <div className="container">

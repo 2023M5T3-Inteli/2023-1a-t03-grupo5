@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import {useState, useEffect} from "react";
 import ProjectService from "../../../main/services/projectService";
 import UserService from "../../../main/services/userService"
+import Loading from "../../components/loading/loading";
 
 
 // type Props = {
@@ -20,27 +21,7 @@ import UserService from "../../../main/services/userService"
 
 
 const VisualizeProject: React.FC = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await ProjectService.findByID("24df9c0a-1e15-49fa-959c-d3ea17577eda")
-      .then(res => res);
-      
-      setProject(response);
-    }
-    
-    fetchData()
-
-    const fetchUser = async () => {
-      const response = await UserService.findByID("24df9c0a-1e15-49fa-959c-d3ea17577eda")
-      .then(res => res);
-      
-      setProject(response);
-    }
-
-    fetchUser()
-
-  },[])
-
+  const [loading, setLoading] = useState(true)
   const [project, setProject] = useState({
     name: "Loading...", 
     description: "loading...",
@@ -49,9 +30,39 @@ const VisualizeProject: React.FC = () => {
     status: "loading...",
     end:"xx/xx/xxx",
   })
+  const [ownerName, setOwnerName] = useState("")
+  const [coleaderName, setColeaderName] = useState("")
+
+  const getUser = async (id: string) => {
+    const response = await UserService.findByID("1d344c78-15d2-453d-848c-d31ac003cd48")
+    console.log(response)
+
+    return response
+  }
+
+  const getProject = async () => {
+    const response = await ProjectService.findByID("d252a33c-5f3d-4194-a5b3-7241cfa738d6")
+    setProject(response)
+    console.log(response)
+    
+    let owner = await getUser(project.ownerId)
+    let coleader = await getUser(project.coleaderId)
+
+    setOwnerName(owner.name)
+    setColeaderName(coleader.name)
+
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    
+    getProject()
+
+  },[])
 
   return (
     <div className="visualize-project">
+      {loading && <Loading />}
       <div className="container-visualize">
         <div className=" grid-8 project-info" >
         <div className=" project-start">
@@ -61,8 +72,8 @@ const VisualizeProject: React.FC = () => {
         <p className="p-project">
             {project.description}
           </p>
-          <p className="p-project">Leader:{project.ownerId}</p>
-          <p className="p-project">Co leader:{project.coleaderId}</p>
+          <p className="p-project">Leader: {ownerName}</p>
+          <p className="p-project">Co leader: {coleaderName}</p>
 
           <div className="tags-visualize">
             <h2 className="h2-tag">Tags:</h2>

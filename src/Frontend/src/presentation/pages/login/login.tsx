@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import axios from "axios"
 import cookie from 'react-cookies'
+import Input from "../../components/input/input";
 
 // import cors from "cors"
 
@@ -29,7 +30,7 @@ let TelaLogin = (props: Props) => {
     // async é usada para indicar que a função é assíncrona e que retornará uma promessa.
     // faz uma requisição HTTP POST usando a biblioteca Axios para uma URL específica e com alguns dados no corpo da requisição.
 
-    const handleInput = async () => {
+    const handleSubmit = async () => {
         try {
             console.log(email);
             console.log(pass)
@@ -52,24 +53,28 @@ let TelaLogin = (props: Props) => {
         }
     }
 
-    // useEffect limita a execução da função handleInput, o [] no final faz com execute apenas uma vez 
+    // useEffect limita a execução da função handleSubmit, o [] no final faz com execute apenas uma vez 
     // useEffect(() => {
-    //     handleInput();
+    //     handleSubmit();
     // }, [])
 
     return (
-        <div id="login">
+        <div className="login">
             <div className="grid-7 container left-side">
                 <img className="logo" src={Logo} alt="" />
-                <p>Email</p>
-                <input className="email" type="text" placeholder="E-mail" value={email} onChange={(eventInput) => setEmail(eventInput.target.value)} />
-                <p>Password</p>
-                <input className="pass" type="password" placeholder="Senha" value={pass} onChange={(eventPassword) => setPass(eventPassword.target.value)} />
-                <a className="forget" href="">Forget the password?</a>
+                <div className="input-container">
+                    <p>Email</p>
+                    <Input size="large" type="text" placeholder="E-mail" value={email} onChange={(value: string) => setEmail(value)} />
+                </div>
+                <div className="input-container">
+                    <p>Password</p>
+                    <Input size="large" type="password" placeholder="Senha" value={pass} onChange={(value: string) => setPass(value)} />
+                    <a className="forget" href="">Forget the password?</a>
+                </div>
                 <button id="confirma-botao" onClick={() => {
                     // submit()
-                    handleInput();
                     props.changePage(0)
+                    handleSubmit()
                 }}>Login</button>
 
             </div>

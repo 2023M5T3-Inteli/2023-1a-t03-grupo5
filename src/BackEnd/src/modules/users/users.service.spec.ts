@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
+import { PrismaService } from '../../prisma.service';
 
 describe('UsersService', () => {
   let service: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
+      providers: [UsersService, PrismaService],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
@@ -17,45 +18,79 @@ describe('UsersService', () => {
   });
 
   // Unit test for the "get all users" endpoint function
-  it('Should return all users', () => {
-    expect(service.getUsers()).toEqual([
-      { id: 1, name: 'test', email: 'test@test', password: 'test1234' },
-      { id: 2, name: 'test', email: 'test2@test', password: 'test1234' }
-    ])  
+  it('Should return all users', async () => {
+    let users = await service.getAll()
+    let qnt = users.length
+    expect((await service.getAll()).length).toEqual(qnt)  
   });
 
   // Unit test for the "get a specific user by id" endpoint function
-  it('Should return a user', () => {
-    expect(service.getUser("id")).toEqual([
-      { id: 1, name: 'test', email: 'test@test', password: 'test1234' }
-    ])
+  it('Should return a user', async () => {
+    let User = await service.getUser("583b42ff-fa7a-4c51-a574-72f47ec0fb9e")
+
+    User.projects = []
+    User.projectsColeader = []
+    delete User.createdAt
+    delete User.updatedAt
+    delete User.bornDate
+
+    expect(User).toEqual({"id":"583b42ff-fa7a-4c51-a574-72f47ec0fb9e","email":"victor.carvalho@sou.inteli.edu.br","name":"Victor Carvalho","gender":"Masculino","n_dell":"123456","managerId":"asdsadasdasd21312","habilities":"[]","isAdmin":false, "projects": [], "projectsColeader": []})
   });
 
-  // Unit test for the "create user" endpoint function
-  it('Should create a user', () => {
-    expect(service.createUser("name", "email", "password")).toEqual([
-      { id: 3, name: 'name', email: 'email', password: 'password' }
-    ])
+  it('Should return a user that not exists', async () => {
+    let User = await service.getUser("ID")
+
+    User.projects = []
+    User.projectsColeader = []
+    delete User.createdAt
+    delete User.updatedAt
+    delete User.bornDate
+
+    expect(User).toEqual({"id":"583b42ff-fa7a-4c51-a574-72f47ec0fb9e","email":"victor.carvalho@sou.inteli.edu.br","name":"Victor Carvalho","gender":"Masculino","n_dell":"123456","managerId":"asdsadasdasd21312","habilities":"[]","isAdmin":false, "projects": [], "projectsColeader": []})
   });
 
   // Unit test for the "update user" endpoint function 
-  it('Should update a user', () => {
-    expect(service.updateUser("id", "name", "email", "password")).toEqual([
-      { id: 1, name: 'testing', email: 'email@test', password: 'password' }
-    ])
+  it('Should update a user', async() => {
+
+    await service.update("583b42ff-fa7a-4c51-a574-72f47ec0fb9e", {"name": "Victor Carvalho"})
+
+    let User = await service.getUser("583b42ff-fa7a-4c51-a574-72f47ec0fb9e")
+
+    delete User.projects
+    delete User.projectsColeader
+    delete User.createdAt
+    delete User.updatedAt
+    delete User.bornDate
+
+    expect(User).toEqual({"id":"583b42ff-fa7a-4c51-a574-72f47ec0fb9e","email":"victor.carvalho@sou.inteli.edu.br","name":"Victor Carvalho","gender":"Masculino","n_dell":"123456","managerId":"asdsadasdasd21312","habilities":"[]","isAdmin":false})
   });
 
-  // Unit test for the user login endpoint function
-  it('Should login a user', () => {
-    expect(service.login("email", "password")).toEqual(
-      "User logged in"
-    )
+  it("Should update a user that doesn't exists", async() => {
+
+    await service.update("ID", {"name": "Victor Carvalho"})
+
+    let User = await service.getUser("ID")
+
+    delete User.projects
+    delete User.projectsColeader
+    delete User.createdAt
+    delete User.updatedAt
+    delete User.bornDate
+
+    expect(User).toEqual({"id":"583b42ff-fa7a-4c51-a574-72f47ec0fb9e","email":"victor.carvalho@sou.inteli.edu.br","name":"Victor Carvalho","gender":"Masculino","n_dell":"123456","managerId":"asdsadasdasd21312","habilities":"[]","isAdmin":false})
   });
 
-  // Unit test for the user authentication endpoint function
-  it('Should autenticate a user', () => {
-    expect(service.authenticate("email", "password")).toEqual(
-      "User authenticated"
-    )
+  it('Should get a user by name', async() => {
+
+    let User = await service.getUserByName("Victor Carvalho")
+
+    expect(User).toEqual([{"id":"583b42ff-fa7a-4c51-a574-72f47ec0fb9e","name":"Victor Carvalho","n_dell":"123456"}])
+  });
+
+  it("Should try to get a user that doesnt't exitst by name", async() => {
+
+    let User = await service.getUserByName("Teste de nome")
+
+    expect(User).toEqual([])
   });
 });

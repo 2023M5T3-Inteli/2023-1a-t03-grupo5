@@ -243,7 +243,8 @@ export class UsersService {
             updatedAt: user.updatedAt,
             isAdmin: user.isAdmin,
             projects: user.projects,
-            projectsColeader: user.projectsColeader
+            projectsColeader: user.projectsColeader,
+            photoURL: user.photoURL,
         }
     }
 

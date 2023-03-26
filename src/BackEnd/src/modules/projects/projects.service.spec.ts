@@ -65,7 +65,7 @@ describe('ProjectsService', () => {
         service.deleteProject(projectIdToDelete);
         const afterDelete = service.getAllProjects();
         expect((await afterDelete).length).toBe((await beforeDelete).length - 1);
-        expect((await afterDelete).some(projectCreated => projectCreated.id === projectIdToDelete)).toBe(false);
+        expect((await afterDelete).some(project => project.projectId === projectIdToDelete)).toBe(false);
     });
   
   // Unit test for the "edit already created project" endpoint function

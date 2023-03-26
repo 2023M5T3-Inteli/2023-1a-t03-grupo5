@@ -15,6 +15,8 @@ import Profile from '../../presentation/pages/profile/profile'
 import Navbar from '../../presentation/components/partials/navbar/navbar'
 import EditProject from '../../presentation/pages/editProject/editProject'
 import userService from '../services/userService'
+import ApproveProject from '../../presentation/pages/approveProject/approveProject'
+
 
 const Router: React.FC = () => {
   const [user, setUser] = useState(401)
@@ -28,7 +30,7 @@ const Router: React.FC = () => {
 
   useEffect(() => {
     setPath(window.location.href)
-    if(path.includes("/login")) {
+    if (path.includes("/login")) {
       setShowSidebar(false)
     }
   }, [changePage, path])
@@ -70,6 +72,8 @@ const Router: React.FC = () => {
             <Route path='/profile' element={<Profile />}></Route>
             {/* <Route path='/login' element={<Login />}></Route> */}
             <Route path='/applicationForm' element={<ApplicationForm closeModal={() => false} />}></Route>
+            <Route path='/approveProject' element={<ApproveProject />}></Route>
+
           </>
         }
       </Routes>

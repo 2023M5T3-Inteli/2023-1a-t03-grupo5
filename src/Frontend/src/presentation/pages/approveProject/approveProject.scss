@@ -1,0 +1,200 @@
+#approve_project {
+    display: flex;
+    height: 100vh;
+
+    .container {
+        display: flex;
+        background-color: #232323;
+        margin: auto;
+        width: 70%;
+        height: 90%;
+        border-radius: 15px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+
+
+
+        .left-side {
+            flex-direction: column;
+            margin-left: 50px;
+
+            // align-items: center;
+            // justify-content: center;
+
+            h1 {
+                margin-bottom: 20px;
+                margin-top: 30px;
+                display: flex;
+                // justify-content: center;
+                color: #FFFFFF;
+            }
+
+            .description-project {
+                text-align: left;
+                height: auto;
+                color: #FFFFFF;
+            }
+
+            .roles {
+                margin-top: 20px;
+                background-color: #1D1D1D;
+                display: flex;
+                height: auto;
+                padding: 5px;
+                flex-direction: column;
+                border-radius: 12px;
+                color: #FFFFFF;
+
+                .tag-roles {
+                    min-width: 250px;
+                    height: auto;
+                    background-color: #2B2B2B;
+                    padding: 4px 16px;
+                    border-radius: 9px;
+                    margin: auto;
+                    margin-bottom: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            .dates {
+                margin-top: 20px;
+                background-color: #1D1D1D;
+                display: flex;
+                height: auto;
+                padding: 5px;
+                flex-direction: row;
+                border-radius: 12px;
+                color: #FFFFFF;
+                width: 100%;
+
+                .date {}
+            }
+
+            .tags {
+                margin-top: 20px;
+                background-color: #1D1D1D;
+                display: flex;
+                height: auto;
+                padding: 5px;
+                flex-direction: row;
+                border-radius: 12px;
+                color: #FFFFFF;
+                width: 100%;
+
+                .tags-languages {
+                    min-width: 80px;
+                    height: auto;
+                    background-color: #2B2B2B;
+                    padding: 4px 16px;
+                    border-radius: 9px;
+                    margin: auto;
+                    margin-bottom: 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .vertical-line {
+            width: 1.5px;
+            background-color: black;
+            height: auto;
+        }
+
+
+        .right-side {
+            flex-direction: column;
+            color: #FFFFFF;
+
+
+            .close-image {
+                width: 10%;
+            }
+
+
+            .leader {
+                margin-bottom: 20px;
+                margin-top: 20px;
+                display: flex;
+                flex-direction: row;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .briefcase-image {
+                    height: auto;
+                    width: 6%;
+                    margin-right: 30px;
+                }
+
+                .names-leader {
+                    display: flex;
+                    flex-direction: column;
+
+                    .role-leader {
+                        margin-bottom: 5px;
+                    }
+
+                    .role-coleader {}
+
+
+                }
+            }
+
+            .horizontal-line {
+                background-color: #111010;
+                width: auto;
+                background-color: black;
+            }
+
+            .nft {
+                margin-top: 30px;
+                flex-direction: column;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .badge {
+                    display: flex;
+                    flex-direction: row;
+                    margin-right: 10px;
+
+                    .badge-image {
+                        margin-left: 10px;
+                        width: 25%;
+                        height: auto;
+                    }
+                }
+
+                .nft-image {
+                    margin-top: 20px;
+                    height: auto;
+                    width: 40%;
+                }
+            }
+
+            .buttons-aprove-refuse {
+                margin-top: 30px;
+                flex-direction: column;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .buttons-aprove {
+                    margin-bottom: 10px;
+                }
+
+                .buttons-refuse {
+                    // .button-refuse {
+                    //     background-color: #FF3A2E !important;
+                    // }
+                }
+            }
+        }
+
+    }
+}

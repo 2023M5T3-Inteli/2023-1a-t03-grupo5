@@ -33,11 +33,11 @@ const ApplicationForm = (props: Props) => {
     const [rolesOptions, setRolesOptions] = useState([
         {
             value: "1",
-            label: "devOps (5 vacancies)"
+            label: "DevOps (5 vacancies)"
         },
         {
             value: "2",
-            label: "design (3 vacancies)"
+            label: "Design (3 vacancies)"
         }
     ])
 

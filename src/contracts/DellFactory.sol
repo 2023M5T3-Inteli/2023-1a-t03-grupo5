@@ -7,9 +7,11 @@ import "./Person.sol";
 
 contract DellFactory is ERC1155 {
     using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
 
     // State Variables
     address private owner;
+    address public employee;
 
     // Constructor
     constructor() {
@@ -23,20 +25,27 @@ contract DellFactory is ERC1155 {
     }
 
     // Functions
-    function createAchievement(
+    function mintAchievement(
         string memory _newTokenURI,
-        address _receiver
-    ) public isOwner {
+        address _receiver,
+        uint256 _amount
+    ) public isOwner returns (uint256) {
+        _receiver = employee;
+        _amount = 20;
+
         // Picking the actual token id
-        uint256 newNFTId = tokenIds.current();
+        uint256 newNFTId = _tokenIds.current();
+
         // Creating a NFT for a specific user
-        _mint(account, id, amount, data);
+        _mint(_receiver, newNFTId, _amount);
+
         // Setting the token URI for the NFT just minted
         _setTokenURI(newNFTId, _newTokenURI);
+
         // Increasing the token Id
-        tokenIds.increment();
-        // Update tokens of the user that received the token that was just minted
-        _tokens[_receiver].push(newNFTId);
+        _tokenIds.increment();
+
+        return newNFTId;
     }
 
     function deleteAchievement() public {

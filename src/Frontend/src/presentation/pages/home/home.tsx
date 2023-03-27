@@ -170,7 +170,8 @@ const Home: React.FC = () => {
       }
       {/* {
         openConfirmModal && <Modal type="warning" closeModal={() => toggleConfirmModal()} content={<DeleteProject closeModal={() => toggleConfirmModal()} />} />
-      } */}
+      }  */}
+      
       {/* <div className="button-container">
         <div className='add-icon' onClick={() => setOpenCreateModal(!openCreateModal)}>
           <AddIcon />

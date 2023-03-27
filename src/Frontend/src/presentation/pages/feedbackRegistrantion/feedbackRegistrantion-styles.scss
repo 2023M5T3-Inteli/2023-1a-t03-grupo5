@@ -1,0 +1,51 @@
+@use '/public/styles/spacing.scss' as sp;
+@use '/public/styles/color.scss' as c;
+@use '/public/styles/typographic.scss' as t;
+
+#feedback {
+  padding: sp.$stack-sm;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  justify-content: space-between;
+  height: 90%;
+  color: c.$primary;
+
+  .Feedback {
+    margin-top: 8px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .send{
+    width: 100%;
+    height: 100%;
+    margin-top: -10px;
+    }
+
+  .text{
+    background-color: #747474;
+    width: 100%;
+    margin-bottom: 3%;
+    height: 900%;
+
+
+   
+    border: 1px solid #383838;
+    border-radius: 10px;
+    padding-left: 16px;
+    
+
+
+    color: #FFFFFF;
+   
+  }
+
+
+  .delete-buttons {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+  }
+}

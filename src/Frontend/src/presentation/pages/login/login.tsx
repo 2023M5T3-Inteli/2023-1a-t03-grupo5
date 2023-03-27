@@ -46,7 +46,7 @@ let TelaLogin = (props: Props) => {
 
             console.log(response)
 
-            cookie.save("token", response.data.token)
+            cookie.save("token", response.data.token, {})
 
             // props.validate()
 

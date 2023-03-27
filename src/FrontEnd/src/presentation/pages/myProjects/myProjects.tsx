@@ -12,7 +12,11 @@ import VisualizeProject from '../visualizeProject/visualizeProject'
 import ApplicationForm from '../applicationForm/applicationForm'
 import DeleteProject from '../deleteProject/deleteProject'
 
-const MyProjects: React.FC = () => {
+type Props = {
+  user: any;
+}
+
+const MyProjects: React.FC<Props> = (props: Props) => {
   const isMobile = true;
   const [openCreateModal, setOpenCreateModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
@@ -112,7 +116,7 @@ const MyProjects: React.FC = () => {
         openEditModal && <Modal closeArrow={true} closeModal={() => toggleEditModal()} content={<EditProject closeModal={() => toggleEditModal()} />} />
       }
       {
-        openViewModal && <Modal closeArrow={true} closeModal={() => toggleViewModal()} content={<VisualizeProject closeModal={() => toggleEditModal()} openEdit={() => toggleEditModal()} openApply={() => toggleApplyModal()} />} />
+        openViewModal && <Modal closeArrow={true} closeModal={() => toggleViewModal()} content={<VisualizeProject user={props.user} />} />
       }
       {
         openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />

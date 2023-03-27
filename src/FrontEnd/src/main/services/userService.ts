@@ -32,7 +32,7 @@ const UserService = {
       const response = await axios.get(`${API_URL}/user/Info`, config);
       return response.data;
     } catch (error) {
-      return error.response.status;
+      return error;
     }
   },
 

@@ -47,7 +47,11 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
 
   const getUser = async (id: string) => {
     console.log(id)
-    const response = await UserService.findByID(id)
+    const response = await UserService.findByID(id).then((res) => {
+      return res
+    }).catch((err) => {
+      return err;
+    })
     console.log(response)
 
     return response

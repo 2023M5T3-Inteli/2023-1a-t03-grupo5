@@ -1,26 +1,17 @@
 import "./registrations-styles.scss";
-<<<<<<< Updated upstream
-import React ,{useState, useEffect} from "react";
-=======
 import React, { useState } from "react";
->>>>>>> Stashed changes
 import { Link } from "react-router-dom";
 import Modal from "../../components/modal/modal";
 import FeedbackRegistrantion from "../feedbackRegistrantion/feedbackRegistrantion";
 
 
 let Registrations = () => {
-<<<<<<< Updated upstream
-
-    
-=======
   const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
 
   const toggleFeedbackModal = () => {
     setOpenFeedbackModal(!openFeedbackModal)
   }
 
->>>>>>> Stashed changes
     return (
         <div className="bodyRegistrations">
             <div className="containerRegistrations">

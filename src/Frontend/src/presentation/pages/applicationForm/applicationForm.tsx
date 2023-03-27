@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
 import "./applicationForm-styles.scss"
 import { Link } from "react-router-dom"
 import Input from '../../components/input/input'
 import Button from '../../components/button/button'
 import Ellipse from "/public/Ellipse2.png"
+import Select from "../../components/select/select"
 
 type Props = {
     closeModal: Function;
@@ -23,16 +24,30 @@ const ApplicationForm = (props: Props) => {
     }
 
     const [data, setData] = useState({
-        vacancy: ['developer', 'design']
+        roleId: "",
+        why: "",
+        habilities: ""
     });
+
+
+    const [rolesOptions, setRolesOptions] = useState([
+        {
+            value: "1",
+            label: "devOps (5 vacancies)"
+        },
+        {
+            value: "2",
+            label: "design (3 vacancies)"
+        }
+    ])
 
     const [projectData, setProjectData] = useState({
         tags: ["python", "java", "c++", "php", "java-script"]
     });
 
-
-
-
+    useEffect(() => {
+        console.log(data)
+    }, [data.why])
 
     return (
         <div className="application-form">
@@ -42,14 +57,12 @@ const ApplicationForm = (props: Props) => {
                     <div className="input-container">
                         <p>Role of interest</p>
 
-                        <div >
-                            <Input
-                                className="input-vacancy-interest"
-                                placeholder={"Vacancies"}
-                                type={""}
+                        <div className="select-vacancy-interest">
+                            <Select
+                                options={rolesOptions}
+                                default="Choose role"
+                                onChange={(value: string) => setData({ ...data, roleId: value })}
                                 size='large'
-                                value={vacancies}
-                                onChange={handleVacanciesChange}
                             />
                         </div>
 
@@ -61,7 +74,7 @@ const ApplicationForm = (props: Props) => {
                                 placeholder={"Talk about it..."}
                                 type={""}
                                 size='large'
-                            // value={whyVacancies}
+                                onChange={(value: string) => setData({ ...data, why: value })}
                             />
                         </div>
 
@@ -72,7 +85,7 @@ const ApplicationForm = (props: Props) => {
                                 placeholder={""}
                                 type={""}
                                 size='large'
-                            // value={skillDevelop}
+                                onChange={(value: string) => ({ ...data, habilities: value })}
                             />
                         </div>
                     </div>
@@ -121,7 +134,6 @@ const ApplicationForm = (props: Props) => {
                                 <p>kkk</p>
                             </div> */}
                     </div>
-
                     <div className="roles">
                         <p className="role-txt">Roles:</p>
                         <div className="role-official">

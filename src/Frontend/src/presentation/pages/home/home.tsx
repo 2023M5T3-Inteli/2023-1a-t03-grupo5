@@ -15,6 +15,7 @@ import SearchBar from '../../components/searchBar/searchBar'
 import { Link } from 'react-router-dom'
 import ProjectService from '../../../main/services/projectService'
 import Loading from '../../components/loading/loading'
+import UserService from '../../../main/services/userService'
 
 const Home: React.FC = () => {
   const isMobile = true;
@@ -56,7 +57,17 @@ const Home: React.FC = () => {
     setLoading(false)
   }
 
+  const validateUser = async () => {
+    const user = await UserService.validate();
+
+    if (user.response.status   === 401) {
+      window.location.href = '/login'
+    }
+  }
+
   useEffect(() => {
+    validateUser();
+    
     getAll()
   }, [])
 

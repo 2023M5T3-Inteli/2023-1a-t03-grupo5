@@ -42,7 +42,7 @@ const ProjectService = {
   },
   edit: async (data: any) => {
     try {
-      const response = await axios.put(`/Project/update/${data.projectId}`, data)
+      const response = await axios.put(`${API_URL}/Project/update/${data.projectId}`, data)
       return response.data
     }
     catch (error) {
@@ -51,7 +51,7 @@ const ProjectService = {
   },
   delete: async (id: string) => {
     try {
-      const response = await axios.delete(`/Project/delete/${id}`)
+      const response = await axios.delete(`${API_URL}/Project/delete/${id}`)
       return response.data
     }
     catch (error) {

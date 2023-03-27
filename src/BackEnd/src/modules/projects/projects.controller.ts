@@ -58,7 +58,7 @@ export class ProjectsController {
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 404, description: 'Error: Not Found'})
   @ApiResponse({ status: 400, description: 'Error: Bad Request'})
-  async update(@Param("projectId") projectId: string, @Body() data: ProjectDTO) {
+  async update(@Param("projectId") projectId: string, @Body() data: any) {
     return this.projectsService.updateProject(projectId, data);
   }
 

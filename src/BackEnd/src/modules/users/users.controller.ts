@@ -111,7 +111,6 @@ export class UsersController {
     }
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get("/sendForgotEmail/:email")
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   async sendForgotEmail(@Param("email") email: string) {
@@ -126,7 +125,6 @@ export class UsersController {
     name: 'resetForgotPassword',
     description: 'Create new password',
   })
-  @UseGuards(AuthGuard('jwt'))
   @Post("/resetForgotPassword")
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 401, description: 'Error: Unauthorized'})

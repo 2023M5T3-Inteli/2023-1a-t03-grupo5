@@ -222,7 +222,8 @@ export class UsersService {
             },
             include: {
                 projects: true,
-                projectsColeader: true
+                projectsColeader: true,
+                applies: true
             }
         });
 
@@ -255,7 +256,8 @@ export class UsersService {
             },
             include: {
                 projects: true,
-                projectsColeader: true
+                projectsColeader: true,
+                applies: true
             }
         });
 

@@ -5,12 +5,13 @@
 
     input {
         width: max-content;
-        border-radius: 9px;
-        border: solid 1px c.$highlight-dark;
+        border-radius: 12px;
+        border: solid 3px c.$highlight-dark;
         color: c.$primary;
         padding: 8px;
+        outline: 0;
         background-color: c.$secundary;
-        // background-color: c.$secundary;
+        font-size: 1.07rem;
     }
 
     .disabled {
@@ -23,7 +24,7 @@
     }
 
     :focus {
-        outline: c.$primary 1px solid;
+        outline: 0;
     }
 
     .small {

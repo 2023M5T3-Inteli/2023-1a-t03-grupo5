@@ -87,7 +87,7 @@ export class ProjectsService {
         
     }
 
-    async updateProject(projectId: string, data: ProjectDTO) {
+    async updateProject(projectId: string, data: any) {
         //Verify if the project exists
         const projectExists = await this.prisma.project.findUnique({
             where: {
@@ -98,6 +98,8 @@ export class ProjectsService {
         if(!projectExists) {
             throw new Error('Project does not exist!')
         }
+
+        data.updateAt = new Date()
 
         //Doing the update
         try {

@@ -3,14 +3,30 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../../components/modal/modal";
 import FeedbackRegistrantion from "../feedbackRegistrantion/feedbackRegistrantion";
+import Button from "../../components/button/button";
 
 
 let Registrations = () => {
-  const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
+    const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
 
-  const toggleFeedbackModal = () => {
-    setOpenFeedbackModal(!openFeedbackModal)
-  }
+    const toggleFeedbackModal = () => {
+        setOpenFeedbackModal(!openFeedbackModal)
+    }
+
+    const [data, setData] = useState([
+        {
+            name: "Felipe",
+            status: "Pending"
+        },
+        {
+            name: "Pedro",
+            status: "Approved"
+        },
+        {
+            name: "Rafaela",
+            status: "Refused"
+        }
+    ])
 
     return (
         <div className="bodyRegistrations">
@@ -34,19 +50,33 @@ let Registrations = () => {
 
                 <div className="registrationsTable">
                     <div className="container">
-                        <div className="containerTable">
-                            <div className="firstContainer">
-                                <p className="nameRegistry">1. Felipe Saladys</p>
-                                <button className="Approve">Approve</button>
-                                <button className="Refuse" onClick={() => toggleFeedbackModal() }>Refuse</button>
-                            </div>
-                            <div className="seeProfile">
-                                <button className="buttonSeeProfile">See Profile</button>
-                            </div>
-                        </div>
+
+                        {
+                            data.map((apply: any, index: number) => {
+                                return (
+                                    <div className="containerTable">
+                                        <div className="firstContainer">
+                                            <p className="nameRegistry grid-8">{apply.name}</p>
+                                            {
+                                                apply.status === "Pending" ?
+                                                    <div className="button-container grid-4">
+                                                        <Button type="default" size="small" text="Approve" />
+                                                        <Button type="cancel" size="small" text="Refuse" onClick={() => toggleFeedbackModal()} />
+                                                    </div>
+                                                    :
+                                                    <div className="button-container grid-4">
+                                                        <button className={apply.status} onClick={() => toggleFeedbackModal()}>{apply.status}</button>
+                                                    </div>
+                                            }
+                                        </div>
+                                        <div className="seeProfile">
+                                            <button className="buttonSeeProfile">See Profile</button>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
-
-
                 </div>
 
             </div>

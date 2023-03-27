@@ -90,14 +90,18 @@
                             flex-direction: row;
                             justify-content:  space-around;
                             border-right: 1px solid #111010;
-                            align-items: center;
+                            // align-items: center;
                             .nameRegistry {
                                 margin-left: 20px;
                                 color: white;
                                 font-size: 18px;
-
                             }
-                            .Approve{
+
+                            .button-container {
+                                display: flex;
+                                gap: 20px;
+                            }
+                            .Approved {
                                 color: #00FF66;
                                 font-size: 18px;
                                 height: 100%;
@@ -106,7 +110,7 @@
                                 border: 0;
 
                             }
-                            .Refuse{
+                            .Refused {
                                 color: #DF1414;
                                 font-size: 18px;
                                 height: 100%;
@@ -142,19 +146,8 @@
         
                             }
                         }
-
-
                     }
                 }
-            
-            
-            
-            
             }
-        
-
-    
-
-
     }
 }

@@ -13,6 +13,7 @@ const FeedbackRegistrantion = (props: Props) => {
       <label className='Feedback'>Feedback</label>
       <input type="text" className='text' name='text' />
       <div className="delete-buttons">
+        <Button text="Refuse apply" size='medium' type='cancel' onClick={() => props.closeModal()}/>
         <Button text="Cancel" size='medium' type='default' onClick={() => props.closeModal()}/>
       </div>
     </div>

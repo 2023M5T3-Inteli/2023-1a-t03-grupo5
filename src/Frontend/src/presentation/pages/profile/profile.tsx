@@ -50,12 +50,12 @@ const Profile = () => {
                                 <img width={36} src={"/linkedin.png"}></img>
                                 <p className="linkedinText">www.linkedIn/victor</p>
                             </div>
-                            <div className="curriculumDiv">
+                            {/* <div className="curriculumDiv">
                                 <button className="btnCurriculum">
                                     <img width={28} src={"/share.png"}></img>
                                     <p className="curriculumText">Curriculum</p>
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div className="second">

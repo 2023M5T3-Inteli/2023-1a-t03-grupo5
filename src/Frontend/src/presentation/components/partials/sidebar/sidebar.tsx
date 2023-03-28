@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import cookie from 'react-cookies'
 
@@ -33,6 +33,7 @@ interface Props {
 }
 
 const Sidebar: any = (props: Props) => {
+  const navigate = useNavigate()
   const [profileOpened, setProfileOpened] = useState(false)
   const [menuOpened, setMenuOpened] = useState(false)
   const [openCreateModal, setOpenCreateModal] = useState(false)
@@ -70,8 +71,9 @@ const Sidebar: any = (props: Props) => {
   ]
 
   const logout = () => {
+    props.changePage(-1)
     cookie.remove("token")
-    props.changePage(0)
+    window.location.href = "/login"
   }
 
   return (

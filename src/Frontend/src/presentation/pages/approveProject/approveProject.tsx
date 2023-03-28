@@ -8,11 +8,13 @@ import BadgeTag from "/public/award.png"
 import ellipse from "/public/Ellipse2.png"
 import Plus from "/public/plus.png"
 import Button from '../../components/button/button'
+import Calendar from '/public/Calendar.png'
+
 
 const ApproveProject = () => {
 
     const [projectTagsRoles, setProjectTagsRoles] = useState({
-        rolesProject: ["Developer", "Scrum Master"]
+        rolesProject: ["Developer", "Scrum Master", "DevOps"]
     })
 
     return (
@@ -40,17 +42,34 @@ const ApproveProject = () => {
                     </div>
 
                     <div className="dates grid-4">
-                        <div className="date">
-                            <p>Start date</p>
-                            {/* <p>XX/XX/XXXX</p> */}
+                        <div className="name-date">
+                            <div className="img-calendar">
+                                <img src={Calendar} alt="" />
+                            </div>
+                            <div className="text-date">
+                                <p>Start Date:</p>
+                                <p>XX/XX/XXXX</p>
+                            </div>
                         </div>
-                        <div className="date">
-                            <p>End date</p>
-                            {/* <p>XX/XX/XXXX</p> */}
+
+                        <div className="name-date">
+                            <div className="img-calendar">
+                                <img src={Calendar} alt="" />
+                            </div>
+                            <div className="text-date">
+                                <p>End Date:</p>
+                                <p>XX/XX/XXXX</p>
+                            </div>
                         </div>
-                        <div className="date">
-                            <p>Expiration date</p>
-                            {/* <p>XX/XX/XXXX</p> */}
+
+                        <div className="name-date">
+                            <div className="img-calendar">
+                                <img src={Calendar} alt="" />
+                            </div>
+                            <div className="text-date">
+                                <p>Expiration Date:</p>
+                                <p>XX/XX/XXXX</p>
+                            </div>
                         </div>
                     </div>
 
@@ -71,7 +90,6 @@ const ApproveProject = () => {
                 <div className="vertical-line"></div>
 
                 <div className="grid-5 right-side">
-                    <img className="close-image" src={Plus} alt="" />
                     <div className="leader">
                         <div className="briefcase-image">
                             <img src={Briefcase} alt="" />

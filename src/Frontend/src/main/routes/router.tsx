@@ -24,6 +24,9 @@ import userService from '../services/userService'
 import ApproveProject from '../../presentation/pages/approveProject/approveProject'
 import Forgot from '../../presentation/pages/forgotPassword/forgot'
 import Registrations from "../../presentation/pages/registrations/registrations";
+import 'react-toastify/dist/ReactToastify.css';
+import Toast from "../../presentation/components/toast/toast";
+
 const Router: React.FC = () => {
   const [user, setUser] = useState(401);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -32,38 +35,40 @@ const Router: React.FC = () => {
   const changePage = (index: number) => {
     setActive(index);
   };
-  useEffect(() => {
-    setPath(window.location.href);
-    if (path.includes("/login")) {
-      setShowSidebar(false);
-    }
-  }, [changePage, path]);
-  const validateUser = async () => {
-    const user = await userService.validate();
-    console.log(user);
-    if (user === 401) {
-      window.location.href = "/login";
-    }
-    setShowSidebar(true);
-    console.log(user);
-    setUser(user);
-  };
   // useEffect(() => {
   //   if (!path.includes('/login' || '/404' || '/forgotPassword')) {
   //     validateUser()
   //   }
   // }, [])
+
   const verifyPath = () => {
     if (path.includes("/login") || path.includes("/forgotPassword")) {
-      return false
+      setShowSidebar(false)
     }
     else {
-      return true
+      setShowSidebar(true)
     }
   }
+
+  useEffect(() => {
+    setPath(window.location.href);
+    verifyPath()
+  }, [changePage]);
+  // const validateUser = async () => {
+  //   const user = await userService.validate();
+  //   console.log(user);
+  //   if (user === 401) {
+  //     window.location.href = "/login";
+  //   }
+  //   setShowSidebar(true);
+  //   console.log(user);
+  //   setUser(user);
+  // };
+
   return (
     <BrowserRouter>
-      { verifyPath() && <Sidebar page={active} changePage={changePage} />}
+      <Toast />
+      {showSidebar && <Sidebar page={active} changePage={changePage} />}
       <Routes>
         <Route path='/login' element={<Login changePage={changePage} />}></Route>
         <Route path='/forgotPassword' element={<Forgot />}></Route>

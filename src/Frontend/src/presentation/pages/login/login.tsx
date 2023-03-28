@@ -8,6 +8,8 @@ import { useState } from "react"
 import axios from "axios"
 import cookie from 'react-cookies'
 import Input from "../../components/input/input";
+import { toast } from 'react-toastify';
+
 
 // import cors from "cors"
 
@@ -22,11 +24,6 @@ let TelaLogin = (props: Props) => {
 
     const navigate = useNavigate()
 
-
-    // const submit = () => {
-    //     //alert(`Email: ${email}, Senha: ${pass} `);
-    // }
-
     // async é usada para indicar que a função é assíncrona e que retornará uma promessa.
     // faz uma requisição HTTP POST usando a biblioteca Axios para uma URL específica e com alguns dados no corpo da requisição.
 
@@ -40,8 +37,10 @@ let TelaLogin = (props: Props) => {
                 "http://localhost:3001/auth/login", {
                 email: email,
                 password: pass
-            });
-
+            })
+            // localStorage.setItem("message-sucess", "Logged with success")
+            toast.success("Logged with success")
+            // props.changePage(-1)
             props.changePage(0)
 
             console.log(response)
@@ -50,21 +49,15 @@ let TelaLogin = (props: Props) => {
 
             // props.validate()
 
-            props.changePage(0)
-
-            window.location.href = '/'
+            navigate('/')
 
             console.log(email, pass);
 
         } catch (error) {
             console.log(error)
+            toast.error("Login error")
         }
     }
-
-    // useEffect limita a execução da função handleSubmit, o [] no final faz com execute apenas uma vez 
-    // useEffect(() => {
-    //     handleSubmit();
-    // }, [])
 
     return (
         <div className="login">

@@ -70,7 +70,26 @@
                 color: #FFFFFF;
                 width: 100%;
 
-                .date {}
+                .name-date {
+                    display: flex;
+                    flex-direction: row;
+
+                    .img-calendar {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: auto;
+                        width: 1%;
+                        padding: 10px;
+                        // width: 10px;
+                    }
+
+                    .text-date {
+                        flex-direction: column;
+                        padding: 5px;
+                    }
+                }
+
             }
 
             .tags {
@@ -110,12 +129,6 @@
             flex-direction: column;
             color: #FFFFFF;
 
-
-            .close-image {
-                width: 10%;
-            }
-
-
             .leader {
                 margin-bottom: 20px;
                 margin-top: 20px;
@@ -129,17 +142,24 @@
                     height: auto;
                     width: 6%;
                     margin-right: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
 
                 .names-leader {
                     display: flex;
                     flex-direction: column;
+                    display: flex;
+                    align-items: center;
 
                     .role-leader {
                         margin-bottom: 5px;
                     }
 
-                    .role-coleader {}
+                    .role-coleader {
+                        margin-bottom: 30px;
+                    }
 
 
                 }
@@ -162,6 +182,7 @@
                     display: flex;
                     flex-direction: row;
                     margin-right: 10px;
+                    margin-top: 30px;
 
                     .badge-image {
                         margin-left: 10px;
@@ -173,12 +194,12 @@
                 .nft-image {
                     margin-top: 20px;
                     height: auto;
-                    width: 40%;
+                    width: 45%;
                 }
             }
 
             .buttons-aprove-refuse {
-                margin-top: 30px;
+                margin-top: 60px;
                 flex-direction: column;
                 display: flex;
                 align-items: center;

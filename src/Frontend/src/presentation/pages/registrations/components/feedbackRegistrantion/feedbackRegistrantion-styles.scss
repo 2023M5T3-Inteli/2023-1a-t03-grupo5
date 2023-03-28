@@ -5,47 +5,37 @@
 #feedback {
   padding: sp.$stack-sm;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 70%;
   justify-content: space-between;
-  height: 90%;
+  flex-direction: column;
   color: c.$primary;
-
-  .Feedback {
-    margin-top: 8px;
-    width: 100%;
-    height: 100%;
+  gap: 40px;
+  
+  h2 {
+    text-align: center;
   }
 
-  .send{
-    width: 100%;
-    height: 100%;
-    margin-top: -10px;
-    }
+  .feedback {
+    margin-left: sp.$stack-xs;
+  }
 
   .text{
     background-color: #747474;
     width: 100%;
-    margin-bottom: 3%;
-    height: 900%;
 
-
-   
     border: 1px solid #383838;
     border-radius: 10px;
-    padding-left: 16px;
-    
-
-
     color: #FFFFFF;
-   
   }
 
+  input {
+    margin-top: sp.$stack-xs;
+    height: 20px;
+    font-size: 16px;
+  }
 
-  .delete-buttons {
+  .feedback-buttons {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     justify-content: space-between;
   }
 }

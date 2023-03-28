@@ -89,18 +89,20 @@ let Registrations = () => {
                                             <p className="name-registry grid-8">{apply.name}</p>
                                             {
                                                 apply.status === "Pending" ?
-                                                    <div className="button-container grid-4">
+                                                    <div className="button-container grid-3">
                                                         <Button type="default" size="small" text="Approve" onClick={() => changeStatus(index, "Approved")} />
                                                         <Button type="cancel" size="small" text="Refuse" onClick={() => toggleFeedbackModal(index)} />
                                                     </div>
                                                     :
-                                                    <div className="button-container grid-4">
+                                                    <div className="button-container grid-3">
                                                         <button className={apply.status} onClick={() => toggleConfirmModal(index)}>{apply.status}</button>
                                                     </div>
                                             }
                                         </div>
-                                        <div className="see-profile">
-                                            <button className="button-see-profile">See Profile</button>
+                                        <div className="see-profile grid-3">
+                                            <Link to="/profile">
+                                                <button className="button-see-profile">See Profile</button>
+                                            </Link>
                                         </div>
                                     </div>
                                 )
@@ -112,7 +114,7 @@ let Registrations = () => {
             </div>
 
             {
-                openFeedbackModal && <Modal type="warning" closeModal={() => toggleFeedbackModal(actualApply)} content={<FeedbackRegistrantion closeModal={() => toggleFeedbackModal(actualApply)} confirm={() => refuseApply()}/>} />
+                openFeedbackModal && <Modal type="warning" closeModal={() => toggleFeedbackModal(actualApply)} content={<FeedbackRegistrantion closeModal={() => toggleFeedbackModal(actualApply)} confirm={() => refuseApply()} />} />
             }
 
             {

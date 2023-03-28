@@ -94,7 +94,7 @@ let Registrations = () => {
                                                         <Button type="cancel" size="small" text="Refuse" onClick={() => toggleFeedbackModal(index)} />
                                                     </div>
                                                     :
-                                                    <div className="button-container grid-3">
+                                                    <div className="pending button-container grid-3">
                                                         <button className={apply.status} onClick={() => toggleConfirmModal(index)}>{apply.status}</button>
                                                     </div>
                                             }

@@ -126,6 +126,12 @@
                                 cursor: pointer;
                             }
                         }
+                        
+                        .pending {
+                            &:hover {
+                                text-decoration: line-through;
+                            }
+                        }
 
                         .Approved {
                             color: #00FF66;

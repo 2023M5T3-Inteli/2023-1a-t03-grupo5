@@ -7,16 +7,13 @@ import "./Person.sol";
 
 contract DellFactory is ERC1155 {
     using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
+    Counters.Counter public _tokenIds;
 
     // State Variables
     address private owner;
     address public employee;
-
-    // Constructor
-    constructor() {
-        owner = msg.sender;
-    }
+    string private _uri;
+    mapping (uint256 => string) private _tokenURIs;
 
     // Modifier
     modifier isOwner() {
@@ -24,23 +21,34 @@ contract DellFactory is ERC1155 {
         _;
     }
 
+    // Constructor
+    constructor() ERC1155(""){
+        owner = msg.sender;
+    }
+
     // Functions
-    function mintAchievement(
-        string memory _newTokenURI,
-        address _receiver,
-        uint256 _amount
-    ) public isOwner returns (uint256) {
+    function _setTokenUri(uint256 tokenId, string memory tokenURI) private {
+        _tokenURIs[tokenId] = tokenURI; 
+    } 
+
+    function uri(uint256 tokenId) override public view returns (string memory) { 
+        return(_tokenURIs[tokenId]); 
+    } 
+
+    function mintAchievement(string memory _newTokenURI, address _receiver, uint256 _amount, bytes memory _data) public isOwner
+        returns (uint256) {
         _receiver = employee;
         _amount = 20;
-
+        _data = "";
+        
         // Picking the actual token id
         uint256 newNFTId = _tokenIds.current();
 
         // Creating a NFT for a specific user
-        _mint(_receiver, newNFTId, _amount);
+        _mint(_receiver, newNFTId, _amount, _data);
 
         // Setting the token URI for the NFT just minted
-        _setTokenURI(newNFTId, _newTokenURI);
+        _setTokenUri(newNFTId, _newTokenURI);
 
         // Increasing the token Id
         _tokenIds.increment();
@@ -48,20 +56,16 @@ contract DellFactory is ERC1155 {
         return newNFTId;
     }
 
-    function deleteAchievement() public {
+    function deleteAchievement(address account, uint256 id, uint256 amount) public isOwner {
         // Burn the token created by the Id
         _burn(account, id, amount);
     }
 
-    function transferAchievement(
-        address _from,
-        address _to,
-        uint256 _tokenId
-    ) public {
-        payable(seller).transfer(msg.value);
-    }
+    // function transferAchievement(address _from, address _to, uint256 _tokenId) public {
+    //     payable(_to).transfer(msg.value);
+    // }
 
-    function userBalance() public {
-        balanceOf(account, id);
-    }
+    // function userBalance(address account, uint256 id) public {
+    //     balanceOf(account, id);
+    // }
 }

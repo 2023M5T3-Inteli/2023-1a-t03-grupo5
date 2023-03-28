@@ -3,7 +3,7 @@ name: Push-to-EC2
 on:
   push:
     branches:
-      - deploy-dev
+      - backend-deploy
 
 jobs:
   deploy:
@@ -23,6 +23,8 @@ jobs:
           TARGET: ${{ secrets.TARGET }}
           SCRIPT_AFTER: |
             cd 2023-1a-t03-grupo5
+            cd src
+            cd BackEnd
             sudo npm install
             pm2 install
             pm2 stop all

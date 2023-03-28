@@ -3,7 +3,6 @@ pragma solidity ^0.8.15;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "./Person.sol";
 
 contract DellFactory is ERC1155 {
     using Counters for Counters.Counter;
@@ -11,9 +10,8 @@ contract DellFactory is ERC1155 {
 
     // State Variables
     address private owner;
-    address public employee;
     string private _uri;
-    mapping (uint256 => string) private _tokenURIs;
+    mapping(uint256 => string) private _tokenURIs;
 
     // Modifier
     modifier isOwner() {
@@ -22,25 +20,29 @@ contract DellFactory is ERC1155 {
     }
 
     // Constructor
-    constructor() ERC1155(""){
+    constructor() ERC1155("") {
         owner = msg.sender;
     }
 
     // Functions
     function _setTokenUri(uint256 tokenId, string memory tokenURI) private {
-        _tokenURIs[tokenId] = tokenURI; 
-    } 
+        _tokenURIs[tokenId] = tokenURI;
+    }
 
-    function uri(uint256 tokenId) override public view returns (string memory) { 
-        return(_tokenURIs[tokenId]); 
-    } 
+    function uri(uint256 tokenId) public view override returns (string memory) {
+        return (_tokenURIs[tokenId]);
+    }
 
-    function mintAchievement(string memory _newTokenURI, address _receiver, uint256 _amount, bytes memory _data) public isOwner
-        returns (uint256) {
-        _receiver = employee;
-        _amount = 20;
+    function mintAchievement(
+        string memory _newTokenURI,
+        address _receiver,
+        uint256 _amount,
+        bytes memory _data
+    ) public isOwner returns (uint256) {
+        _receiver = owner;
+        _amount = 1;
         _data = "";
-        
+
         // Picking the actual token id
         uint256 newNFTId = _tokenIds.current();
 
@@ -55,17 +57,4 @@ contract DellFactory is ERC1155 {
 
         return newNFTId;
     }
-
-    function deleteAchievement(address account, uint256 id, uint256 amount) public isOwner {
-        // Burn the token created by the Id
-        _burn(account, id, amount);
-    }
-
-    // function transferAchievement(address _from, address _to, uint256 _tokenId) public {
-    //     payable(_to).transfer(msg.value);
-    // }
-
-    // function userBalance(address account, uint256 id) public {
-    //     balanceOf(account, id);
-    // }
 }

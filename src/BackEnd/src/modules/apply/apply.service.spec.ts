@@ -19,7 +19,6 @@ describe('ApplyService', () => {
   // Unit test to application
   it("Should apply to the project", async () => {
     var data: {
-      applicantId: '1',
       roleId: '1',
       userId: "1",
       projectId: "1",
@@ -63,7 +62,7 @@ describe('ApplyService', () => {
       why: "know about react",
       which: "React, commucation and leadership",
     };
-    expect(service.getApplyByProjectId(userId)).toBe(applyToFind);
+    expect(service.getApplyByUserId(userId)).toBe(applyToFind);
   });
 
   // Unit test for delete apply

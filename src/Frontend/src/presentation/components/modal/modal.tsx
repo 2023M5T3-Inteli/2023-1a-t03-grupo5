@@ -9,13 +9,14 @@ type Props = {
   closeModal: Function;
   content: ReactJSXElement;
   type?: 'warning';
+  size?: 'small' | 'medium' | 'large';
 }
 
 const Modal = (props: Props) => {
   return (
     <div className='modal'>
       {/* <div>Modal</div> */}
-      <div className={`modal-container ${props.type && 'small'}`}>
+      <div className={`modal-container ${props.size ? props.size : 'small'}`}>
         {
           props.closeArrow &&
           <div className='backIcon' onClick={() => props.closeModal()}>

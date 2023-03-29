@@ -157,7 +157,7 @@ const Sidebar: any = (props: Props) => {
       </div>
 
       {
-        openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
+        openCreateModal && <Modal size='large' closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
       }
     </div>
   )

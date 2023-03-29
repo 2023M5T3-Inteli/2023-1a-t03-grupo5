@@ -39,7 +39,6 @@ let TelaLogin = (props: Props) => {
                 password: pass
             })
             // localStorage.setItem("message-sucess", "Logged with success")
-            toast.success("Logged with success")
             // props.changePage(-1)
             props.changePage(0)
 
@@ -55,7 +54,9 @@ let TelaLogin = (props: Props) => {
 
         } catch (error) {
             console.log(error)
-            toast.error("Login error")
+            if (error.response.data.message === "Unaunthorized") {
+                toast.error("Email or password incorrect")
+            }
         }
     }
 

@@ -12,6 +12,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import ProjectService from '../../../main/services/projectService'
 import UserService from '../../../main/services/userService'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../components/loading/loading'
 
 type Props = {
   closeModal: Function
@@ -88,6 +89,7 @@ const CreateProject = (props: Props) => {
   // const [tags, setTags] = useState<any>(null)
   const [area, setArea] = useState('')
   const [role, setRole] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const createOptions = async () => {
     const response = await UserService.findAll()
@@ -206,6 +208,7 @@ const CreateProject = (props: Props) => {
   }
 
   const submit = async () => {
+    setLoading(true)
     let response = await ProjectService.create({
       name: data.name,
       description: data.description,
@@ -218,6 +221,7 @@ const CreateProject = (props: Props) => {
       coleaderId: data.coleaderId,
     })
     if(response) {
+      setLoading(false)
       navigate("/")
     }
     console.log(response)
@@ -238,6 +242,7 @@ const CreateProject = (props: Props) => {
 
   return (
     <div id="create-project">
+      {loading && <Loading />}
       <div className="container">
         <h1 className="title">Add new project</h1>
         <div className="grid-12">

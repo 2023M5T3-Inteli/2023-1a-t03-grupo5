@@ -5,7 +5,7 @@ const Toast: React.FC = () => {
     return (
         <ToastContainer
             position="top-right"
-            autoClose={1000}
+            autoClose={4000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
@@ -13,7 +13,7 @@ const Toast: React.FC = () => {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme="dark"
+            theme="colored"
         />
     )
 }

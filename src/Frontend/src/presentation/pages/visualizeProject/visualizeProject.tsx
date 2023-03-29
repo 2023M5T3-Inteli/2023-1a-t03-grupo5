@@ -71,11 +71,15 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     setOwnerName(owner.name)
     setColeaderName(coleader.name)
 
-    if (props.user.id === response.ownerId || props.user.id === response.coleaderId) {
+    const user = await UserService.validate()
+
+    if (user.id === response.ownerId || user.id === response.coleaderId) {
+      console.log("is owner")
       setIsOwner(true)
     }
+    console.log("not owner")
 
-    console.log(owner, coleader)
+    {/*console.log(owner, coleader)*/}
 
     setLoading(false)
   }

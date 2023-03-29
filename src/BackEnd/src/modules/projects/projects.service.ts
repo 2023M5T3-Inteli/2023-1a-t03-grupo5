@@ -6,7 +6,24 @@ import { PrismaService } from 'src/prisma.service';
 import { ProjectDTO } from './dto/Project.dto';
 import { v4 as uuid } from 'uuid';
 import { Catch } from '@nestjs/common/decorators';
+import * as nodemailer from 'nodemailer';
+import { smtpConfig } from '../../Common/SMTP/SMTPconfig';
+import { html } from 'src/Common/SMTP/HTML/htmlSendForgot';
+import { htmlApprove } from 'src/Common/SMTP/HTML/htmlSendApprove';
 
+
+const transporter = nodemailer.createTransport({
+    host: smtpConfig.host,
+    port: smtpConfig.port,
+    secure: false,
+    auth: {
+        user: smtpConfig.user,
+        pass: smtpConfig.pass
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+})
 
 @Injectable()
 export class ProjectsService {
@@ -14,12 +31,21 @@ export class ProjectsService {
 
     async createProject(ownerId: string, data: ProjectDTO){
 
-        console.log(ownerId)
-        console.log(data)
+        let projectExists = await this.prisma.project.findMany({
+            where: {
+                name: data.name,
+            }
+        })
+
+        if(projectExists.length > 0) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "Project already exists"})
+        }
+    
+        let project: any;
 
         //Doing the creation
         try {
-            const project = await this.prisma.project.create({
+            project = await this.prisma.project.create({
                 data: {
                     projectId: uuid(),
                     name: data.name,
@@ -38,13 +64,43 @@ export class ProjectsService {
                     status: "Pending"
                 }
             });
-        
-            return project;
         } catch (err) {
             console.log(err)
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
-        
+
+        //Sending Email to Manager authorizing the project
+        const person = await this.prisma.user.findUnique({
+            where: {
+                id: ownerId,
+            }
+        })
+
+        const managerId = person.managerId;
+
+        const manager = await this.prisma.user.findUnique({
+            where: {
+                id: managerId,
+            }
+        })
+
+        const email = manager.email;
+        const name = manager.name;
+
+        try {
+            const emailSent = await transporter.sendMail({
+                from: '"NoReply DELLPROJECTS" <noreply@dellprojects.com>', 
+                to: email, // list of receivers
+                subject: "Reset Password", // Subject line
+                html: htmlApprove(name) // html body
+            });
+
+            console.log("Message sent: %s", emailSent.messageId);
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+
+        return project;
     }
 
     async getAllProjects(){

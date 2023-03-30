@@ -60,14 +60,14 @@ const Home: React.FC = () => {
   const validateUser = async () => {
     const user = await UserService.validate();
 
-    if (user.response.status   === 401) {
+    if (user.response.status === 401) {
       window.location.href = '/login'
     }
   }
 
   // useEffect(() => {
   //   validateUser();
-    
+
   //   getAll()
   // }, [])
 
@@ -76,74 +76,9 @@ const Home: React.FC = () => {
     getAll()
   }, [location])
 
-  // const projects: Project[] = [
-  //   {
-  //     title: 'Project 1',
-  //     status: 'Finished',
-  //     description: 'We are find people with skills in React and Nest joas',
-  //     peoples: '10'
-  //   },
-  //   {
-  //     title: 'Project 2',
-  //     status: 'On Going',
-  //     description: 'Project built with Next',
-  //     peoples: '5'
-  //   },
-  //   {
-  //     title: 'Project 3',
-  //     status: 'On Going',
-  //     description: 'Project built with Next',
-  //     peoples: '15'
-  //   },
-  //   {
-  //     title: 'Project 1',
-  //     status: 'On Going',
-  //     description: 'Project built with Next',
-  //     peoples: '7'
-  //   },
-  //   {
-  //     title: 'Project 2',
-  //     status: 'On Going',
-  //     description: 'Project built with Next',
-  //     peoples: '12'
-  //   }, {
-  //     title: 'Project 3',
-  //     status: 'Finished',
-  //     description: 'Project built with Next',
-  //     peoples: '8'
-  //   },
-  //   {
-  //     title: 'Project 3',
-  //     status: 'On Going',
-  //     description: 'Project built with Next',
-  //     peoples: '3'
-  //   },
-  //   {
-  //     title: 'Project 1',
-  //     status: 'Finished',
-  //     description: 'Project built with Next',
-  //     peoples: '1'
-  //   },
-  //   {
-  //     title: 'Project 2',
-  //     status: 'On Going',
-  //     description: 'Project built with Next',
-  //     peoples: '5'
-  //   }, {
-  //     title: 'Project 3',
-  //     status: 'On Going',
-  //     description: 'Project built with Next',
-  //     peoples: '4'
-  //   }
-  // ]
-
-  // useEffect(() => {
-  //   filter
-  // }, [search])
-
   const filter = () => {
     return projects.map((project: any, index: number) => {
-      if (project.name.includes(search)) {
+      if (project.name.toUpperCase().includes(search.toUpperCase())) {
         return (
           <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
             {/* <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
@@ -160,9 +95,11 @@ const Home: React.FC = () => {
 
   return (
     <div className='home'>
-      <div className='search-container'>
-        <SearchBar value={search} onChange={(value: string) => setSearch(value)} />
-      </div>
+      {
+        !loading && <div className='search-container'>
+          <SearchBar value={search} onChange={(value: string) => setSearch(value)} />
+        </div>
+      }
       {
         openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
       }
@@ -187,7 +124,7 @@ const Home: React.FC = () => {
       {/* {
         openConfirmModal && <Modal type="warning" closeModal={() => toggleConfirmModal()} content={<DeleteProject closeModal={() => toggleConfirmModal()} />} />
       }  */}
-      
+
       {/* <div className="button-container">
         <div className='add-icon' onClick={() => setOpenCreateModal(!openCreateModal)}>
           <AddIcon />

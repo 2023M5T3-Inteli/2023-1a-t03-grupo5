@@ -1,2 +1,34 @@
 @use '/public/styles/color.scss' as c;
 @use '/public/styles/spacing.scss' as sp;
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  min-width: 200px;
+  height: 100%;
+  
+  input {
+    width: 100% !important;
+    margin: 0;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .icon {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 40px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border: solid 3px c.$highlight-dark;
+    // border-left: solid 1px rgb(c.$highlight-dark, 0.9);
+    border-left: 0;
+    background-color: c.$secundary;
+    color: rgb(c.$primary, 0.5);
+  }
+}

@@ -70,9 +70,6 @@ const Profile = () => {
                                 </button>
                             </div> */}
                         </div>
-                        <div className="text-history">
-                            <p>History</p>
-                        </div>
                     </div>
                     <div className="second">
                         <div className="ranking-container">
@@ -122,7 +119,14 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className="divider"></div>
+
+                <div className="history-title">
+                    <p>History</p>
+                </div>
                 <div className="project-history">
+
                     {
                         projects.map((project: any, index: number) => {
                             return (

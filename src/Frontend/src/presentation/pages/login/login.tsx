@@ -1,22 +1,17 @@
 import React, { useEffect } from "react"
 import Logo from "/public/imageDell.png"
-import Lakitu from "/public/image-lakitu.png";
-import ImgLogin from "/public/img-tela-login.png"
+import Lakitu from "/public/image-lakitu.png"
 import "./login-styles.scss"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
-import axios from "axios"
-import cookie from 'react-cookies'
-import Input from "../../components/input/input";
-import { toast } from 'react-toastify';
-import UserService from "../../../main/services/userService";
-import Button from "../../components/button/button";
 
-
-// import cors from "cors"
+import Input from "../../components/input/input"
+import { toast } from 'react-toastify'
+import UserService from "../../../main/services/userService"
+import Button from "../../components/button/button"
 
 type Props = {
-    changePage: Function;
+    changePage: Function
 }
 
 let TelaLogin = (props: Props) => {
@@ -63,10 +58,10 @@ let TelaLogin = (props: Props) => {
             </div>
 
             <div className="grid-5 container right-side">
-                <h1 className="motivation-text">LEARN &</h1>
-                <h1 className="motivation-text">DISCOVER</h1>
-                <h1 className="motivation-text"> WHILE YOU’RE</h1>
-                <h1 className="motivation-text">WORKING!</h1>
+                <h2 className="motivation-text">LEARN &</h2>
+                <h2 className="motivation-text">DISCOVER</h2>
+                <h2 className="motivation-text"> WHILE YOU’RE</h2>
+                <h2 className="motivation-text">WORKING!</h2>
                 <img className="lakitu-image" src={Lakitu} alt="" />
             </div>
         </div >

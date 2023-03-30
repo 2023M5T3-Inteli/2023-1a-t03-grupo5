@@ -220,7 +220,7 @@ const CreateProject = (props: Props) => {
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
-    if(response) {
+    if (response) {
       props.closeModal()
       navigate(0)
     }

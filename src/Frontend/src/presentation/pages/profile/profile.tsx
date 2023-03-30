@@ -5,6 +5,8 @@ import userService from "../../../main/services/userService";
 
 import imgProfile from '/public/imgProfile.png'
 import Loading from "../../components/loading/loading";
+import Card from "../../components/card/card";
+import ProjectService from "../../../main/services/projectService";
 
 //404 page
 const Profile = () => {
@@ -15,17 +17,28 @@ const Profile = () => {
         habilities: '',
         photoURL: ''
     });
+    const [projects, setProjects] = useState([])
 
     const getUser = async () => {
         const user = await userService.validate();
         console.log(user)
         setUser(user)
+    }
+
+    const getAll = async () => {
+        const allProjects = await ProjectService.findAll();
+
+        setProjects(allProjects);
         setLoading(false)
     }
 
     useEffect(() => {
         getUser()
+        getAll()
+
     }, []);
+
+
 
     return (
         <div className="profile">
@@ -38,7 +51,7 @@ const Profile = () => {
                                 <img className="imgProfile" src={imgProfile}></img>
                             </div>
                             {/* <div className="photo">
-                                <img className="imgProfile" src ={user.photoURL}></img>
+                                <img className="imgProfile" src={user.photoURL}></img>
                             </div> */}
                             <div className="nameDiv">
                                 <h1 className="name">{user.name}</h1>
@@ -56,6 +69,9 @@ const Profile = () => {
                                     <p className="curriculumText">Curriculum</p>
                                 </button>
                             </div> */}
+                        </div>
+                        <div className="text-history">
+                            <p>History</p>
                         </div>
                     </div>
                     <div className="second">
@@ -106,7 +122,19 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-
+                <div className="project-history">
+                    {
+                        projects.map((project: any, index: number) => {
+                            return (
+                                <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
+                                    <div className='project-container grid-6'>
+                                        <Card {...project}></Card>
+                                    </div>
+                                </Link>
+                            )
+                        })
+                    }
+                </div>
             </div>
         </div>
     )

@@ -2,7 +2,8 @@
 
 .profile {
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,7 +13,9 @@
     .backgroundProfile {
         padding: sp.$stack-lg;
         width: 100%;
-        height: 80%;
+        height: 90%;
+        min-height: 90vh;
+        margin-top: 5vh;
         // min-height: 80vh;
 
         background-color: #232323;
@@ -25,30 +28,35 @@
             align-items: center;
             width: 100%;
             height: 100%;
-            
+
             .first {
                 width: 40%;
+
                 .infosPessoal {
                     gap: 30px;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     justify-content: center;
+
                     .photo {
                         width: 100%;
                         display: flex;
                         justify-content: center;
-                        .imgProfile{
+
+                        .imgProfile {
                             width: 40%;
                             border-radius: 60%;
                         }
                     }
+
                     .nameDiv {
                         .name {
                             font-size: 30px;
                             color: white;
                         }
                     }
+
                     .areaDiv {
                         .area {
                             font-size: 16px;
@@ -57,12 +65,14 @@
                             font-style: thin;
                         }
                     }
+
                     .linkedinDiv {
                         margin-top: 40px;
                         display: flex;
                         flex-direction: row;
                         gap: 30px;
                         align-items: center;
+
                         .linkedinText {
                             font-size: 16px;
                             color: white;
@@ -70,8 +80,10 @@
                             font-style: thin;
                         }
                     }
+
                     .curriculumDiv {
                         position: relative;
+
                         .btnCurriculum {
                             width: 220px;
                             height: 45px;
@@ -83,6 +95,7 @@
                             align-items: center;
                             justify-content: center;
                             gap: 15px;
+
                             .curriculumText {
                                 font-size: 18px;
                                 font-weight: 600;
@@ -90,7 +103,17 @@
                         }
                     }
                 }
+
+                .text-history {
+                    color: #FFFFFF;
+                    margin: auto;
+                    margin-top: 60px;
+                    font-size: 30px;
+                    display: flex;
+                    width: 50%;
+                }
             }
+
             .second {
                 width: 60%;
                 display: flex;
@@ -100,6 +123,7 @@
                 height: 100%;
                 margin-top: 20px;
                 margin-bottom: 20px;
+
                 .ranking-container {
                     display: flex;
                     flex-direction: column;
@@ -107,17 +131,20 @@
                     height: 40%;
                     background-color: #1D1D1D;
                     border-radius: 24px;
+
                     .position {
                         height: 25%;
                         display: flex;
                         align-items: center;
                         border-bottom: #111010 solid 3px;
+
                         .positionText {
                             margin-left: 5%;
                             color: white;
                             font-size: 20px;
                         }
                     }
+
                     .tagsDiv {
                         margin-top: 30px;
                         height: 75%;
@@ -125,17 +152,20 @@
                         flex-direction: row;
                         gap: 10px;
                         margin-left: 5%;
+
                         .tagTextTitle {
                             color: white;
                             font-size: 16px;
                             margin-top: 1.5%;
                         }
+
                         .tags {
                             width: 100%;
                             display: flex;
                             flex-wrap: wrap;
                             gap: 20px;
                             margin-left: 30px;
+
                             .tag {
                                 background-color: #2B2B2B;
                                 height: 40px;
@@ -144,6 +174,7 @@
                                 align-items: center;
                                 justify-content: center;
                                 border-radius: 8px;
+
                                 .tagText {
                                     color: white;
                                     font-size: 16px;
@@ -152,6 +183,7 @@
                         }
                     }
                 }
+
                 .highligths {
                     display: flex;
                     flex-direction: column;
@@ -159,6 +191,7 @@
                     height: 40%;
                     background-color: #1D1D1D;
                     border-radius: 24px;
+
                     .highligthsTitle {
                         height: 30%;
                         display: flex;
@@ -166,11 +199,13 @@
                         justify-content: center;
                         gap: 20px;
                         border-bottom: #111010 solid 3px;
+
                         .highligthsTitleText {
                             color: white;
                             font-size: 22px;
                         }
                     }
+
                     .highligthsDiv {
                         height: 70%;
                         display: flex;
@@ -178,15 +213,25 @@
                         justify-content: center;
                         align-items: center;
                         gap: 30px;
+
                         .itemHighligth {
                             width: 120px;
                             text-align: center;
+
                             .imgHighlight {
                                 border-radius: 50%;
                             }
                         }
                     }
                 }
+            }
+        }
+
+        .project-history {
+            margin-top: 50px;
+
+            .project-container {
+                margin-bottom: 40px;
             }
         }
     }

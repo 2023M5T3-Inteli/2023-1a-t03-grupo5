@@ -10,6 +10,7 @@ import cookie from 'react-cookies'
 import Input from "../../components/input/input";
 import { toast } from 'react-toastify';
 import UserService from "../../../main/services/userService";
+import Button from "../../components/button/button";
 
 
 // import cors from "cors"
@@ -58,10 +59,7 @@ let TelaLogin = (props: Props) => {
                         </Link>
                     </form>
                 </div>
-                <button id="confirma-botao" onClick={(e: any) => {
-                    // submit()
-                    handleSubmit(e)
-                }}>Login</button>
+                <Button type="default" size="medium" text="Login" onClick={(e: any) => { handleSubmit(e) }} />
             </div>
 
             <div className="grid-5 container right-side">

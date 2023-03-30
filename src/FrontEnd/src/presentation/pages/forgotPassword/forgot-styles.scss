@@ -1,13 +1,79 @@
+@use '/public/styles/spacing.scss' as sp;
+@use '/public/styles/color.scss' as c;
+
 .forgot {
-    color: white;
-    width: 200px;
-    margin-bottom: 40px;
-}
-.textForgot {
-    color: red;
-    font-size: 18px;
-    font-weight: 100;
-    margin-bottom: 20px;
+    display: flex;
     width: 100%;
-    text-align: center;
+    height: 100vh;
+
+    .left-side {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background-color: #232323;
+        margin: auto;
+        gap: 30px;
+        width: 40%;
+        height: 90%;
+        border-radius: 15px;
+        display: flex;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        color: c.$primary;
+
+        .backIcon {
+            padding: sp.$stack-sm;
+            position: absolute;
+            top: sp.$stack-xs;
+            left: sp.$stack-xs;
+            align-self: flex-start;
+            cursor: pointer;
+            color: c.$primary;
+
+            svg {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .title {
+            // margin-top: 60px;
+            width: 60%;
+            text-align: center;
+            color: white;
+        }
+
+        p {
+            width: 60%;
+        }
+
+        .input-container {
+            p {
+                margin-left: sp.$stack-xs;
+                margin-bottom: sp.$stack-xs;
+            }
+
+            width: 60%;
+        }
+    }
+
+    .step1 {
+        gap: 60px;
+    }
+
+    .step2 {
+        gap: 20px;
+    }
+
+    .right-side {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .lakitu-image {
+            width: 50%;
+        }
+    }
 }

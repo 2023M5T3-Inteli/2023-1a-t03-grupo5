@@ -337,7 +337,7 @@ const EditProject = (props: Props) => {
 
             <div className="input-container">
               <h4 className="input-title ">Co-leader</h4>
-              <Select value={data.coleaderId} options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
+              <Select value={data.coleaderId} options={usersOptions} showDefault size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
             </div>
 
             <div className="role-container">

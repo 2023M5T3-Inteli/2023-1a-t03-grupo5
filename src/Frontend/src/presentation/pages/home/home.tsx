@@ -65,11 +65,16 @@ const Home: React.FC = () => {
     }
   }
 
+  // useEffect(() => {
+  //   validateUser();
+    
+  //   getAll()
+  // }, [])
+
   useEffect(() => {
     validateUser();
-    
     getAll()
-  }, [])
+  }, [location])
 
   // const projects: Project[] = [
   //   {

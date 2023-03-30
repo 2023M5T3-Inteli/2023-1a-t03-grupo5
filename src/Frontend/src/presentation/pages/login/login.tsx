@@ -9,6 +9,7 @@ import axios from "axios"
 import cookie from 'react-cookies'
 import Input from "../../components/input/input";
 import { toast } from 'react-toastify';
+import UserService from "../../../main/services/userService";
 
 
 // import cors from "cors"
@@ -18,45 +19,23 @@ type Props = {
 }
 
 let TelaLogin = (props: Props) => {
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
 
-    const navigate = useNavigate()
-
-    // async é usada para indicar que a função é assíncrona e que retornará uma promessa.
-    // faz uma requisição HTTP POST usando a biblioteca Axios para uma URL específica e com alguns dados no corpo da requisição.
-
     const handleSubmit = async (e: any) => {
         e.preventDefault()
 
-        try {
-            console.log(email);
-            console.log(pass)
-            const response = await axios.post(
-                "http://localhost:3001/auth/login", {
-                email: email,
-                password: pass
-            })
-            // localStorage.setItem("message-sucess", "Logged with success")
-            // props.changePage(-1)
+        const response = await UserService.auth(email, pass)
+
+        if (response.statusCode === 401) {
+            toast.error("Email or password incorrect")
+        }
+        else {
             props.changePage(0)
-
-            console.log(response)
-
-            cookie.save("token", response.data.token, {})
-
-            // props.validate()
-
             navigate('/')
-
-            console.log(email, pass);
-
-        } catch (error) {
-            console.log(error)
-            if (error.response.data.message === "Unaunthorized") {
-                toast.error("Email or password incorrect")
-            }
+            toast.success("Logged with success")
         }
     }
 
@@ -74,7 +53,9 @@ let TelaLogin = (props: Props) => {
                     <form onSubmit={handleSubmit}>
                         <p>Password</p>
                         <Input size="large" type="password" placeholder="Senha" value={pass} onChange={(value: string) => setPass(value)} />
-                        <a className="forget" href="">Forget the password?</a>
+                        <Link to={"/forgotPassword"}>
+                            <p className="forget">Forget the password?</p>
+                        </Link>
                     </form>
                 </div>
                 <button id="confirma-botao" onClick={(e: any) => {

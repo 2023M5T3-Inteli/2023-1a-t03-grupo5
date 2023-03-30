@@ -10,6 +10,7 @@ type Props = {
   value?: string;
   options: Options[];
   default: string;
+  showDefault?: boolean;
   onChange: Function;
   size?: 'small' | 'medium' | 'large';
 }
@@ -18,7 +19,7 @@ const Select = (props: Props) => {
   return (
     <div className="dell-select">
       <select value={props.value} className={props.size} onChange={(e) => props.onChange(e.target.value)}>
-        <option hidden>{props.default}</option>
+        <option hidden={!props.showDefault}>{props.default}</option>
         {
           props.options.map((option, index) => {
             return (

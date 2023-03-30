@@ -221,8 +221,8 @@ const CreateProject = (props: Props) => {
       coleaderId: data.coleaderId,
     })
     if(response) {
-      setLoading(false)
-      navigate("/")
+      props.closeModal()
+      navigate(0)
     }
     console.log(response)
   }
@@ -311,7 +311,7 @@ const CreateProject = (props: Props) => {
 
             <div className="input-container">
               <h4 className="input-title ">Co-leader</h4>
-              <Select options={usersOptions} size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
+              <Select options={usersOptions} size="small" showDefault default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
             </div>
 
             <div className="role-container">

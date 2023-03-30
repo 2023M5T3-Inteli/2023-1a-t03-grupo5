@@ -40,6 +40,10 @@
             }
         }
 
+        a {
+            text-decoration: none;
+        }
+        
         .forget {
             width: 50%;
             font-size: 13px;
@@ -67,13 +71,15 @@
             cursor: pointer;
             font-size: 20px;
         }
+
+        p {
+            width: 100%;
+        }
     }
 
     .right-side {
-
         .lakitu-image {
             width: 50%;
-
         }
 
         .motivation-text {

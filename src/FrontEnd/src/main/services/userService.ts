@@ -3,7 +3,8 @@ import cookie from "react-cookies";
 
 const PORT = 3001;
 const HOST = "localhost";
-const API_URL = `http://alb-lakitu-1821142311.us-east-1.elb.amazonaws.com`;
+const API_URL = `http://${HOST}:${PORT}`
+// const API_URL = 'http://alb-lakitu-1821142311.us-east-1.elb.amazonaws.com'
 
 const UserService = {
   findByID: async (id: String) => {
@@ -20,7 +21,22 @@ const UserService = {
       return [];
     }
   },
-
+  auth: async (email: string, pass: string) => {
+    try {
+      console.log(email);
+      console.log(pass)
+      const response = await axios.post(
+        `${API_URL}/auth/login`, {
+        email: email,
+        password: pass
+      })
+      cookie.save("token", response.data.token, {})
+      return response
+    }
+    catch (error: any) {
+      return error.response.data
+    }
+  },
   validate: async () => {
     const config = {
       headers: {
@@ -102,7 +118,7 @@ const UserService = {
         Authorization: `Bearer ${cookie.load("token")}`,
       },
     };
-    
+
     try {
       const response = await axios.get(`${API_URL}/user/find-by-name/${name}`);
       return response.data;

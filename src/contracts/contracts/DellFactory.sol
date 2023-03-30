@@ -38,8 +38,6 @@ contract DellFactory is ERC1155 {
         address _receiver,
         uint256 _amount
     ) public isOwner {
-        _receiver = owner;
-
         // Picking the actual token id
         uint256 newNFTId = _tokenIds.current();
 

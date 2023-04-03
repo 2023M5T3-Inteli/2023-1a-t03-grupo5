@@ -42,12 +42,24 @@ contract DellFactory is ERC1155 {
         uint256 newNFTId = _tokenIds.current();
 
         // Creating a NFT to the owner
-        _mint(_receiver, newNFTId, _amount, "");
+        _mint(owner, newNFTId, _amount, "");
 
         // Setting the token URI for the NFT just minted
         _setTokenUri(newNFTId, _newTokenURI);
 
         // Increasing the token Id
         _tokenIds.increment();
+
+        // Trasfering the NFT to the receiver
+        safeTransferFrom(owner, _receiver, newNFTId, _amount, "");
     }
+
+    // function cancelProject(uint256 _expirationDate, uint256 _amount) public isOwner {
+    //     // Check if the project is expired
+    //     if (block.timestamp > _expirationDate) {
+    //         // Burn all the tokens
+    //         _burn(address(this), _tokenIds.current(), _amount);
+    //     }
+    // }
 }
+

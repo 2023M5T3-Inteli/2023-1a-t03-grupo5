@@ -1,5 +1,5 @@
 const { ethers } = require("ethers");
-import Contract from "../contracts/build/contracts/DellFactory.json";
+import Contract from "../Blockchain/build/contracts/DellFactory.json";
 
 export const transferNFT = async (wallet: string, contractAddress: string) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);

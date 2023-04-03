@@ -46,6 +46,7 @@ model User {
   gender           String
   n_dell           String
   managerId        String
+  points           Int       @default(0)
   habilities       String
   isAdmin          Boolean   @default(false)
   photoURL         String?

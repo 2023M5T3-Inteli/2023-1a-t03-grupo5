@@ -76,6 +76,7 @@ export class ProjectsController {
     name: 'filter',
     description: 'filter projects',
   })
+  
   @Get("/filter")
   //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
@@ -100,6 +101,17 @@ export class ProjectsController {
   @ApiResponse({ status: 403, description: 'Error: Forbidden'})
   async cancel(@Req() req: any, @Param("projectId") projectId: string) {
     return this.projectsService.cancelProject(projectId, req.user.id);
+  }
+
+  @Put("/Blocked/:projectId")
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 404, description: 'Error: Not Found'})
+  @ApiResponse({ status: 403, description: 'Error: Forbidden'})
+  async blocking(@Param("projectId") projectId: string, @Body() data: any) {
+    if (typeof(data.status) != "boolean") {
+      return {error: "Invalid status"};
+    }
+    return this.projectsService.receivingSubscription(projectId, data.status);
   }
 }
 

@@ -31,7 +31,6 @@ let TelaLogin = (props: Props) => {
         else {
             props.changePage(0)
             navigate('/')
-            toast.success("Logged with success")
         }
     }
 

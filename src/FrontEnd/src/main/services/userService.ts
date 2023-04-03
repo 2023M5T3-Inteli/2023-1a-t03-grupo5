@@ -128,8 +128,22 @@ const UserService = {
       return [];
     }
   },
-
-
+  sendForgotEmail: async (email: String) => {
+    try {
+      const response = await axios.get(`${API_URL}/user/sendForgotEmail/${email}`);
+      return response.data;
+    } catch (error) {
+      return "Email not sended! Try again later.";
+    }
+  },
+  changePassword: async (data: any) => {
+    try {
+      const response = await axios.post(`${API_URL}/user/resetForgotPassword`, data);
+      return response.data;
+    } catch (error) {
+      return "Password not changed! Try again later.";
+    }
+  }
 };
 
 export default UserService;

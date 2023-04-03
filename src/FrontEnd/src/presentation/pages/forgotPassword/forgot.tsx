@@ -9,6 +9,7 @@ import Input from "../../components/input/input"
 import Button from "../../components/button/button"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Lakitu from "/public/image-lakitu.png"
+import UserService from "../../../main/services/userService"
 
 const Forgot = () => {
     const navigate = useNavigate()
@@ -18,11 +19,12 @@ const Forgot = () => {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [step, setStep] = useState(1)
 
-    const validate = (e: any) => {
+    const validate = async (e: any) => {
         e.preventDefault()
 
         if (step === 1) {
             if (email) {
+                await UserService.sendForgotEmail(email);
                 setStep(2)
                 toast.success("E-mail sent")
             }
@@ -44,6 +46,7 @@ const Forgot = () => {
                 toast.error("Password fields do not match")
             }
             else {
+                await UserService.changePassword({email: email, newPassword: password, code: token})
                 toast.success("Password changed with success")
                 navigate("/login")
             }

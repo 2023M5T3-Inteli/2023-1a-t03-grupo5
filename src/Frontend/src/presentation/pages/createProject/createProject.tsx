@@ -13,6 +13,7 @@ import ProjectService from '../../../main/services/projectService'
 import UserService from '../../../main/services/userService'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading'
+import { toast } from 'react-toastify'
 
 type Props = {
   closeModal: Function
@@ -220,9 +221,13 @@ const CreateProject = (props: Props) => {
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
-    if (response) {
-      props.closeModal()
-      navigate(0)
+    if(response) {
+      setLoading(false)
+      toast.success('Project created successfully! Please check your email for more details.')
+      setTimeout(() => {
+        props.closeModal()
+        navigate(0)
+      }, 2000)
     }
     console.log(response)
   }

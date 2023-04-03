@@ -1,5 +1,5 @@
 //this file contains all the functions that are called in the routes in the projects.controller.ts file
-
+//@ts-nocheck
 /* eslint-disable prettier/prettier */
 import { BadRequestException, InternalServerErrorException, UnauthorizedException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
@@ -10,6 +10,7 @@ import * as nodemailer from 'nodemailer';
 import { smtpConfig } from '../../Common/SMTP/SMTPconfig';
 import { html } from 'src/Common/SMTP/HTML/htmlSendForgot';
 import { htmlApprove } from 'src/Common/SMTP/HTML/htmlSendApprove';
+import * as jwt from 'jsonwebtoken';
 
 
 const transporter = nodemailer.createTransport({
@@ -78,24 +79,34 @@ export class ProjectsService {
 
         const managerId = person.managerId;
 
-        const manager = await this.prisma.user.findUnique({
-            where: {
-                id: managerId,
-            }
-        })
+        let email = "";
+        let name = "";
 
-        const email = manager.email;
-        const name = manager.name;
+        if(!managerId.includes("@")) {
+            const manager = await this.prisma.user.findUnique({
+                where: {
+                    id: managerId,
+                }
+            })
+
+            email = manager.email;
+            name = manager.name;
+        } else {
+            email = managerId;
+            name = "Manager";
+        }
+
+        const token = jwt.sign({sub: project.projectId}, process.env.JWT_APPROVE);
 
         try {
             const emailSent = await transporter.sendMail({
                 from: '"NoReply DELLPROJECTS" <noreply@dellprojects.com>', 
                 to: email, // list of receivers
                 subject: "Reset Password", // Subject line
-                html: htmlApprove(name) // html body
+                html: htmlApprove(name, token) // html body
             });
 
-            console.log("Message sent: %s", emailSent.messageId);
+            console.log("Message sent: ", emailSent.messageId);
         } catch (err) {
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
@@ -155,7 +166,7 @@ export class ProjectsService {
             throw new Error('Project does not exist!')
         }
 
-        data.updateAt = new Date()
+        data.updatedAt = new Date()
 
         //Doing the update
         try {
@@ -215,12 +226,29 @@ export class ProjectsService {
         
     }
 
-    async approveProject(projectId: string, id) {
+    async approveProject(token: string, status: string) {
+        //Verifying if the token is valid
+        let projectId;
+        
+        try {
+            const sub = jwt.verify(token, process.env.JWT_APPROVE);
+
+            projectId = sub.id;
+
+        } catch {
+            throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Invalid token"});
+        }
+
+        console.log(projectId)
+
+        if(!projectId) {
+            throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Invalid token"});
+        }
 
         //Getting the project
         const project = await this.prisma.project.findUnique({
             where: {
-                projectId,
+                projectId: projectId,
             }
         })
 
@@ -230,38 +258,53 @@ export class ProjectsService {
         }
 
         //Verifying if the project is already approved
-        if(project.status) {
+        if(project.status != "Pending") {
             throw new Error('Project already approved!')
         }
 
-        //verifying if the owner manager's of the project is the same that is approving the project
-        const owner = await this.prisma.user.findUnique({
-            where: {
-                id: project.ownerId,
-            }
-        })
-
-        if(owner.managerId !== id) {
-            throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "You can't approve this project"});
-        }
+        let projectReturn: any;
 
         //Updating the project
         try {
-            const project = await this.prisma.project.update({
+            projectReturn = await this.prisma.project.update({
                 where: {
-                    projectId,
+                    projectId: projectId,
                 },
                 data: {
-                    status: "Approved",
+                    status: status,
                 }
             })
-
-            return project;
         } catch (err) {
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
 
-        
+        //Giving points to the owner
+
+        //Getting the owner
+        const owner = projectReturn.ownerId;
+
+        //Getting the owner points
+        const ownerPoints = await this.prisma.user.findUnique({
+            where: {
+                id: owner,
+            }
+        })
+
+        //Updating the owner points
+        try {
+            await this.prisma.user.update({
+                where: {
+                    id: owner,
+                },
+                data: {
+                    points: ownerPoints.points + 100,
+                }
+            })
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+
+        return projectReturn;
     }
 
     async cancelProject(projectId: string, id: string) {
@@ -289,11 +332,105 @@ export class ProjectsService {
                     projectId,
                 },
                 data: {
+                    status: "Canceled",
                     blockedSubscription: true,
                 }
             })
             return project;
         } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+    }
+
+    async receivingSubscription(projectId: string, blocked: boolean) {
+        //Getting the project
+        const project = await this.prisma.project.findUnique({
+            where: {
+                projectId,
+            }
+        })
+
+        //Verifying if the project exists
+        if(!project) {
+            throw new Error('Project does not exist!')
+        }
+
+        //Updating the project
+        try {
+            const project = await this.prisma.project.update({
+                where: {
+                    projectId,
+                },
+                data: {
+                    blockedSubscription: blocked,
+                }
+            })
+            return project;
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+    }
+
+    async finalizeProject(projectId: string, id: string) {
+        //Getting the project
+        const project = await this.prisma.project.findUnique({
+            where: {
+                projectId,
+            }
+        })
+
+        //Verifying if the project exists
+        if(!project) {
+            throw new Error('Project does not exist!')
+        }
+
+        //Verifying if is the owner that is canceling the project
+        if(project.ownerId !== id) {
+            throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "You can't finalize this project"});
+        }
+
+        let projectReturn: any;
+
+        //Updating the project
+        try {
+            projectReturn = await this.prisma.project.update({
+                where: {
+                    projectId,
+                },
+                data: {
+                    status: "Finalized",
+                    blockedSubscription: true,
+                }
+            })
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+
+        //Giving point to everyone that subscribed
+        try {
+            const persons = await this.prisma.apply.findMany({
+                where: {
+                    projectId,
+                }
+            })
+
+            for(let i = 0; i < persons.length; i++) {
+                const person = await this.prisma.user.findUnique({
+                    where: {
+                        id: persons[i].userId,
+                    }
+                })
+
+                await this.prisma.user.update({
+                    where: {
+                        id: persons[i].userId,
+                    },
+                    data: {
+                        points: person.points + 50,
+                    }
+                })
+            }
+        } catch(err) {
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
     }

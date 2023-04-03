@@ -96,7 +96,7 @@ const CreateProject = (props: Props) => {
     const response = await UserService.findAll()
 
     let options: any = []
-    response.map((user: any) => {
+    response.data.map((user: any) => {
       options.push({
         value: user.id,
         label: user.name
@@ -221,13 +221,16 @@ const CreateProject = (props: Props) => {
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
-    if(response) {
+    if(response.status === 200) {
       setLoading(false)
       toast.success('Project created successfully! Please check your email for more details.')
       setTimeout(() => {
         props.closeModal()
         navigate(0)
       }, 2000)
+    }
+    else {
+      toast.error("Error to create the project")
     }
     console.log(response)
   }

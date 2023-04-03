@@ -10,7 +10,7 @@ const ProjectService = {
   findByID: async (id: String) => {
     try {
       const response = await axios.get(`${API_URL}/Project/findByID/${id}`)
-      return response.data
+      return response
     }
     catch (error: any) {
       return error.response.data
@@ -19,7 +19,7 @@ const ProjectService = {
   findAll: async () => {
     try {
       const response = await axios.get(`${API_URL}/Project/findAll`)
-      return response.data
+      return response
     }
     catch (error: any) {
       return error.response.data
@@ -35,7 +35,7 @@ const ProjectService = {
 
     try {
       const response = await axios.post(`${API_URL}/Project/create`, data, config)
-      return response.data
+      return response
     }
     catch (error: any) {
       return error.response.data
@@ -44,7 +44,7 @@ const ProjectService = {
   edit: async (data: any) => {
     try {
       const response = await axios.put(`${API_URL}/Project/update/${data.projectId}`, data)
-      return response.data
+      return response
     }
     catch (error: any) {
       return error.response.data
@@ -53,7 +53,7 @@ const ProjectService = {
   delete: async (id: string) => {
     try {
       const response = await axios.delete(`${API_URL}/Project/delete/${id}`)
-      return response.data
+      return response
     }
     catch (error: any) {
       return error.response.data

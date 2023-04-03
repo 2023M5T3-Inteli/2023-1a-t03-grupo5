@@ -47,33 +47,32 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
 
   const getUser = async (id: string) => {
     console.log(id)
-    const response = await UserService.findByID(id).then((res) => {
-      return res
-    }).catch((err) => {
-      return err;
-    })
-    console.log(response)
+    const response = await UserService.findByID(id)
+  
+    if(response.status === 200) {
+      return response.data
+    }
 
-    return response
+    return null
   }
 
   const getProject = async () => {
     console.log(location.state)
     const response = await ProjectService.findByID(location.state.projectId)
-    response.tags = JSON.parse(response.tags)
-    response.roles = JSON.parse(response.roles)
-    setProject(response)
+    response.data.tags = JSON.parse(response.data.tags)
+    response.data.roles = JSON.parse(response.data.roles)
+    setProject(response.data)
     console.log(response)
 
-    let owner = await getUser(response.ownerId)
-    let coleader = await getUser(response.coleaderId)
+    let owner = await getUser(response.data.ownerId)
+    let coleader = await getUser(response.data.coleaderId)
 
     setOwnerName(owner.name)
     setColeaderName(coleader.name)
 
     const user = await UserService.validate()
 
-    if (user.id === response.ownerId || user.id === response.coleaderId) {
+    if (user.data.id === response.data.ownerId || user.data.id === response.data.coleaderId) {
       console.log("is owner")
       setIsOwner(true)
     }
@@ -87,14 +86,14 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const deleteProject = async () => {
     setOpenDeleteModal(false)
     let response = await ProjectService.delete(project.projectId)
-    if(response) {
-      navigate("/")
-    }
+    console.log(response)
+    // if(response) {
+    //   navigate("/")
+    // }
   }
 
   useEffect(() => {
     getProject()
-
   }, [])
 
   const toggleDeleteModal = () => {

@@ -14,6 +14,7 @@ import UserService from '../../../main/services/userService'
 import CloseIcon from '@mui/icons-material/Close'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading'
+import { toast } from 'react-toastify'
 
 type Props = {
   closeModal: Function
@@ -194,16 +195,16 @@ const EditProject = (props: Props) => {
 
     console.log(response)
 
-    response.roles = JSON.parse(response.roles)
-    response.tags = JSON.parse(response.tags)
-    setData(response)
+    response.data.roles = JSON.parse(response.data.roles)
+    response.data.tags = JSON.parse(response.data.tags)
+    setData(response.data)
   }
 
   const createOptions = async () => {
     const response = await UserService.findAll()
 
     let options: any = []
-    response.map((user: any) => {
+    response.data.map((user: any) => {
       options.push({
         value: user.id,
         label: user.name
@@ -246,14 +247,17 @@ const EditProject = (props: Props) => {
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
-    if(response) {
+    if(response.status === 200) {
       navigate("/")
+      toast.success("Project edited with success")
+    }
+    else {
+      toast.error("Error to edit the project")
     }
   }
 
   useEffect(() => {
     getProject(location.state.projectId)
-
   }, [])
 
   useEffect(() => {

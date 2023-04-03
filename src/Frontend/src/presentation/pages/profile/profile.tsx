@@ -7,6 +7,7 @@ import imgProfile from '/public/imgProfile.png'
 import Loading from "../../components/loading/loading";
 import Card from "../../components/card/card";
 import ProjectService from "../../../main/services/projectService";
+import { toast } from "react-toastify";
 
 //404 page
 const Profile = () => {
@@ -20,16 +21,29 @@ const Profile = () => {
     const [projects, setProjects] = useState([])
 
     const getUser = async () => {
-        const user = await userService.validate();
-        console.log(user)
-        setUser(user)
+        const response = await userService.validate();
+        
+        if(response.status === 200) {
+            console.log(user)
+            setUser(user)
+            setLoading(false)
+        }
+        else {
+            toast.error("Error to load the user profile")
+        }
     }
 
     const getAll = async () => {
-        const allProjects = await ProjectService.findAll();
+        setLoading(true)
+        const response = await ProjectService.findAll();
 
-        setProjects(allProjects);
-        setLoading(false)
+        if (response.status === 200) {
+            setProjects(response.data);
+            setLoading(false)
+        }
+        else {
+            toast.error("Error to load the project history")
+        }
     }
 
     useEffect(() => {

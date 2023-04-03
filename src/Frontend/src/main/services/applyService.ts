@@ -8,7 +8,7 @@ const ApplyService = {
     approveUser: async (id: String) => {
     try {
       const response = await axios.put(`${API_URL}/apply/${id}`);
-      return response.data
+      return response
     } catch (error: any) {
       return error.response.data
     }
@@ -17,7 +17,7 @@ const ApplyService = {
   rejectUser: async (id: String) => {
     try {
       const response = await axios.put(`${API_URL}/user/reject/${id}`);
-      return response.data
+      return response
     } catch (error: any) {
       return error.response.data
     }

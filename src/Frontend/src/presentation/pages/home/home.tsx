@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom'
 import ProjectService from '../../../main/services/projectService'
 import Loading from '../../components/loading/loading'
 import UserService from '../../../main/services/userService'
+import { toast } from 'react-toastify'
 
 const Home: React.FC = () => {
   const isMobile = true;
@@ -51,16 +52,21 @@ const Home: React.FC = () => {
   }
 
   const getAll = async () => {
-    const allProjects = await ProjectService.findAll();
+    const response = await ProjectService.findAll();
 
-    setProjects(allProjects);
-    setLoading(false)
+    if (response.status === 200) {
+      setProjects(response.data);
+      setLoading(false)
+    }
+    else {
+      toast.error("Error to load all projects")
+    }
   }
 
   const validateUser = async () => {
     const user = await UserService.validate();
 
-    if (user.response.status === 401) {
+    if (user.statusCode === 401) {
       window.location.href = '/login'
     }
   }

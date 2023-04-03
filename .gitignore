@@ -1,5 +1,5 @@
-src/contracts/node_modules/
-src/contracts/package-lock.json
+src/Blockchain/node_modules/
+src/Blockchain/package-lock.json
 src/Frontend/package.json
 src/Frontend/package-lock.json
 src/Frontend/yarn.lock

@@ -9,7 +9,7 @@ export const transferNFT = async (wallet: string, contractAddress: string) => {
     Contract.abi,
     provider
   );
-  await contractInstance.createNFT();
+  await contractInstance.mintAchievement("", signer, 20);
 
   return { wallet, contractAddress };
 };

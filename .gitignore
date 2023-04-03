@@ -1,2 +1,6 @@
 src/contracts/node_modules/
 src/contracts/package-lock.json
+src/Frontend/package.json
+src/Frontend/package-lock.json
+src/Frontend/yarn.lock
+src/Frontend/yarn.lock

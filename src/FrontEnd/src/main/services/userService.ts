@@ -17,9 +17,9 @@ const UserService = {
 
     try {
       const response = await axios.get(`${API_URL}/user/info/${id}`, config);
-      return response.data;
-    } catch (error) {
-      return [];
+      return response.data
+    } catch (error: any) {
+      return error.response.data
     }
   },
   auth: async (email: string, pass: string) => {
@@ -48,9 +48,9 @@ const UserService = {
 
     try {
       const response = await axios.get(`${API_URL}/user/Info`, config);
-      return response.data;
-    } catch (error) {
-      return error;
+      return response.data
+    } catch (error: any) {
+      return error.response.data
     }
   },
 
@@ -63,9 +63,9 @@ const UserService = {
 
     try {
       const response = await axios.get(`${API_URL}/user/getAll`, config);
-      return response.data;
-    } catch (error) {
-      return [];
+      return response.data
+    } catch (error: any) {
+      return error.response.data
     }
   },
 
@@ -78,9 +78,9 @@ const UserService = {
 
     try {
       const response = await axios.put(`${API_URL}/user/update/${id}`, data);
-      return response.data;
-    } catch (error) {
-      return [];
+      return response.data
+    } catch (error: any) {
+      return error.response.data
     }
   },
 
@@ -94,8 +94,8 @@ const UserService = {
     try {
       const response = await axios.post(`${API_URL}/user/create`, data);
       return response.data;
-    } catch (error) {
-      return [];
+    } catch (error: any) {
+      return error.response.data
     }
   },
 
@@ -109,8 +109,8 @@ const UserService = {
     try {
       const response = await axios.delete(`${API_URL}/user/delete/${id}`);
       return response.data;
-    } catch (error) {
-      return [];
+    } catch (error: any) {
+      return error.response.data
     }
   },
 
@@ -124,16 +124,16 @@ const UserService = {
     try {
       const response = await axios.get(`${API_URL}/user/find-by-name/${name}`);
       return response.data;
-    } catch (error) {
-      return [];
+    } catch (error: any) {
+      return error.response.data
     }
   },
   sendForgotEmail: async (email: String) => {
     try {
       const response = await axios.get(`${API_URL}/user/sendForgotEmail/${email}`);
       return response.data;
-    } catch (error) {
-      return "Email not sended! Try again later.";
+    } catch (error: any) {
+      return "Email not sended! Try again later."
     }
   },
   changePassword: async (data: any) => {
@@ -141,7 +141,7 @@ const UserService = {
       const response = await axios.post(`${API_URL}/user/resetForgotPassword`, data);
       return response.data;
     } catch (error) {
-      return "Password not changed! Try again later.";
+      return "Password not changed! Try again later."
     }
   }
 };

@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as dotenv from "dotenv";
 
 const PORT = 3001;
 const HOST = "localhost"
@@ -9,18 +8,18 @@ const ApplyService = {
     approveUser: async (id: String) => {
     try {
       const response = await axios.put(`${API_URL}/apply/${id}`);
-      return response.data;
-    } catch (error) {
-      return [];
+      return response.data
+    } catch (error: any) {
+      return error.response.data
     }
   },
 
   rejectUser: async (id: String) => {
     try {
       const response = await axios.put(`${API_URL}/user/reject/${id}`);
-      return response.data;
-    } catch (error) {
-      return [];
+      return response.data
+    } catch (error: any) {
+      return error.response.data
     }
   }
 };

@@ -12,8 +12,8 @@ const ProjectService = {
       const response = await axios.get(`${API_URL}/Project/findByID/${id}`)
       return response.data
     }
-    catch (error) {
-      return []
+    catch (error: any) {
+      return error.response.data
     }
   },
   findAll: async () => {
@@ -21,8 +21,8 @@ const ProjectService = {
       const response = await axios.get(`${API_URL}/Project/findAll`)
       return response.data
     }
-    catch (error) {
-      return []
+    catch (error: any) {
+      return error.response.data
     }
   },
   create: async (data: any) => {
@@ -37,8 +37,8 @@ const ProjectService = {
       const response = await axios.post(`${API_URL}/Project/create`, data, config)
       return response.data
     }
-    catch (error) {
-      return error
+    catch (error: any) {
+      return error.response.data
     }
   },
   edit: async (data: any) => {
@@ -46,8 +46,8 @@ const ProjectService = {
       const response = await axios.put(`${API_URL}/Project/update/${data.projectId}`, data)
       return response.data
     }
-    catch (error) {
-      return []
+    catch (error: any) {
+      return error.response.data
     }
   },
   delete: async (id: string) => {
@@ -55,8 +55,8 @@ const ProjectService = {
       const response = await axios.delete(`${API_URL}/Project/delete/${id}`)
       return response.data
     }
-    catch (error) {
-      return []
+    catch (error: any) {
+      return error.response.data
     }
   }
 }

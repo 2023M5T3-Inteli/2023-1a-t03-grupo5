@@ -84,11 +84,14 @@ export class ProjectsController {
     return this.projectsService.filterProject(data);
   }
 
-  @Put("/approve/:projectId")
+  @Put("/approve/:token")
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 403, description: 'Error: Forbidden'})
-  async approve(@Req() req: any, @Param("projectId") projectId: string) {
-    return this.projectsService.approveProject(projectId, req.user.id);
+  async approve(@Param("token") token: string, @Body() data: any) {
+    if(data.status != "approved" || data.status != "rejected") {
+      return {error: "Invalid status"};
+    }
+    return this.projectsService.approveProject(token, data.status);
   }
 
   @Put("/cancel/:projectId")

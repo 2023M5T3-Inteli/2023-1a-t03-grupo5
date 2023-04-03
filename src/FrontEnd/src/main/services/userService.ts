@@ -3,8 +3,9 @@ import cookie from "react-cookies";
 
 const PORT = 3001;
 const HOST = "localhost";
-const API_URL = `http://${HOST}:${PORT}`
-// const API_URL = 'http://alb-lakitu-1821142311.us-east-1.elb.amazonaws.com'
+const API_URL = `http://alb-lakitu-1821142311.us-east-1.elb.amazonaws.com`
+
+console.log(API_URL)
 
 const UserService = {
   findByID: async (id: String) => {
@@ -23,6 +24,7 @@ const UserService = {
   },
   auth: async (email: string, pass: string) => {
     try {
+      console.log(API_URL)
       console.log(email);
       console.log(pass)
       const response = await axios.post(

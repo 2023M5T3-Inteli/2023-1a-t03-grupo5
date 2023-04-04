@@ -26,6 +26,7 @@ import Forgot from '../../presentation/pages/forgotPassword/forgot'
 import Registrations from "../../presentation/pages/registrations/registrations";
 import 'react-toastify/dist/ReactToastify.css';
 import Toast from "../../presentation/components/toast/toast";
+import Mint from "../../presentation/pages/mint/ethers";
 
 const Router: React.FC = () => {
   const [user, setUser] = useState(401);
@@ -70,6 +71,7 @@ const Router: React.FC = () => {
       <Toast />
       {showSidebar && <Sidebar page={active} changePage={changePage} />}
       <Routes>
+        <Route path='/mint' element={<Mint />}></Route>
         <Route path='/login' element={<Login changePage={changePage} />}></Route>
         <Route path='/forgotPassword' element={<Forgot />}></Route>
         <Route path='/404' element={<NotFound />}></Route>

@@ -63,7 +63,7 @@ const Mint = () => {
     const signer = provider.getSigner();
     // const contractAddress = "0xe31906e9bd75F5D6662c5B0E7a5cd5ABF2F5bd07";
     // const contractAddress = "0x0B7cC8444Ba8Ceb1aC41E3d6832B4Eaf4D1A6684";
-    const contractAddress = "0x35B55834319d128fC8786ecC8b918141292BFfBa";
+    const contractAddress = "0xD4cd70Ef63F0470917d07b6f297C6c8a73612B75";
     // window.ethereum.request({ method: 'eth_requestAccounts' })
 
     // const accounts = await window.ethereum.request({
@@ -77,7 +77,10 @@ const Mint = () => {
       signer
     );
 
-    await contractInstance.mintAchievement(sendFileToIPFS(image));
+    const image_hash = await sendFileToIPFS(image);
+    console.log(image_hash);
+
+    await contractInstance.mintAchievement(image_hash);
 
     // console.log(
     //   await sendFileToIPFS(nft)

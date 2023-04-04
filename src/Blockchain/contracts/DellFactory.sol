@@ -60,3 +60,36 @@ contract DellFactory is ERC1155 {
         return _tokenURIs[_tokenId];
     }
 }
+
+// pragma solidity ^0.8.9;
+
+// import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
+// import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
+// import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
+
+// contract DellToken is ERC721, Ownable {
+//     using Counters for Counters.Counter;
+//     Counters.Counter public _tokenIds;
+
+//     mapping(uint256 => string) internal _tokenURIs;
+
+//     constructor() ERC721("DellToken", "DLT") {}
+
+//     function safeMint(string memory _tokenURI) public {
+//         uint256 newNFTId = _tokenIds.current();
+//         _safeMint(msg.sender, newNFTId);
+//         _setTokenURI(newNFTId, _tokenURI);
+//         _tokenIds.increment();
+//     }
+
+//     function _setTokenURI(uint _tokenId, string memory _tokenURI) private {
+//         _tokenURIs[_tokenId] = _tokenURI;
+//     }
+
+//     function tokenURI(
+//         uint tokenId
+//     ) public view override returns (string memory) {
+//         _requireMinted(tokenId);
+//         return _tokenURIs[tokenId];
+//     }
+// }

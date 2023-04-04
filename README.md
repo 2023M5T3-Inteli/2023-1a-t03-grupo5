@@ -8,11 +8,17 @@
 
 ## Grupo 5 - Lakitu
 
-## Integrantes: <a href="https://www.linkedin.com/in/felipe-saadi/">Felipe Saadi</a>, <a href="https://www.linkedin.com/in/gabriel-nascimento-b80933217/">Gabriel Nascimento</a>, <a href="https://www.linkedin.com/in/jo%C3%A3o-lucas-gonzalez/">João Lucas Gonzalez</a>, <a href="https://www.linkedin.com/in/lu%C3%ADsa-vit%C3%B3ria-leite-silva-681443230/">Luísa Silva</a>, <a href="https://www.linkedin.com/in/mariana-silva-paula/">Mariana Silva</a>, <a href="https://www.linkedin.com/in/pedro-hagge/">Pedro Baptista</a>, <a href="https://www.linkedin.com/in/victor-severiano-de-carvalho-b57a05237/">Victor Carvalho</a>
+## Integrantes: <a href="https://www.linkedin.com/in/felipe-saadi/">Felipe Saadi</a>
+- <a href="https://www.linkedin.com/in/gabriel-nascimento-b80933217/">Gabriel Nascimento</a>
+- <a href="https://www.linkedin.com/in/jo%C3%A3o-lucas-gonzalez/">João Lucas Gonzalez</a>
+- <a href="https://www.linkedin.com/in/lu%C3%ADsa-vit%C3%B3ria-leite-silva-681443230/">Luísa Silva</a>
+- <a href="https://www.linkedin.com/in/mariana-silva-paula/">Mariana Silva</a>
+- <a href="https://www.linkedin.com/in/pedro-hagge/">Pedro Baptista</a>
+- <a href="https://www.linkedin.com/in/victor-severiano-de-carvalho-b57a05237/">Victor Carvalho</a>
 
 ## Descrição
 
-📜 Descrição curta sobre o que seu projeto faz.
+📜 A Dell, uma das maiores empresas de hardware e software do mundo, apresentou um problema que os seus funcionários não estavam se sentindo desafiados, e para tentar solucionar e amenizar esse problema foi desenvolvido uma aplicação web onde os funcionários podem criar e participar de projetos temporários dentro da empresa, e assim podem aprender e desenvolver novas tecnologias e linguagens em diferentes áreas dentro da empresa.
 <br><br>
 Meu projeto é um exemplo de como utilizar o github.
 <br><br>

@@ -57,12 +57,13 @@ const Mint = () => {
     }
   };
 
-  const transferNFT = async (image) => {
+  const transferNFT = async (image: any) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     // await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     // const contractAddress = "0xe31906e9bd75F5D6662c5B0E7a5cd5ABF2F5bd07";
-    const contractAddress = "0x0B7cC8444Ba8Ceb1aC41E3d6832B4Eaf4D1A6684";
+    // const contractAddress = "0x0B7cC8444Ba8Ceb1aC41E3d6832B4Eaf4D1A6684";
+    const contractAddress = "0x35B55834319d128fC8786ecC8b918141292BFfBa";
     // window.ethereum.request({ method: 'eth_requestAccounts' })
 
     // const accounts = await window.ethereum.request({
@@ -76,7 +77,7 @@ const Mint = () => {
       signer
     );
 
-    await contractInstance.mintAchievement(sendFileToIPFS(image), metamask, 1);
+    await contractInstance.mintAchievement(sendFileToIPFS(image));
 
     // console.log(
     //   await sendFileToIPFS(nft)
@@ -85,7 +86,7 @@ const Mint = () => {
     // );
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: any) => {
     e.preventDefault();
 
     console.log(image);

@@ -33,16 +33,12 @@ contract DellFactory is ERC1155 {
         return (_tokenURIs[tokenId]);
     }
 
-    function mintAchievement(
-        string memory _newTokenURI,
-        address _receiver,
-        uint256 _amount
-    ) public {
+    function mintAchievement(string memory _newTokenURI) public {
         // Picking the actual token id
         uint256 newNFTId = _tokenIds.current();
 
-        // Creating a NFT to the owner
-        _mint(owner, newNFTId, _amount, "");
+        // Creating a NFT to the user
+        _mint(msg.sender, newNFTId, 1, "");
 
         // Setting the token URI for the NFT just minted
         _setTokenUri(newNFTId, _newTokenURI);
@@ -51,7 +47,7 @@ contract DellFactory is ERC1155 {
         _tokenIds.increment();
 
         // Trasfering the NFT to the receiver
-        safeTransferFrom(owner, _receiver, newNFTId, _amount, "");
+        // safeTransferFrom(owner, _receiver, newNFTId, _amount, "");
     }
 
     function burnAchievement(uint256 _tokenId, uint256 _amount) public {

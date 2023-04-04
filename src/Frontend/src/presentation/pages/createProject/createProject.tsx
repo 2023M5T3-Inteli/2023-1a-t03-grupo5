@@ -14,6 +14,7 @@ import UserService from '../../../main/services/userService'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading'
 import { toast } from 'react-toastify'
+import InputFile from '../../components/inputFile/inputFile'
 
 type Props = {
   closeModal: Function
@@ -73,6 +74,7 @@ const CreateProject = (props: Props) => {
     },
   ])
 
+  const [file, setFile] = useState(null)
   const [data, setData] = useState<any>({
     name: "",
     description: "",
@@ -196,10 +198,11 @@ const CreateProject = (props: Props) => {
     if (
       data.name &&
       data.description &&
-      data.roles &&
+      data.roles.length > 0 &&
       data.endSubscription &&
       data.start &&
-      data.end
+      data.end &&
+      data.badge
     ) {
       setDisableCreate(false)
     }
@@ -406,13 +409,13 @@ const CreateProject = (props: Props) => {
 
             <div className="input-container">
               <h4 className="input-title ">Import badge</h4>
-              <Input
-                size='large'
+              <InputFile value={data.badge} onChange={(value: any) => setData({...data, badge: value})}/>
+              {/* <input
                 placeholder={""}
-                type={"text"}
+                type={"file"}
                 value={data.badge}
                 onChange={(value: any) => setData({ ...data, badge: value })}
-              />
+              /> */}
             </div>
 
             <div className="divider"></div>

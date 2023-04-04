@@ -18,12 +18,12 @@ const Profile = () => {
         habilities: '',
         photoURL: ''
     });
-    const [projects, setProjects] = useState([])
+    const [projects, setProjects] = useState<any>([])
 
     const getUser = async () => {
         const response = await userService.validate();
-        
-        if(response.status === 200) {
+
+        if (response.status === 200) {
             console.log(user)
             setUser(user)
             setLoading(false)
@@ -33,12 +33,14 @@ const Profile = () => {
         }
     }
 
-    const getAll = async () => {
+    const getProjects = async () => {
         setLoading(true)
-        const response = await ProjectService.findAll();
+        let data = null
+        const response = await ProjectService.filter(data);
+        console.log(response.data)
 
         if (response.status === 200) {
-            setProjects(response.data);
+            setProjects(response.data)
             setLoading(false)
         }
         else {
@@ -48,7 +50,7 @@ const Profile = () => {
 
     useEffect(() => {
         getUser()
-        getAll()
+        getProjects()
 
     }, []);
 

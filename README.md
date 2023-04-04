@@ -8,7 +8,8 @@
 
 ## Grupo 5 - Lakitu
 
-## Integrantes: <a href="https://www.linkedin.com/in/felipe-saadi/">Felipe Saadi</a>
+## Integrantes: 
+- <a href="https://www.linkedin.com/in/felipe-saadi/">Felipe Saadi</a>
 - <a href="https://www.linkedin.com/in/gabriel-nascimento-b80933217/">Gabriel Nascimento</a>
 - <a href="https://www.linkedin.com/in/jo%C3%A3o-lucas-gonzalez/">João Lucas Gonzalez</a>
 - <a href="https://www.linkedin.com/in/lu%C3%ADsa-vit%C3%B3ria-leite-silva-681443230/">Luísa Silva</a>

@@ -37,7 +37,7 @@ contract DellFactory is ERC1155 {
         string memory _newTokenURI,
         address _receiver,
         uint256 _amount
-    ) public isOwner {
+    ) public {
         // Picking the actual token id
         uint256 newNFTId = _tokenIds.current();
 
@@ -52,5 +52,15 @@ contract DellFactory is ERC1155 {
 
         // Trasfering the NFT to the receiver
         safeTransferFrom(owner, _receiver, newNFTId, _amount, "");
+    }
+
+    function burnAchievement(uint256 _tokenId, uint256 _amount) public {
+        _burn(owner, _tokenId, _amount);
+    }
+
+    function getAchievement(
+        uint256 _tokenId
+    ) public view returns (string memory) {
+        return _tokenURIs[_tokenId];
     }
 }

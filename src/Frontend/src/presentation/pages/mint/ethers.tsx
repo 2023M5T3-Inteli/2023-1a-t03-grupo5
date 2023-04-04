@@ -1,4 +1,3 @@
-// const { ethers } = require("ethers");
 import { ethers } from "ethers";
 import Contract from "../../../../../Blockchain/build/contracts/DellFactory.json";
 import nft from "../../../../nft/lakitu.png";
@@ -7,8 +6,6 @@ import axios from "axios";
 // const dotenv = require("dotenv").config();
 
 const Mint = () => {
-  const [metamask, setMetamask] = useState("");
-
   const sendFileToIPFS = async (file: any) => {
     if (file) {
       try {
@@ -36,6 +33,8 @@ const Mint = () => {
     }
   };
 
+  const [metamask, setMetamask] = useState("");
+
   const connectToMetamask = async () => {
     if (window.ethereum) {
       try {
@@ -62,7 +61,8 @@ const Mint = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     // await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
-    const contractAddress = "0xe31906e9bd75F5D6662c5B0E7a5cd5ABF2F5bd07";
+    // const contractAddress = "0xe31906e9bd75F5D6662c5B0E7a5cd5ABF2F5bd07";
+    const contractAddress = "0x0B7cC8444Ba8Ceb1aC41E3d6832B4Eaf4D1A6684";
     // window.ethereum.request({ method: 'eth_requestAccounts' })
 
     // const accounts = await window.ethereum.request({

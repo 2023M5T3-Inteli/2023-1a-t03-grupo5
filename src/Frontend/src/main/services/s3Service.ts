@@ -13,18 +13,26 @@ const bucket = new AWS.S3({
   region: REGION,
 })
 
-const uploadFile = (file: any) => {
-  const params = {
-    ACL: 'public-read',
-    Body: file,
-    Bucket: S3_BUCKET,
-    Key: file.name
-  };
+const S3Service = {
+  uploadFile: async (file: any) => {
+    const params = {
+      ACL: 'public-read',
+      Body: file,
+      Bucket: S3_BUCKET,
+      Key: file.name
+    };
 
-  bucket.putObject(params)
-    .send((err) => {
-      if (err) console.log(err)
+    let response = await bucket.putObject(params, (error, data) => {
+      if (error) {
+        return error
+      }
+      else {
+        return 200
+      }
     })
+
+    return response
+  }
 }
 
-export default uploadFile
+export default S3Service

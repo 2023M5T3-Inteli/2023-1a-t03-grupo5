@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/loading/loading'
 import { toast } from 'react-toastify'
 import InputFile from '../../components/inputFile/inputFile'
+import S3Service from '../../../main/services/s3Service'
 
 type Props = {
   closeModal: Function
@@ -74,7 +75,7 @@ const CreateProject = (props: Props) => {
     },
   ])
 
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState<any>(null)
   const [data, setData] = useState<any>({
     name: "",
     description: "",
@@ -202,7 +203,7 @@ const CreateProject = (props: Props) => {
       data.endSubscription &&
       data.start &&
       data.end &&
-      data.badge
+      file
     ) {
       setDisableCreate(false)
     }
@@ -213,31 +214,39 @@ const CreateProject = (props: Props) => {
 
   const submit = async () => {
     setLoading(true)
-    let response = await ProjectService.create({
-      name: data.name,
-      description: data.description,
-      tags: JSON.stringify(data.tags),
-      roles: JSON.stringify(data.roles),
-      start: new Date(data.start),
-      end: new Date(data.end),
-      badge: data.badge,
-      endSubscription: new Date(data.endSubscription),
-      coleaderId: data.coleaderId,
-    })
-    console.log(response)
 
-    if (response.status === 201) {
-      setLoading(false)
-      toast.success('Project created successfully! Please check your email for more details.')
-      setTimeout(() => {
-        props.closeModal()
-        navigate(0)
-      }, 2000)
+    if (file) {
+      // let s3Response = await S3Service.uploadFile(file)
+
+      // if (s3Response === 200) {
+      //   let response = await ProjectService.create({
+      //     name: data.name,
+      //     description: data.description,
+      //     tags: JSON.stringify(data.tags),
+      //     roles: JSON.stringify(data.roles),
+      //     start: new Date(data.start),
+      //     end: new Date(data.end),
+      //     badge: file.name,
+      //     endSubscription: new Date(data.endSubscription),
+      //     coleaderId: data.coleaderId,
+      //   })
+      //   console.log(response)
+
+      //   if (response.status === 201) {
+      //     setLoading(false)
+      //     toast.success('Project created successfully! Please check your email for more details.')
+      //     setTimeout(() => {
+      //       props.closeModal()
+      //       navigate(0)
+      //     }, 2000)
+      //   }
+      //   else {
+      //     toast.error("Error to create the project")
+      //   }
+      //   console.log(response)
+      // }
+      return null
     }
-    else {
-      toast.error("Error to create the project")
-    }
-    console.log(response)
   }
 
   useEffect(() => {
@@ -409,7 +418,7 @@ const CreateProject = (props: Props) => {
 
             <div className="input-container">
               <h4 className="input-title ">Import badge</h4>
-              <InputFile value={data.badge} onChange={(value: any) => setData({...data, badge: value})}/>
+              <InputFile value={data.badge} onChange={(file: any) => setFile(file[0])} />
               {/* <input
                 placeholder={""}
                 type={"file"}

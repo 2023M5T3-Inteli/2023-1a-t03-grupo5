@@ -18,7 +18,7 @@ model Project {
   start               DateTime
   end                 DateTime
   endSubscription     DateTime
-  coleaderId          String
+  coleaderId          String?
   applies             Apply[]
   coleader            User?     @relation("Coleader", fields: [coleaderId], references: [id])
   ownerId             String

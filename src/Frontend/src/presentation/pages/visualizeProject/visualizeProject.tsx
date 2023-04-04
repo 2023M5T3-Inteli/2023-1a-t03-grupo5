@@ -15,6 +15,8 @@ import UserService from "../../../main/services/userService";
 import Loading from "../../components/loading/loading";
 import DeleteProject from "../deleteProject/deleteProject";
 import Modal from "../../components/modal/modal";
+import { toast } from "react-toastify";
+
 // type Props = {
 //   closeModal: Function;
 //   openEdit: Function;
@@ -44,7 +46,8 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const getUser = async (id: string) => {
     console.log(id)
     const response = await UserService.findByID(id)
-    if(response.status === 200) {
+
+    if (response.status === 200) {
       return response.data
     }
     return null
@@ -65,12 +68,13 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
       console.log("is owner")
       setIsOwner(true)
     }
-    console.log("not owner");
-    {
-      /*console.log(owner, coleader)*/
-    }
-    setLoading(false);
-  };
+    console.log("not owner")
+
+    {/*console.log(owner, coleader)*/ }
+
+    setLoading(false)
+  }
+
   const deleteProject = async () => {
     setOpenDeleteModal(false)
     let response = await ProjectService.delete(project.projectId)
@@ -78,6 +82,15 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     // if(response) {
     //   navigate("/")
     // }
+    if (response.status === 200) {
+      navigate('/')
+      toast.success("Delete project with success")
+    }
+    else {
+      toast.error("Undeleted project")
+    }
+    console.log(response)
+
   }
   useEffect(() => {
     getProject()
@@ -137,14 +150,14 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
             <h2 className="h2-roles">Roles</h2>
             <div className="list-roles">
               <div className="roles-line">
-               <div className="visualize-roles"><p className="p-roles">Roles</p></div>
-               <div className="visualize-roles"><p className="p-roles">Area</p></div>
-               <div className="visualize-roles"><p className="p-roles">1</p></div>
+                <div className="visualize-roles"><p className="p-roles">Roles</p></div>
+                <div className="visualize-roles"><p className="p-roles">Area</p></div>
+                <div className="visualize-roles"><p className="p-roles">1</p></div>
               </div>
               <div className="roles-line">
-               <div className="visualize-roles"><p className="p-roles">Roles</p></div>
-               <div className="visualize-roles"><p className="p-roles">Area</p></div>
-               <div className="visualize-roles"><p className="p-roles">5</p></div>
+                <div className="visualize-roles"><p className="p-roles">Roles</p></div>
+                <div className="visualize-roles"><p className="p-roles">Area</p></div>
+                <div className="visualize-roles"><p className="p-roles">5</p></div>
               </div>
             </div>
           </div>

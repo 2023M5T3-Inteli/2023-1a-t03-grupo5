@@ -221,7 +221,9 @@ const CreateProject = (props: Props) => {
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
-    if(response.status === 200) {
+    console.log(response)
+
+    if (response.status === 201) {
       setLoading(false)
       toast.success('Project created successfully! Please check your email for more details.')
       setTimeout(() => {

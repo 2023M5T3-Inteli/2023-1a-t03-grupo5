@@ -177,6 +177,16 @@
       }
     }
 
+    .message {
+      color: c.$primary;
+      // width: 100%;
+      text-align: center;
+      padding: 0 sp.$stack-xs;
+
+      position: absolute;
+      bottom: 100px;
+    }
+
     .logout {
       svg {
         margin-left: sp.$stack-xs;

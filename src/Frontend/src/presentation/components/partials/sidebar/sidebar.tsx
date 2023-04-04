@@ -26,6 +26,7 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew'
 
 import Modal from '../../modal/modal'
 import CreateProject from '../../../pages/createProject/createProject'
+import userService from '../../../../main/services/userService'
 
 interface Props {
   page: number,
@@ -42,10 +43,10 @@ const Sidebar: any = (props: Props) => {
     setOpenCreateModal(!openCreateModal)
   }
 
-  const user = {
-    photo: 'https://www.shutterstock.com/image-vector/male-avatar-profile-picture-vector-600w-149083895.jpg',
-    name: 'Pedro',
-  }
+  const [nameDisplay, setNameDisplay] = useState()
+  const [user, setUser] = useState({
+    name: ""
+  })
 
   const menu = [
     {
@@ -70,11 +71,24 @@ const Sidebar: any = (props: Props) => {
     },
   ]
 
+  const getUser = async () => {
+    const response = await userService.validate();
+
+    if (response.status === 200) {
+      setUser(response.data)
+      setNameDisplay(response.data.name.split(" "))
+    }
+  }
+
   const logout = () => {
     props.changePage(-1)
     cookie.remove("token")
     window.location.href = "/login"
   }
+
+  useEffect(() => {
+    getUser()
+  }, [])
 
   return (
     <div className={`sidebar ${menuOpened && 'sidebar-opened'}`}>
@@ -122,32 +136,8 @@ const Sidebar: any = (props: Props) => {
             </div>
         }
 
-        {/* <div className="profile">
-          <div onClick={() => setProfileOpened(!profileOpened)}>
-            <div className='select'>
-              {
-                menuOpened ?
-                  <>
-                    <img className='logo' src={user.photo} alt="profile photo" />
-                    {user.name}
-                    <KeyboardArrowDownIcon />
-                  </>
-                  :
-                  <img className='logo' src={user.photo} alt="profile photo" />
-              }
-            </div>
-          </div>
+        {menuOpened && <p className='message'>Olá, {nameDisplay[0]} {nameDisplay[1]}</p>}
 
-          {
-            profileOpened && (
-              <div className="options">
-                <Link to={'/login'} onClick={() => props.changePage(-1)}>
-                  <div>Sair</div>
-                </Link>
-              </div>
-            )
-          }
-        </div> */}
 
         <Link to="/login" className="logout" onClick={() => logout()}>
           {menuOpened && <p>Sair</p>}

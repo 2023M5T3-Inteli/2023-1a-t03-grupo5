@@ -1,25 +1,20 @@
 @use '/public/styles/spacing.scss' as sp;
 @use '/public/styles/color.scss' as c;
-
 .visualize-project{
   // height: 100vh;
   width: 100%;
   padding: sp.$stack-lg sp.$stack-md;
   display: flex;
-
   .edit-icon, .delete-icon {
     margin-left: sp.$stack-md;
     color: c.$primary;
-
     width: 32px;
     height: 32px;
     cursor: pointer;
   }
-
   .delete-icon {
     margin-left: sp.$stack-xs;
   }
-
   .container-visualize{
     display: flex;
       // align-items: center;
@@ -35,14 +30,12 @@
     flex-direction: row;
     margin-bottom: sp.$stack-lg;
   }
-  
   .p-project{
     font-size: 24px;
     margin-bottom: sp.$stack-lg;
     color: #FFFFFF;
     text-align: justify;
   }
-  
   .project-info{
     display: flex;
     flex-direction: column;
@@ -51,7 +44,6 @@
       color:#FFFFFF;
     }
   }
-  
   .tags-visualize{
       width: 80%;
       display: flex;
@@ -63,7 +55,6 @@
       padding: sp.$stack-sm sp.$stack-md;
       align-items: center;
   }
-  
   .card-tag{
     background-color: #2B2B2B;
     display: flex;
@@ -72,37 +63,72 @@
     border-radius: 5px;
     margin-left: sp.$stack-sm;
   }
-  
   .h2-tag{
     font-size: 24px;
     color: #FFFFFF;
   }
-  
   .tag-p{
     padding: 0.75rem 0.75rem;
   }
-  
   .p-tag{
     font-size: 20px;
     color: #FFFFFF;
   }
-  
+  .card-visualize-roles{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: #1D1D1D;
+    box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 2px 2px 6px 0px rgba(0,0,0,0.5);
+    padding: sp.$stack-sm sp.$stack-md;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  .h2-roles{
+    color:#FFFFFF;
+  }
+  .rows-roles{
+    display: flex;
+    flex-direction: row;
+  }
+  .list-roles{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .roles-line{
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+  }
+  .visualize-roles{
+    background-color: #2B2B2B;
+    width: fit-content;
+    border-radius: 5px;
+    width: 30%;
+    margin-left: 1.2rem;
+  }
+  .p-roles{
+    color:#FFFFFF;
+    padding: 0.75rem;
+    font-size: 20px;
+  }
   .line{
     border: 0.25px solid #111010;
   }
-  
   .right-side{
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  
   .status-info{
     display: flex;
     flex-direction: column;
     width: 100%;
   }
-  
   .info-visualize{
     display: flex;
     flex-direction: row;
@@ -111,14 +137,11 @@
     align-items: center;
     height: 60px;
   }
-  
   .icons-visualize{
     display: flex;
     width: 30%;
     justify-content: center;
   }
-  
-  
   .p-visualize{
     color: #FFFFFF;
     align-items: center;
@@ -126,7 +149,6 @@
     font-size: 21px;
     text-align: center;
   }
-  
   .line2{
     border: 0.25px solid #111010;
     width: 100%;
@@ -134,31 +156,26 @@
     align-items: center;
     margin: sp.$stack-md 0;
   }
-  
   .info-down{
     display: flex;
     flex-direction: column;
   }
-  
   .badge-center{
     display: flex;
     justify-content: center;
     margin-top: sp.$stack-md;
   }
-  
   .p-badge{
     color: #FFFFFF;
     align-items: center;
     font-size: 24px;
     text-align: center;
   }
-
   .image-bagde{
     height: auto;
     width: 50%;
     max-width: 120px;
   }
-  
   .badge-visualize{
     display: flex;
     flex-direction: row;
@@ -169,9 +186,7 @@
     width: 180%;
     border-radius: 10px;
   }
-
   a {
     text-decoration: none;
   }
 }
-

@@ -114,5 +114,14 @@ export class ProjectsController {
     }
     return this.projectsService.receivingSubscription(projectId, data.status);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Put("/Finalize/:projectId")
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 404, description: 'Error: Not Found'})
+  @ApiResponse({ status: 403, description: 'Error: Forbidden'})
+  async finalize(@Param("projectId") projectId: string, @Req() req: any) {
+    return this.projectsService.finalizeProject(projectId, req.user.id);
+  }
 }
 

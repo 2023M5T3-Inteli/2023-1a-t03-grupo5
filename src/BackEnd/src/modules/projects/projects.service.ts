@@ -417,7 +417,7 @@ export class ProjectsService {
                     projectId,
                 },
                 data: {
-                    status: "Finalized",
+                    status: "Finished",
                     blockedSubscription: true,
                 }
             })

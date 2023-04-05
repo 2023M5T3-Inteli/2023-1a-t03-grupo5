@@ -46,25 +46,46 @@ export class ProjectsService {
 
         //Doing the creation
         try {
-            project = await this.prisma.project.create({
-                data: {
-                    projectId: uuid(),
-                    name: data.name,
-                    start: new Date(),
-                    end: new Date(),
-                    tags: data.tags,
-                    endSubscription: data.endSubscription,
-                    badge: data.badge,
-                    roles: data.roles,
-                    createdAt: new Date(),
-                    updatedAt: new Date(),
-                    description: data.description,
-                    coleaderId: data.coleaderId,
-                    ownerId: ownerId,
-                    blockedSubscription: true,
-                    status: "Pending"
-                }
-            });
+            if (data.coleaderId != null && data.coleaderId != undefined && data.coleaderId != "") {
+                project = await this.prisma.project.create({
+                    data: {
+                        projectId: uuid(),
+                        name: data.name,
+                        start: new Date(),
+                        end: new Date(),
+                        tags: data.tags,
+                        endSubscription: data.endSubscription,
+                        badge: data.badge,
+                        roles: data.roles,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                        description: data.description,
+                        coleaderId: data.coleaderId,
+                        ownerId: ownerId,
+                        blockedSubscription: true,
+                        status: "Pending"
+                    }
+                });
+            } else {
+                project = await this.prisma.project.create({
+                    data: {
+                        projectId: uuid(),
+                        name: data.name,
+                        start: new Date(),
+                        end: new Date(),
+                        tags: data.tags,
+                        endSubscription: data.endSubscription,
+                        badge: data.badge,
+                        roles: data.roles,
+                        createdAt: new Date(),
+                        updatedAt: new Date(),
+                        description: data.description,
+                        ownerId: ownerId,
+                        blockedSubscription: true,
+                        status: "Pending"
+                    }
+                });
+            }
         } catch (err) {
             console.log(err)
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
@@ -213,7 +234,6 @@ export class ProjectsService {
     }
 
     async filterProject(data: any) {
-        console.log(data)
         //Filtering the projects
         try {
            const project = await this.prisma.project.findMany({

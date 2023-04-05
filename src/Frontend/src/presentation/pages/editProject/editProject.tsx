@@ -98,7 +98,6 @@ const EditProject = (props: Props) => {
       //   vacancies: 5
       // }
     ],
-    badge: "",
     start: "",
     end: "",
     endSubscription: ""
@@ -210,15 +209,13 @@ const EditProject = (props: Props) => {
         label: user.name
       })
     })
-
-    console.log(response)
     setUsersOptions(options)
 
     setLoading(false)
   }
 
   const validateFields = () => {
-    console.log('entrou', disableEdit)
+    console.log(data)
     if (
       data.name &&
       data.description &&
@@ -386,7 +383,7 @@ const EditProject = (props: Props) => {
                     data.roles.map((role: any, index: number) => {
                       return (
                         <div className='added-role' key={`${role.area}-${role.role}-${index}`}>
-                          <div className="container">
+                          <div className="added-roles-container">
                             <div className='area'>
                               <p className="area-name">{role.area}</p>
                             </div>
@@ -419,19 +416,8 @@ const EditProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
-                value={data.endSubscription}
+                value={data.endSubscription.split("T")[0]}
                 onChange={(value: any) => setData({ ...data, endSubscription: value })}
-              />
-            </div>
-
-            <div className="input-container">
-              <h4 className="input-title ">Import badge</h4>
-              <Input
-                size='large'
-                placeholder={""}
-                type={"text"}
-                value={data.badge}
-                onChange={(value: any) => setData({ ...data, badge: value })}
               />
             </div>
 
@@ -443,7 +429,7 @@ const EditProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
-                value={data.start}
+                value={data.start.split("T")[0]}
                 onChange={(value: any) => setData({ ...data, start: value })}
               />
             </div>
@@ -454,7 +440,7 @@ const EditProject = (props: Props) => {
                 size='large'
                 placeholder={"xx/xx/xxxx"}
                 type={"date"}
-                value={data.end}
+                value={data.end.split("T")[0]}
                 onChange={(value: any) => setData({ ...data, end: value })}
               />
             </div>

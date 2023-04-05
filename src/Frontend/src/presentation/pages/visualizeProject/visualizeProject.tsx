@@ -53,7 +53,6 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const [meta, setMeta] = useState(false)
 
   const getUser = async (id: string) => {
-    console.log(id)
     const response = await UserService.findByID(id)
 
     if (response.status === 200) {
@@ -61,30 +60,32 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     }
     return null
   }
+
   const getProject = async () => {
-    console.log(location.state)
     const response = await ProjectService.findByID(location.state.projectId)
     response.data.tags = JSON.parse(response.data.tags)
     response.data.roles = JSON.parse(response.data.roles)
     setProject(response.data)
-    console.log(response)
+    console.log(response.data)
 
     let owner = await getUser(response.data.ownerId)
 
+    if(owner) {
+      setOwnerName(owner.name)
+    }
+    else {
+      toast.error("Error to load project informations")
+    }
+
     if (response.data.coleaderId) {
       let coleader = await getUser(response.data.coleaderId)
-      setOwnerName(owner.name)
       setColeaderName(coleader.name)
     }
 
     const user = await UserService.validate()
     if (user.data.id === response.data.ownerId || user.data.id === response.data.coleaderId) {
-      console.log("is owner")
       setIsOwner(true)
     }
-    console.log("not owner")
-
-    {/*console.log(owner, coleader)*/ }
 
     setLoading(false)
   }
@@ -92,7 +93,6 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const deleteProject = async () => {
     setOpenDeleteModal(false)
     let response = await ProjectService.delete(project.projectId)
-    console.log(response)
     // if(response) {
     //   navigate("/")
     // }
@@ -103,7 +103,6 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     else {
       toast.error("Undeleted project")
     }
-    console.log(response)
 
   }
 
@@ -127,9 +126,9 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     try {
       await transferNFT(project.badge);
     } catch (error) {
-      console.log(error);
+      toast.error("Error to transfer NFT")
     }
-    
+
   };
 
   const finishProject = async () => {
@@ -153,7 +152,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     setOpenFinishModal(!openFinishModal)
   }
 
-  const getAccount = async () =>  {
+  const getAccount = async () => {
     if (!window.ethereum) {
       toast.error("Install MetaMask")
       return false;
@@ -190,14 +189,14 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     getProject()
 
-    let account:any;
+    let account: any;
 
     const get = async () => {
       account = await getAccount();
 
       console.log(account)
 
-      if (account) {setMeta(true)}
+      if (account) { setMeta(true) }
     }
 
     get();
@@ -208,12 +207,12 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
       {
         !meta &&
         <div className="btnMeta">
-        <img src={"/MetaMask_Fox.png"} width={40}></img>
-        <button onClick={() => {connectToMetamask()}}>Connect to Metamask</button>
-      </div>
+          <img src={"/MetaMask_Fox.png"} width={40}></img>
+          <button onClick={() => { connectToMetamask() }}>Connect to Metamask</button>
+        </div>
       }
-      
-      
+
+
       {loading && <Loading />}
       <div className="container-visualize">
         <div className=" grid-8 project-info">
@@ -290,7 +289,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                 !loading &&
                 project.roles.map((item: any, index: number) => {
                   return (
-                    <div className="roles-line">
+                    <div className="roles-line" key={`${item.role}-${index}`}>
                       <div className="visualize-roles"><p className="p-roles">{item.area}</p></div>
                       {
                         item.area !== "Shadowing" &&
@@ -328,10 +327,23 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                 <img width={28} src={CalenderIcon} />
               </div>
               <div className="p-visualize">
-                <p>Expiration date:</p>
+                <p>Project start:</p>
                 <p>
-                  {new Date(project.end).getMonth()}/
+                  {new Date(project.start).getDate()}/
+                  {new Date(project.start).getMonth() + 1}/
+                  {new Date(project.start).getFullYear()}
+                </p>
+              </div>
+            </div>
+            <div className="info-visualize">
+              <div className="icons-visualize">
+                <img width={28} src={CalenderIcon} />
+              </div>
+              <div className="p-visualize">
+                <p>Project end:</p>
+                <p>
                   {new Date(project.end).getDate()}/
+                  {new Date(project.end).getMonth() + 1}/
                   {new Date(project.end).getFullYear()}
                 </p>
               </div>
@@ -354,14 +366,14 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
               }
               {
                 meta ?
-                project.status === "Finished" &&
-                <div className="badge-center">
-                  <Button type="default" text="Claim NFT" size="large" onClick={() => {onSubmit()}}/>
-                </div>
-                : project.status === "Finished" &&
-                <div className="badge-center">
-                  <p style={{"color": "white", "fontSize": "20px"}}>You need to connect with Metamask</p>
-                </div>
+                  project.status === "Finished" &&
+                  <div className="badge-center">
+                    <Button type="default" text="Claim NFT" size="large" onClick={() => { onSubmit() }} />
+                  </div>
+                  : project.status === "Finished" &&
+                  <div className="badge-center">
+                    <p style={{ "color": "white", "fontSize": "20px" }}>You need to connect with Metamask</p>
+                  </div>
               }
               {
                 !isOwner && project.status !== "Finished" &&

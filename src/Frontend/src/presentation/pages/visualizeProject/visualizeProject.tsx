@@ -107,7 +107,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const finishProject = async () => {
     let response = await ProjectService.finish(project.projectId)
 
-    if(response.status === 200) {
+    if (response.status === 200) {
       toast.success("Project finished with success")
       toggleFinishModal()
     }
@@ -202,16 +202,21 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
           <div className="card-visualize-roles">
             <h2 className="h2-roles">Roles</h2>
             <div className="list-roles">
-              <div className="roles-line">
-                <div className="visualize-roles"><p className="p-roles">Roles</p></div>
-                <div className="visualize-roles"><p className="p-roles">Area</p></div>
-                <div className="visualize-roles"><p className="p-roles">1</p></div>
-              </div>
-              <div className="roles-line">
-                <div className="visualize-roles"><p className="p-roles">Roles</p></div>
-                <div className="visualize-roles"><p className="p-roles">Area</p></div>
-                <div className="visualize-roles"><p className="p-roles">5</p></div>
-              </div>
+              {
+                !loading &&
+                project.roles.map((item: any, index: number) => {
+                  return (
+                    <div className="roles-line">
+                      <div className="visualize-roles"><p className="p-roles">{item.area}</p></div>
+                      {
+                        item.area !== "Shadowing" &&
+                        <div className="visualize-roles"><p className="p-roles">{item.role}</p></div>
+                      }
+                      <div className="visualize-roles"><p className="p-roles">{item.vacancies} vacancies</p></div>
+                    </div>
+                  )
+                })
+              }
             </div>
           </div>
         </div>

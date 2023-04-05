@@ -37,7 +37,8 @@ const Profile = () => {
     const getProjects = async () => {
         setLoading(true)
         let data = null
-        const response = await ProjectService.filter(data);
+        // const response = await ProjectService.filter({name: "Project Teste 3"})
+        const response = await ProjectService.findAll()
         console.log(response)
 
         if (response.status === 200) {

@@ -60,9 +60,7 @@ const ProjectService = {
   },
   filter: async (data: any) => {
     try {
-      const response = await axios.get(`${API_URL}/Project/filter`, {
-        data
-      })
+      const response = await axios.get(`${API_URL}/Project/filter`, data)
       return response
     }
     catch (error: any) {

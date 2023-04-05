@@ -46,7 +46,7 @@ const Router: React.FC = () => {
   // }, [])
 
   const verifyPath = () => {
-    if (!cookie.load("token")) {
+    if (!cookie.load("token") || window.location.href.includes("/login")) {
       setShowSidebar(false)
     }
     else {

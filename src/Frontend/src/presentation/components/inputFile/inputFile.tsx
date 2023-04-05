@@ -21,7 +21,7 @@ const InputFile: React.FC<Props> = (props: Props) => {
   }, [props.value])
 
   return (
-    <input type='file' value={value} onChange={(e: any) => changeValue(e.target.files)} />
+    <input type='file' onChange={(e: any) => changeValue(e.target.files[0])} accept='image/jpeg, image/png' />
   )
 }
 

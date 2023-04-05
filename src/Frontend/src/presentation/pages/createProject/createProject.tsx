@@ -215,38 +215,35 @@ const CreateProject = (props: Props) => {
   const submit = async () => {
     setLoading(true)
 
-    if (file) {
-      // let s3Response = await S3Service.uploadFile(file)
+    // if (file) {
+    // let s3Response = await S3Service.uploadFile(file)
 
-      // if (s3Response === 200) {
-      //   let response = await ProjectService.create({
-      //     name: data.name,
-      //     description: data.description,
-      //     tags: JSON.stringify(data.tags),
-      //     roles: .stringify(data.roles),
-      //     start: new Date(data.start),
-      //     end: new Date(data.end),
-      //     badge: file.name,
-      //     endSubscription: new Date(data.endSubscription),
-      //     coleaderId: data.coleaderId,
-      //   })
-      //   console.log(response)
+    // if (s3Response === 200)
+    let response = await ProjectService.create({
+      name: data.name,
+      description: data.description,
+      tags: JSON.stringify(data.tags),
+      roles: JSON.stringify(data.roles),
+      start: new Date(data.start),
+      end: new Date(data.end),
+      badge: "teste 123",
+      endSubscription: new Date(data.endSubscription),
+      coleaderId: data.coleaderId,
+    })
+    console.log(response)
 
-      //   if (response.status === 201) {
-      //     setLoading(false)
-      //     toast.success('Project created successfully! Please check your email for more details.')
-      //     setTimeout(() => {
-      //       props.closeModal()
-      //       navigate(0)
-      //     }, 2000)
-      //   }
-      //   else {
-      //     toast.error("Error to create the project")
-      //   }
-      //   console.log(response)
-      // }
-      return null
+    if (response.status === 201) {
+      setLoading(false)
+      toast.success('Project created successfully! Please check your email for more details.')
+      setTimeout(() => {
+        props.closeModal()
+        navigate(0)
+      }, 2000)
     }
+    else {
+      toast.error("Error to create the project")
+    }
+    console.log(response)
   }
 
   useEffect(() => {
@@ -418,7 +415,7 @@ const CreateProject = (props: Props) => {
 
             <div className="input-container">
               <h4 className="input-title ">Import badge</h4>
-              <InputFile value={data.badge} onChange={(file: any) => setFile(file[0])} />
+              <InputFile value={data.badge} onChange={(file: any) => setFile(file)} />
               {/* <input
                 placeholder={""}
                 type={"file"}

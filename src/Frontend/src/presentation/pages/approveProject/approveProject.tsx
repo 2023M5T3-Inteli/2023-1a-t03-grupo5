@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import "./approveProject.scss"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import Briefcase from "/public/briefcase.png"
 import BadgeTag from "/public/award.png"
 // import Users from "/public/users.png"
@@ -12,6 +12,12 @@ import Calendar from '/public/Calendar.png'
 
 
 const ApproveProject = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+    let projectId = searchParams.get("projectID")
+
+    useEffect(() => {
+        console.log(projectId)
+    }, [searchParams])
 
     const [projectTagsRoles, setProjectTagsRoles] = useState({
         rolesProject: ["Developer", "Scrum Master", "DevOps"]

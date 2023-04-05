@@ -17,6 +17,8 @@ import DeleteProject from "./components/deleteProject/deleteProject"
 import Modal from "../../components/modal/modal"
 import { toast } from "react-toastify"
 import FinishProject from "./components/finishProject/finishProject"
+import { ethers } from "ethers";
+import Contract from "../../../../../Blockchain/build/contracts/DellFactory.json";
 
 // type Props = {
 //   closeModal: Function
@@ -48,6 +50,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const [isOwner, setIsOwner] = useState(false)
   const [ownerName, setOwnerName] = useState("")
   const [coleaderName, setColeaderName] = useState("")
+  const [meta, setMeta] = useState(false)
 
   const getUser = async (id: string) => {
     console.log(id)
@@ -104,6 +107,31 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
 
   }
 
+  const transferNFT = async (image: string) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    const signer = provider.getSigner();
+
+    const contractAddress = "0xD4cd70Ef63F0470917d07b6f297C6c8a73612B75";
+
+    const contractInstance = new ethers.Contract(
+      contractAddress,
+      Contract.abi,
+      signer
+    );
+
+    await contractInstance.mintAchievement(image);
+  };
+
+  const onSubmit = async () => {
+    try {
+      await transferNFT(project.badge);
+    } catch (error) {
+      console.log(error);
+    }
+    
+  };
+
   const finishProject = async () => {
     let response = await ProjectService.finish(project.projectId)
 
@@ -112,7 +140,8 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
       toggleFinishModal()
     }
     else {
-      toast.error("Error to finish the project")
+      console.log(response)
+      toast.error(`Error to finish the project - ${response.error}`)
     }
   }
 
@@ -124,12 +153,66 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     setOpenFinishModal(!openFinishModal)
   }
 
+  const getAccount = async () =>  {
+    if (!window.ethereum) {
+      toast.error("Install MetaMask")
+      return false;
+    }
+    try {
+      const res = await window.ethereum.request({
+        method: 'eth_accounts',
+      });
+      return res[0];
+    } catch (err) {
+      return false;
+    }
+  }
+
+  const connectToMetamask = async () => {
+    try {
+      const res = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      const mumbaiNetwork = "0x13881";
+      if (window.ethereum.chainId !== mumbaiNetwork) {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: mumbaiNetwork }],
+        });
+      }
+      setMeta(true)
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getProject()
+
+    let account:any;
+
+    const get = async () => {
+      account = await getAccount();
+
+      console.log(account)
+
+      if (account) {setMeta(true)}
+    }
+
+    get();
   }, [])
 
   return (
     <div className="visualize-project">
+      {
+        !meta &&
+        <div className="btnMeta">
+        <img src={"/MetaMask_Fox.png"} width={40}></img>
+        <button onClick={() => {connectToMetamask()}}>Connect to Metamask</button>
+      </div>
+      }
+      
+      
       {loading && <Loading />}
       <div className="container-visualize">
         <div className=" grid-8 project-info">
@@ -259,7 +342,8 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                 <p className="p-badge">Badge</p>
               </div>
               <div className="badge-center">
-                <img className="image-bagde" src="/public/Ellipse2.png" />
+                <img className="image-bagde" src={project.badge} />
+                {/* <p>{project.badge}</p> */}
               </div>
               {
                 isOwner && project.status !== "Finished" &&
@@ -268,9 +352,14 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                 </div>
               }
               {
+                meta ?
                 project.status === "Finished" &&
                 <div className="badge-center">
-                  <Button type="default" text="Claim NFT" size="large" />
+                  <Button type="default" text="Claim NFT" size="large" onClick={() => {onSubmit()}}/>
+                </div>
+                : project.status === "Finished" &&
+                <div className="badge-center">
+                  <p style={{"color": "white", "fontSize": "20px"}}>You need to connect with Metamask</p>
                 </div>
               }
               {

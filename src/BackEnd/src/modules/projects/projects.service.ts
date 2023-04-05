@@ -404,7 +404,7 @@ export class ProjectsService {
         }
 
         //Verifying if is the owner that is canceling the project
-        if(project.ownerId !== id) {
+        if(project.ownerId !== id && project.coleaderId !== id) {
             throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "You can't finalize this project"});
         }
 

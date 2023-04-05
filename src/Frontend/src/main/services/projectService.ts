@@ -59,8 +59,14 @@ const ProjectService = {
     }
   },
   filter: async (data: any) => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${cookie.load("token")}`
+      }
+    }
+
     try {
-      const response = await axios.get(`${API_URL}/Project/filter`, data)
+      const response = await axios.post(`${API_URL}/Project/filter`, data, config)
       return response
     }
     catch (error: any) {

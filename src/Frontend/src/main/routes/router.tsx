@@ -57,16 +57,6 @@ const Router: React.FC = () => {
   useEffect(() => {
     verifyPath()
   }, [active])
-  // const validateUser = async () => {
-  //   const user = await userService.validate()
-  //   console.log(user)
-  //   if (user === 401) {
-  //     window.location.href = "/login"
-  //   }
-  //   setShowSidebar(true)
-  //   console.log(user)
-  //   setUser(user)
-  // }
 
   return (
     <BrowserRouter>

@@ -181,8 +181,9 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
         });
       }
       setMeta(true)
+      toast.success("Connect with success")
     } catch (err) {
-      console.error(err);
+      toast.error("Error to connect to metamask")
     }
   };
 

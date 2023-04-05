@@ -36,12 +36,11 @@ const Profile = () => {
 
     const getProjects = async () => {
         setLoading(true)
-        let data = null
-        // const response = await ProjectService.filter({name: "Project Teste 3"})
-        const response = await ProjectService.findAll()
+        const response = await ProjectService.filter({"name": "Project Teste 3"})
+        // const response = await ProjectService.findAll()
         console.log(response)
 
-        if (response.status === 200) {
+        if (response.status === 201) {
             setProjects(response.data)
             setLoading(false)
         }
@@ -140,7 +139,6 @@ const Profile = () => {
                     <p>History</p>
                 </div>
                 <div className="project-history">
-
                     {
                         projects.map((project: any, index: number) => {
                             return (

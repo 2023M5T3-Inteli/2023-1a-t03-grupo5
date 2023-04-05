@@ -5,12 +5,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20%;
-  min-width: 200px;
+  // width: 20%;
+  max-width: 200px;
   height: 100%;
   
   input {
-    width: 100% !important;
+    flex: 1;
     margin: 0;
     border-right: 0;
     border-top-right-radius: 0;

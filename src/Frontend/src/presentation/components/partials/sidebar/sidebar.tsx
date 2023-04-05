@@ -136,7 +136,12 @@ const Sidebar: any = (props: Props) => {
             </div>
         }
 
-        {menuOpened && <p className='message'>Olá, {nameDisplay[0]} {nameDisplay[1]}</p>}
+        {
+          menuOpened && <div className='message'>
+            <p>Hello,</p>
+            <p>{nameDisplay[0]} {nameDisplay[1]}</p>
+          </div>
+        }
 
 
         <Link to="/login" className="logout" onClick={() => logout()}>

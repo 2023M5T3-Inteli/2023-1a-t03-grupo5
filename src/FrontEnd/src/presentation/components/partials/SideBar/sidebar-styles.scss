@@ -178,13 +178,18 @@
     }
 
     .message {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       color: c.$primary;
-      // width: 100%;
-      text-align: center;
-      padding: 0 sp.$stack-xs;
+      width: 100%;
 
       position: absolute;
       bottom: 100px;
+
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     .logout {

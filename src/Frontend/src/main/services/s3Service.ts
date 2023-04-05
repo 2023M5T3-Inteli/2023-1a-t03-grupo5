@@ -22,7 +22,7 @@ const S3Service = {
       Key: file.name
     };
 
-    let response = await bucket.putObject(params, (error, data) => {
+    let response = bucket.putObject(params, (error, data) => {
       if (error) {
         return error
       }

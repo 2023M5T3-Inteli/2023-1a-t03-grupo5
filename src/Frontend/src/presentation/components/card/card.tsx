@@ -25,9 +25,9 @@ const Card: any = (props: any) => {
                 </span>
               </div>
               <div className='status-div'>
-                <p>{props.blockedSubscription ? "Finished" : "Opened"}</p>
+                <p>{props.status === "Approved" ? "On going" : "Finished"}</p>
                 {
-                  props.blockedSubscription ?
+                  props.status === "Finished" ?
                     <span className='red-circle'></span> :
                     <span className='green-circle'></span>
                 }

@@ -17,6 +17,7 @@ import ProjectService from '../../../main/services/projectService'
 import Loading from '../../components/loading/loading'
 import UserService from '../../../main/services/userService'
 import { toast } from 'react-toastify'
+import Select from '../../components/select/select'
 
 const Home: React.FC = () => {
   const isMobile = true;
@@ -27,7 +28,46 @@ const Home: React.FC = () => {
   const [openApplyModal, setOpenApplyModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(true)
   const [search, setSearch] = useState("")
+
   const [projects, setProjects] = useState([])
+  const [statusFilter, setStatusFilter] = useState("")
+  const [tagFilter, setTagFilter] = useState("")
+  const [areaFilter, setAreaFilter] = useState("")
+
+  const [areaOptions, setAreaOptions] = useState([
+    {
+      value: "Technology",
+      label: "Technology"
+    },
+    {
+      value: "Design",
+      label: "Design"
+    },
+    {
+      value: "Marketing",
+      label: "Marketing"
+    },
+    {
+      value: "RH",
+      label: "RH"
+    }
+  ])
+
+  const [tagOptions, setTagOptions] = useState<any>([{
+    value: "",
+    label: ""
+  }])
+
+  const [statusOptions, setStatusOptions] = useState([
+    {
+      value: "Finished",
+      label: "Finished"
+    },
+    {
+      value: "Approved",
+      label: "On going"
+    }
+  ])
 
   const closeCreateModal = () => {
     setOpenCreateModal(!openCreateModal)
@@ -45,10 +85,6 @@ const Home: React.FC = () => {
   const toggleApplyModal = () => {
     setOpenViewModal(false)
     setOpenApplyModal(!openApplyModal)
-  }
-
-  const toggleConfirmModal = () => {
-    setOpenConfirmModal(!openConfirmModal)
   }
 
   const getAll = async () => {
@@ -77,6 +113,32 @@ const Home: React.FC = () => {
   //   getAll()
   // }, [])
 
+  const createTagOptions = () => {
+    let options: any = []
+
+    projects.map((project: any, index: number) => {
+      if (project.status !== "Pending") {
+        project.tags = JSON.parse(project.tags)
+        project.tags.map((tag: string, index: number) => {
+          if (options.indexOf(tag) === -1) {
+            let newOption = {
+              value: tag,
+              label: tag
+            }
+            options.push(newOption)
+          }
+        })
+      }
+    })
+    setTagOptions(options)
+  }
+
+  useEffect(() => {
+    if (!loading) {
+      createTagOptions()
+    }
+  }, [projects])
+
   useEffect(() => {
     validateUser();
     getAll()
@@ -84,7 +146,12 @@ const Home: React.FC = () => {
 
   const filter = () => {
     return projects.map((project: any, index: number) => {
-      if (project.name.toUpperCase().includes(search.toUpperCase())) {
+      if (
+        project.name.toUpperCase().includes(search.toUpperCase()) &&
+        (project.tags.includes(tagFilter) || tagFilter === "") &&
+        (project.roles.includes(areaFilter)) &&
+        (project.status.includes(statusFilter) && project.status !== "Pending")
+      ) {
         return (
           <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
             {/* <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>
@@ -102,8 +169,13 @@ const Home: React.FC = () => {
   return (
     <div className='home'>
       {
-        !loading && <div className='search-container'>
-          <SearchBar value={search} onChange={(value: string) => setSearch(value)} />
+        !loading && <div className="filter">
+          <div className='search-container'>
+            <SearchBar value={search} onChange={(value: string) => setSearch(value)} />
+          </div>
+          <Select options={areaOptions} default='Show all areas' onChange={(value: string) => setAreaFilter(value)} showDefault={true} />
+          <Select options={tagOptions} default='Show all tags' onChange={(value: string) => setTagFilter(value)} showDefault={true} />
+          <Select options={statusOptions} default='Show all status' onChange={(value: string) => setStatusFilter(value)} showDefault={true} />
         </div>
       }
       {

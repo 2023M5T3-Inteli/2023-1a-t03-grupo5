@@ -223,7 +223,7 @@ const CreateProject = (props: Props) => {
       //     name: data.name,
       //     description: data.description,
       //     tags: JSON.stringify(data.tags),
-      //     roles: JSON.stringify(data.roles),
+      //     roles: .stringify(data.roles),
       //     start: new Date(data.start),
       //     end: new Date(data.end),
       //     badge: file.name,

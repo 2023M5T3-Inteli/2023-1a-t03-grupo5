@@ -12,7 +12,7 @@ type Props = {
 const Button = (props: Props) => {
   return (
     <div className="dell-button">
-      <button className={`${props.type} ${props.size}`} disabled={props.disabled} onClick={(e: any) => props.onClick(e)}>{props.text}</button>
+      <button className={`${props.type} button-${props.size}`} disabled={props.disabled} onClick={(e: any) => props.onClick(e)}>{props.text}</button>
     </div>
   )
 }

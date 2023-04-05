@@ -157,7 +157,7 @@ const MyProjects: React.FC = () => {
         (project.tags.includes(tagFilter) || tagFilter === "") &&
         (project.roles.includes(areaFilter)) &&
         project.status.includes(statusFilter) &&
-        project.status !== "Pending"
+        (project.status !== "Pending" || active == 1)
       ) {
         if (active === 1 && (user.id === project.ownerId || user.id === project.coleaderId)) {
           return (

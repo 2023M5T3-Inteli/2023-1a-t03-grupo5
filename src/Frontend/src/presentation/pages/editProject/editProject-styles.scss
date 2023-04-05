@@ -4,12 +4,12 @@
 
 #edit-project {
     width: 100%;
+    height: 100%;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    padding: 0 sp.$stack-md;
     align-items: center;
-    max-height: 540px;
+    padding: 0 sp.$stack-md;
     color: c.$primary;
 
     .title {
@@ -22,9 +22,13 @@
     }
 
     .container {
+        padding: 0 sp.$stack-lg;
+        width: 100%;
+
+        background-color: #232323;
+        border-radius: 15px;
         width: 100%;
         margin-right: sp.$stack-xs;
-        padding: sp.$stack-md sp.$stack-md;
 
         .divider {
             width: 100%;
@@ -57,9 +61,11 @@
             margin-left: sp.$stack-md;
 
             .edit-container {
+                display: flex;
                 justify-content: flex-end;
                 margin-top: sp.$stack-sm;
                 align-self: center;
+                gap: sp.$stack-md;
             }
         }
 
@@ -72,7 +78,7 @@
         .input-container {
             display: flex;
             flex-direction: column;
-            min-height: 60px;
+            // min-height: 60px;
             justify-content: flex-end;
             gap: sp.$stack-xs;
             margin-bottom: sp.$stack-md;

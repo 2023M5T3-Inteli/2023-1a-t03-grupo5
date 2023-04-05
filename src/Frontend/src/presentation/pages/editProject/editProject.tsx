@@ -222,7 +222,7 @@ const EditProject = (props: Props) => {
     if (
       data.name &&
       data.description &&
-      data.roles &&
+      data.roles.length > 0 &&
       data.endSubscription &&
       data.start &&
       data.end
@@ -461,6 +461,7 @@ const EditProject = (props: Props) => {
 
             <div className="edit-container">
               <Button type="default" text="Save" size="medium" disabled={disableEdit} onClick={() => submit()} />
+              <Button type="cancel" text="Cancel" size="medium" onClick={() => navigate(-1)} />
             </div>
           </div>
         </div>

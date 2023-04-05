@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import "./approveProject.scss"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import Briefcase from "/public/briefcase.png"
 import BadgeTag from "/public/award.png"
 // import Users from "/public/users.png"
@@ -13,6 +13,7 @@ import ProjectService from "../../../main/services/projectService"
 import { toast } from 'react-toastify'
 
 const ApproveProject = () => {
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const [searchParams, setSearchParams] = useSearchParams();
     const [project, setProject] = useState<any>({
@@ -45,7 +46,7 @@ const ApproveProject = () => {
         }
     }
 
-    const approveProject = async () => {
+    const approve = async () => {
         let token = searchParams.get("token")
 
         console.log(token)
@@ -55,6 +56,7 @@ const ApproveProject = () => {
 
             if (response.status === 200) {
                 toast.success("Project approved with success")
+                navigate("/")
             }
             else {
                 toast.error("Error to approve the project")
@@ -178,7 +180,7 @@ const ApproveProject = () => {
                                 type='default'
                                 text='Approve'
                                 size='medium'
-                                onClick={() => approveProject()}
+                                onClick={() => approve()}
                             />
                         </div>
 

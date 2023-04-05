@@ -249,7 +249,7 @@ const CreateProject = (props: Props) => {
   useEffect(() => {
     validateFields()
     console.log(data)
-  }, [data])
+  }, [data, file])
 
   useEffect(() => {
     createOptions()

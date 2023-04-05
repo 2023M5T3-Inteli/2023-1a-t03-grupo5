@@ -169,6 +169,18 @@
                                     font-size: 16px;
                                 }
                             }
+
+                            .no-habilities {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                height: 40px;
+
+                                p {
+                                    color: white;
+                                    font-size: 16px;
+                                }
+                            }
                         }
                     }
                 }

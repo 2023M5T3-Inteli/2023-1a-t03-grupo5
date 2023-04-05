@@ -15,17 +15,18 @@ const Profile = () => {
     const [user, setUser] = useState({
         name: '',
         area: '',
-        habilities: '',
+        habilities: [''],
         photoURL: ''
     });
     const [projects, setProjects] = useState<any>([])
 
     const getUser = async () => {
         const response = await userService.validate();
+        console.log(response.data)
 
         if (response.status === 200) {
-            console.log(user)
-            setUser(user)
+            response.data.habilities = JSON.parse(response.data.habilities)
+            setUser(response.data)
             setLoading(false)
         }
         else {
@@ -37,7 +38,7 @@ const Profile = () => {
         setLoading(true)
         let data = null
         const response = await ProjectService.filter(data);
-        console.log(response.data)
+        console.log(response)
 
         if (response.status === 200) {
             setProjects(response.data)
@@ -51,10 +52,7 @@ const Profile = () => {
     useEffect(() => {
         getUser()
         getProjects()
-
     }, []);
-
-
 
     return (
         <div className="profile">
@@ -64,7 +62,7 @@ const Profile = () => {
                     <div className="first">
                         <div className="infosPessoal">
                             <div className="photo">
-                                <img className="imgProfile" src={imgProfile}></img>
+                                <img className="imgProfile" src={user.photoURL}></img>
                             </div>
                             {/* <div className="photo">
                                 <img className="imgProfile" src={user.photoURL}></img>
@@ -93,26 +91,25 @@ const Profile = () => {
                                 <p className="positionText">Position at Ranking: 1st</p>
                             </div>
                             <div className="tagsDiv">
-                                <p className="tagTextTitle">Tags: </p>
+                                <p className="tagTextTitle">Habilities: </p>
                                 <div className="tags">
                                     {/* <div className="tag">
                                         <p className="tagText">{user.habilities}</p>
                                     </div> */}
-                                    <div className="tag">
-                                        <p className="tagText">Tag 2</p>
-                                    </div>
-                                    <div className="tag">
-                                        <p className="tagText">Tag 3</p>
-                                    </div>
-                                    <div className="tag">
-                                        <p className="tagText">Tag 4</p>
-                                    </div>
-                                    <div className="tag">
-                                        <p className="tagText">Tag 5</p>
-                                    </div>
-                                    <div className="tag">
-                                        <p className="tagText">Tag 6</p>
-                                    </div>
+                                    {
+                                        user.habilities.length > 0 && user.habilities[0] !== '' ?
+                                            user.habilities.map((hability: string, index: number) => {
+                                                return (
+                                                    <div className="tag" key={`${hability}-${index}`}>
+                                                        <p className="tagText">{hability}</p>
+                                                    </div>
+                                                )
+                                            })
+                                            :
+                                            <div className="no-habilities">
+                                                <p className="tagText">No habilities</p>
+                                            </div>
+                                    }
                                 </div>
                             </div>
                         </div>

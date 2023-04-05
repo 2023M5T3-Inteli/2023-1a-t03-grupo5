@@ -65,8 +65,8 @@ const Sidebar: any = (props: Props) => {
       icon: <EmojiEventsIcon />
     },
     {
-      name: 'Applies',
-      link: '/applies',
+      name: 'My projects',
+      link: '/myProjects',
       icon: <HowToRegIcon />
     },
   ]
@@ -81,9 +81,8 @@ const Sidebar: any = (props: Props) => {
   }
 
   const logout = () => {
-    props.changePage(-1)
+    props.changePage(-2)
     cookie.remove("token")
-    window.location.href = "/login"
   }
 
   useEffect(() => {

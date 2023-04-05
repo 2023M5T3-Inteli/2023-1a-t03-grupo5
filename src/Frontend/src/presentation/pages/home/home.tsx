@@ -50,6 +50,10 @@ const Home: React.FC = () => {
     {
       value: "RH",
       label: "RH"
+    },
+    {
+      value: "Shadowing",
+      label: "Shadowing"
     }
   ])
 

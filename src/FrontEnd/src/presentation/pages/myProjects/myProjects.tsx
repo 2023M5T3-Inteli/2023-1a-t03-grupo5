@@ -10,7 +10,7 @@ import CreateProject from '../createProject/createProject'
 import EditProject from '../editProject/editProject'
 import VisualizeProject from '../visualizeProject/visualizeProject'
 import ApplicationForm from '../applicationForm/applicationForm'
-import DeleteProject from '../deleteProject/deleteProject'
+import DeleteProject from '../visualizeProject/components/deleteProject/deleteProject'
 
 type Props = {
   user: any;

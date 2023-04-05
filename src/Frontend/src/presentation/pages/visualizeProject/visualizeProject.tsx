@@ -1,35 +1,39 @@
-import React from "react";
-import "./visualizeProject-styles.scss";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Card from "../../components/card/card";
-import UserIcon from "../../../../public/user.png";
-import StarIcon from "../../../../public/star.png";
-import AwardIcon from "../../../../public/award.png";
-import CalenderIcon from "../../../../public/calendar.png";
-import Button from "../../components/button/button";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import ProjectService from "../../../main/services/projectService";
-import UserService from "../../../main/services/userService";
-import Loading from "../../components/loading/loading";
-import DeleteProject from "../deleteProject/deleteProject";
-import Modal from "../../components/modal/modal";
-import { toast } from "react-toastify";
+import React from "react"
+import "./visualizeProject-styles.scss"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import Card from "../../components/card/card"
+import UserIcon from "../../../../public/user.png"
+import StarIcon from "../../../../public/star.png"
+import AwardIcon from "../../../../public/award.png"
+import CalenderIcon from "../../../../public/calendar.png"
+import Button from "../../components/button/button"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
+import ProjectService from "../../../main/services/projectService"
+import UserService from "../../../main/services/userService"
+import Loading from "../../components/loading/loading"
+import DeleteProject from "./components/deleteProject/deleteProject"
+import Modal from "../../components/modal/modal"
+import { toast } from "react-toastify"
+import FinishProject from "./components/finishProject/finishProject"
 
 // type Props = {
-//   closeModal: Function;
-//   openEdit: Function;
-//   openApply: Function;
+//   closeModal: Function
+//   openEdit: Function
+//   openApply: Function
 // }
 type Props = {
-  user: any;
-};
+  user: any
+}
 const VisualizeProject: React.FC<Props> = (props: Props) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [loading, setLoading] = useState(true);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const [loading, setLoading] = useState(true)
+
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const [openFinishModal, setOpenFinishModal] = useState(false)
+
   const [project, setProject] = useState<any>({
     name: "Loading...",
     description: "loading...",
@@ -39,10 +43,12 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     end: "xx/xx/xxx",
     tags: "",
     roles: "",
-  });
-  const [isOwner, setIsOwner] = useState(false);
-  const [ownerName, setOwnerName] = useState("");
-  const [coleaderName, setColeaderName] = useState("");
+  })
+
+  const [isOwner, setIsOwner] = useState(false)
+  const [ownerName, setOwnerName] = useState("")
+  const [coleaderName, setColeaderName] = useState("")
+
   const getUser = async (id: string) => {
     console.log(id)
     const response = await UserService.findByID(id)
@@ -59,11 +65,16 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     response.data.roles = JSON.parse(response.data.roles)
     setProject(response.data)
     console.log(response)
+
     let owner = await getUser(response.data.ownerId)
-    let coleader = await getUser(response.data.coleaderId)
-    setOwnerName(owner.name);
-    setColeaderName(coleader.name);
-    const user = await UserService.validate();
+
+    if (response.data.coleaderId) {
+      let coleader = await getUser(response.data.coleaderId)
+      setOwnerName(owner.name)
+      setColeaderName(coleader.name)
+    }
+
+    const user = await UserService.validate()
     if (user.data.id === response.data.ownerId || user.data.id === response.data.coleaderId) {
       console.log("is owner")
       setIsOwner(true)
@@ -92,12 +103,31 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     console.log(response)
 
   }
+
+  const finishProject = async () => {
+    let response = await ProjectService.finish(project.projectId)
+
+    if(response.status === 200) {
+      toast.success("Project finished with success")
+      toggleFinishModal()
+    }
+    else {
+      toast.error("Error to finish the project")
+    }
+  }
+
+  const toggleDeleteModal = () => {
+    setOpenDeleteModal(!openDeleteModal)
+  }
+
+  const toggleFinishModal = () => {
+    setOpenFinishModal(!openFinishModal)
+  }
+
   useEffect(() => {
     getProject()
   }, [])
-  const toggleDeleteModal = () => {
-    setOpenDeleteModal(!openDeleteModal);
-  };
+
   return (
     <div className="visualize-project">
       {loading && <Loading />}
@@ -106,7 +136,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
           <div className=" project-start">
             <h1>{project.name}</h1>
             {/* <img width={28} src={StarIcon} /> */}
-            {isOwner && (
+            {isOwner && project.status !== "Finished" && (
               <>
                 <Link
                   to="/editProject"
@@ -120,21 +150,44 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
               </>
             )}
           </div>
-          {openDeleteModal && (
-            <Modal
-              type="warning"
-              closeModal={() => toggleDeleteModal()}
-              content={
-                <DeleteProject
-                  delete={() => deleteProject()}
-                  closeModal={() => toggleDeleteModal()}
-                />
-              }
-            />
-          )}
+
+
+          {
+            openDeleteModal && (
+              <Modal
+                type="warning"
+                closeModal={() => toggleDeleteModal()}
+                content={
+                  <DeleteProject
+                    delete={() => deleteProject()}
+                    closeModal={() => toggleDeleteModal()}
+                  />
+                }
+              />
+            )
+          }
+
+          {
+            openFinishModal && (
+              <Modal
+                type="warning"
+                closeModal={() => toggleFinishModal()}
+                content={
+                  <FinishProject
+                    finish={() => finishProject()}
+                    closeModal={() => toggleFinishModal()}
+                  />
+                }
+              />
+            )
+          }
+
           <p className="p-project">{project.description}</p>
           <p className="p-project">Leader: {ownerName}</p>
-          <p className="p-project">Co leader: {coleaderName}</p>
+          {
+            coleaderName.length > 0 &&
+            <p className="p-project">Co leader: {coleaderName}</p>
+          }
           <div className="tags-visualize">
             <h2 className="h2-tag">Tags:</h2>
             {project.tags &&
@@ -143,7 +196,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                   <div className="card-tag" key={`${tag}-${index}`}>
                     <p className="tag-p p-tag">{tag}</p>
                   </div>
-                );
+                )
               })}
           </div>
           <div className="card-visualize-roles">
@@ -203,16 +256,31 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
               <div className="badge-center">
                 <img className="image-bagde" src="/public/Ellipse2.png" />
               </div>
-              <Link to="/applicationForm">
+              {
+                isOwner && project.status !== "Finished" &&
                 <div className="badge-center">
-                  <Button type="default" text="Subscribe" size="large" />
+                  <Button type="default" text="Finish project" size="large" onClick={() => toggleFinishModal()} />
                 </div>
-              </Link>
+              }
+              {
+                project.status === "Finished" &&
+                <div className="badge-center">
+                  <Button type="default" text="Claim NFT" size="large" />
+                </div>
+              }
+              {
+                !isOwner && project.status !== "Finished" &&
+                <Link to="/applicationForm">
+                  <div className="badge-center">
+                    <Button type="default" text="Subscribe" size="large" />
+                  </div>
+                </Link>
+              }
             </div>
           </div>
         </div>
       </div>
     </div>
-  );
-};
-export default VisualizeProject;
+  )
+}
+export default VisualizeProject

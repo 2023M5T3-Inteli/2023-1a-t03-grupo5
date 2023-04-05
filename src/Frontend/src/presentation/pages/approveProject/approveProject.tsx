@@ -9,15 +9,62 @@ import ellipse from "/public/Ellipse2.png"
 import Plus from "/public/plus.png"
 import Button from '../../components/button/button'
 import Calendar from '/public/Calendar.png'
-
+import ProjectService from "../../../main/services/projectService"
+import { toast } from 'react-toastify'
 
 const ApproveProject = () => {
+    const [loading, setLoading] = useState(true)
     const [searchParams, setSearchParams] = useSearchParams();
-    let projectId = searchParams.get("projectID")
+    const [project, setProject] = useState<any>({
+        name: "",
+        roles: [
+            {
+                area: "",
+                role: "",
+                vacancies: ''
+            }
+        ]
+    })
+
+    const getProject = async () => {
+        let projectId = searchParams.get("projectId")
+        console.log(projectId)
+
+        if (projectId) {
+            let response = await ProjectService.findByID(projectId)
+
+            if (response.status === 200) {
+                response.data.roles = JSON.parse(response.data.roles)
+                response.data.tags = JSON.parse(response.data.tags)
+                setProject(response.data)
+                setLoading(false)
+            }
+            else {
+                toast.error("Error to load the project")
+            }
+        }
+    }
+
+    const approveProject = async () => {
+        let token = searchParams.get("token")
+
+        console.log(token)
+        if (token) {
+            let response = await ProjectService.approve(token, "Approved")
+            console.log(response)
+
+            if (response.status === 200) {
+                toast.success("Project approved with success")
+            }
+            else {
+                toast.error("Error to approve the project")
+            }
+        }
+    }
 
     useEffect(() => {
-        console.log(projectId)
-    }, [searchParams])
+        getProject()
+    }, [])
 
     const [projectTagsRoles, setProjectTagsRoles] = useState({
         rolesProject: ["Developer", "Scrum Master", "DevOps"]
@@ -28,19 +75,21 @@ const ApproveProject = () => {
             <div className="container">
                 <div className="grid-7 left-side">
 
-                    <h1>Project Title</h1>
+                    <h1>{project.name}</h1>
 
                     <div className="description-project">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus vel ipsum id convallis. Morbi a est in dolor rhoncus varius. Suspendisse potenti. Nullam convallis ullamcorper aliquam.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rhoncus vel ipsum id convallis. Morbi a est in dolor rhoncus varius. Suspendisse potenti. Nullam convallis ullamcorper aliquam</p>
+                        <p>{project.description}</p>
                     </div>
 
                     <div className="roles">
                         <p>Roles:</p>
                         {
-                            projectTagsRoles.rolesProject.map((role: string) => {
+                            project.roles.map((item: any, index: number) => {
                                 return (
-                                    <div className="tag-roles">
-                                        <p>{role}</p>
+                                    <div className="tag-roles" key={`${item.role}-${index}`}>
+                                        <p>{item.area}</p>
+                                        <p>{item.role}</p>
+                                        <p>{item.vacancies} vacancies</p>
                                     </div>
                                 )
                             })
@@ -129,6 +178,7 @@ const ApproveProject = () => {
                                 type='default'
                                 text='Approve'
                                 size='medium'
+                                onClick={() => approveProject()}
                             />
                         </div>
 

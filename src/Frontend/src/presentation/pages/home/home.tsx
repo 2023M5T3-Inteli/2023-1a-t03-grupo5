@@ -10,7 +10,7 @@ import CreateProject from '../createProject/createProject'
 import EditProject from '../editProject/editProject'
 import VisualizeProject from '../visualizeProject/visualizeProject'
 import ApplicationForm from '../applicationForm/applicationForm'
-import DeleteProject from '../deleteProject/deleteProject'
+import DeleteProject from '../visualizeProject/components/deleteProject/deleteProject'
 import SearchBar from '../../components/searchBar/searchBar'
 import { Link } from 'react-router-dom'
 import ProjectService from '../../../main/services/projectService'
@@ -149,8 +149,9 @@ const Home: React.FC = () => {
       if (
         project.name.toUpperCase().includes(search.toUpperCase()) &&
         (project.tags.includes(tagFilter) || tagFilter === "") &&
-        (project.roles.includes(areaFilter))
-        // (project.status.includes(statusFilter) && project.status !== "Pending")
+        (project.roles.includes(areaFilter)) &&
+        project.status.includes(statusFilter) &&
+        project.status !== "Pending"
       ) {
         return (
           <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
@@ -178,37 +179,16 @@ const Home: React.FC = () => {
           <Select options={statusOptions} default='Show all status' onChange={(value: string) => setStatusFilter(value)} showDefault={true} />
         </div>
       }
-      {/* {
-        openCreateModal && <Modal closeArrow={true} closeModal={() => closeCreateModal()} content={<CreateProject closeModal={() => closeCreateModal()} />} />
-      }
-      {
-        openEditModal && <Modal closeArrow={true} closeModal={() => toggleEditModal()} content={<EditProject closeModal={() => toggleEditModal()} />} />
-      } */}
-      {/* {
-        openViewModal && <Modal closeArrow={true} closeModal={() => toggleViewModal()} content={<VisualizeProject closeModal={() => toggleEditModal()} openEdit={() => toggleEditModal()} openApply={() => toggleApplyModal()} />} />
-      } */}
-      {/* {
-        openApplyModal && <Modal closeArrow={true} closeModal={() => toggleApplyModal()} content={<ApplicationForm closeModal={() => toggleApplyModal()} />} />
-      } */}
+
       {loading && <Loading />}
+
       {
         <div className="body-cards">
           {
             filter()
           }
         </div>
-        // 
       }
-      {/* {
-        openConfirmModal && <Modal type="warning" closeModal={() => toggleConfirmModal()} content={<DeleteProject closeModal={() => toggleConfirmModal()} />} />
-      }  */}
-
-      {/* <div className="button-container">
-        <div className='add-icon' onClick={() => setOpenCreateModal(!openCreateModal)}>
-          <AddIcon />
-        </div>
-        <p className='tooltip'>Criar Projeto</p>
-      </div> */}
     </div>
   )
 }

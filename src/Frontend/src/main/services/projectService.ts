@@ -26,7 +26,6 @@ const ProjectService = {
     }
   },
   create: async (data: any) => {
-
     const config = {
       headers: {
         "Authorization": `Bearer ${cookie.load("token")}`
@@ -62,6 +61,32 @@ const ProjectService = {
   filter: async (data: any) => {
     try {
       const response = await axios.get(`${API_URL}/Project/filter`, data)
+      return response
+    }
+    catch (error: any) {
+      return error.response.data
+    }
+  },
+  approve: async (token: string, status: string) => {
+    try {
+      const response = await axios.put(`${API_URL}/Project/approve/${token}`, {
+        status: status
+      })
+      return response
+    }
+    catch (error: any) {
+      return error.response.data
+    }
+  },
+  finish: async (id: string) => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${cookie.load("token")}`
+      }
+    }
+
+    try {
+      const response = await axios.put(`${API_URL}/Project/Finalize/${id}`, {}, config)
       return response
     }
     catch (error: any) {

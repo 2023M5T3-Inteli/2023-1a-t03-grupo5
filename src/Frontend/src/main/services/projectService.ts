@@ -3,8 +3,8 @@ import cookie from "react-cookies";
 
 const PORT = 3001;
 const HOST = 'localhost';
-const API_URL = `http://alb-lakitu-1821142311.us-east-1.elb.amazonaws.com`;
-// const API_URL = 'http://alb-lakitu-1821142311.us-east-1.elb.amazonaws.com'
+//const API_URL = `http://alb-lakitu-1821142311.us-east-1.elb.amazonaws.com`;
+const API_URL = 'http://localhost:3001'
 
 const ProjectService = {
   findByID: async (id: String) => {

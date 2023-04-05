@@ -254,13 +254,11 @@ export class ProjectsService {
         try {
             const sub = jwt.verify(token, process.env.JWT_APPROVE);
 
-            projectId = sub.id;
+            projectId = sub.sub;
 
         } catch {
             throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Invalid token"});
         }
-
-        console.log(projectId)
 
         if(!projectId) {
             throw new UnauthorizedException("Something bad happened", {cause: new Error(), description: "Invalid token"});

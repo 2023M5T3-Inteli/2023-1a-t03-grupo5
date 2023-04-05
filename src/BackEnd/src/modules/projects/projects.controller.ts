@@ -89,7 +89,8 @@ export class ProjectsController {
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 403, description: 'Error: Forbidden'})
   async approve(@Param("token") token: string, @Body() data: any) {
-    if(data.status != "approved" || data.status != "rejected") {
+    console.log(data.status);
+    if(data.status != "Approved" && data.status != "Reproved") {
       return {error: "Invalid status"};
     }
     return this.projectsService.approveProject(token, data.status);

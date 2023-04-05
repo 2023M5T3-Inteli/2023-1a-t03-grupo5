@@ -1,4 +1,4 @@
-export const htmlApprove = (name: string, token: string) => {
+export const htmlApprove = (name: string, token: string, projectId: string) => {
     return `
     <!doctype html>
     <html lang="en-US">
@@ -48,7 +48,7 @@ export const htmlApprove = (name: string, token: string) => {
                                           <p style="color:#455056; font-size:22px;line-height:24px; margin:0; margin-bottom:30px; font-style:bold;">Hello, ${name}</p>
                                             <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">A person with you as manager created a project, so because of that we need that you approve or not this project getting him/her a response. If you approve the project, it will apper on the home screen to other employs try to participate, so for that you need to be very responsible. So to do your decision please click on the button bellow.</p>
                                         
-                                            <a href="http://127.0.0.1:5173/approveProject?token=${token}"
+                                            <a href="http://127.0.0.1:5173/approveProject?token=${token}&projectId=${projectId}"
                                                 style="background:#0672CB;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;">Clique aqui</a>
                                         </td>
                                     </tr>

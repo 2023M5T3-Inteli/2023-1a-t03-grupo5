@@ -103,7 +103,7 @@ export class ProjectsService {
                 from: '"NoReply DELLPROJECTS" <noreply@dellprojects.com>', 
                 to: email, // list of receivers
                 subject: "Reset Password", // Subject line
-                html: htmlApprove(name, token) // html body
+                html: htmlApprove(name, token, project.projectId) // html body
             });
 
             console.log("Message sent: ", emailSent.messageId);
@@ -213,6 +213,7 @@ export class ProjectsService {
     }
 
     async filterProject(data: any) {
+        console.log(data)
         //Filtering the projects
         try {
            const project = await this.prisma.project.findMany({

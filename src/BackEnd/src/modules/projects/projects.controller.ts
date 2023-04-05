@@ -77,7 +77,7 @@ export class ProjectsController {
     description: 'filter projects',
   })
   
-  @Get("/filter")
+  @Post("/filter")
   //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 400, description: 'Error: Bad Request'})

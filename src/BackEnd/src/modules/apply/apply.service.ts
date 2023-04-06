@@ -380,4 +380,15 @@ export class ApplyService {
       throw new InternalServerErrorException('Something bad happened', {cause: new Error(), description: err});
     }
   }
+
+  getApplyById(projectId: string, userId: string) {
+    const isApplied = this.prisma.apply.findMany({
+      where: {
+        projectId: projectId,
+        userId: userId,
+      },
+    });
+
+    return isApplied;
+  }
 }

@@ -89,4 +89,10 @@ export class ApplyController {
   async approve(@Param("id") id: string) {
     return await this.applyService.approveApply(id);
   }
+
+  @Post('/getApplyByUser')
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  async getApply(@Body() data: any) {
+    return await this.applyService.getApplyById(data.userId, data.projectId);
+  }
 }

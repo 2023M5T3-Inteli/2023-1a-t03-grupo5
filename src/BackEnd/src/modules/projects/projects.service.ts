@@ -51,8 +51,8 @@ export class ProjectsService {
                     data: {
                         projectId: uuid(),
                         name: data.name,
-                        start: new Date(),
-                        end: new Date(),
+                        start: data.start,
+                        end: data.end,
                         tags: data.tags,
                         endSubscription: data.endSubscription,
                         badge: data.badge,

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./profile-styles.scss";
 import { Link } from "react-router-dom";
 import userService from "../../../main/services/userService";
+import { useSearchParams } from "react-router-dom";
 
 import imgProfile from '/public/imgProfile.png'
 import Loading from "../../components/loading/loading";
 import Card from "../../components/card/card";
 import ProjectService from "../../../main/services/projectService";
 import { toast } from "react-toastify";
+
 
 //404 page
 const Profile = () => {
@@ -22,19 +24,39 @@ const Profile = () => {
     });
     const [projects, setProjects] = useState<any>([])
     const [highlights, setHighligths] = useState<any>([])
+    
+    const [searchParams, setSearchParams] = useSearchParams();
+
 
     const getUser = async () => {
-        const response = await userService.validate();
-        console.log(response.data)
 
-        if (response.status === 200) {
-            response.data.habilities = JSON.parse(response.data.habilities)
-            setUser(response.data)
-            setHighligths(JSON.parse(response.data.highlights))
-            setLoading(false)
-        }
-        else {
-            toast.error("Error to load the user profile")
+        const userId = searchParams.get("userId");
+        if(!userId){
+            const response = await userService.validate();
+            console.log(response.data)
+
+            if (response.status === 200) {
+                response.data.habilities = JSON.parse(response.data.habilities)
+                setUser(response.data)
+                setHighligths(JSON.parse(response.data.highlights))
+                setLoading(false)
+            }
+            else {
+                toast.error("Error to load the user profile")
+            }
+        } else {
+            const response = await userService.findByID(userId);
+            console.log(response.data)
+
+            if (response.status === 200) {
+                response.data.habilities = JSON.parse(response.data.habilities)
+                setUser(response.data)
+                setHighligths(JSON.parse(response.data.highlights))
+                setLoading(false)
+            }
+            else {
+                toast.error("Error to load the user profile")
+            }
         }
     }
 
@@ -124,6 +146,7 @@ const Profile = () => {
                             </div>
                             <div className="highligthsDiv">
                                 {
+                                    highlights.length > 0 ?
                                     highlights.slice(0, 3).map((highlight: any, index: number) => {
                                         return (
                                             <div className="itemHighligth" key={`${highlight}-${index}`}>
@@ -131,6 +154,7 @@ const Profile = () => {
                                             </div>
                                         )
                                     })
+                                    : <p style={{"marginTop": "20px", "marginBottom": "20px", "color": "white"}}>Você não possui Badges :(</p>
                                 }
                                 {/* <div className="itemHighligth">
                                     <img className="imgHighlight" width={110} src={"/Ellipse2.png"}></img>

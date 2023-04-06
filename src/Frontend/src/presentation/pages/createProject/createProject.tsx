@@ -7,6 +7,7 @@ import '/public/styles/grid.scss'
 import Button from '../../components/button/button'
 import Select from '../../components/select/select'
 import { flushSync } from 'react-dom'
+import axios from 'axios'
 
 import CloseIcon from '@mui/icons-material/Close'
 import ProjectService from '../../../main/services/projectService'
@@ -212,8 +213,39 @@ const CreateProject = (props: Props) => {
     }
   }
 
+  const sendFileToIPFS = async (file: any) => {
+    if (file) {
+      try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const resFile = await axios({
+          method: "post",
+          url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          data: formData,
+          headers: {
+            pinata_api_key: "bf67cf4376213d9d9cb0", // `${process.env.REACT_APP_PINATA_API_KEY}`,
+            pinata_secret_api_key:
+              "5250eddb652c2e750bdf57d8ed79ee762564fed74c4ebfd78bb35dd4dbbe5a17", // `${process.env.REACT_APP_PINATA_API_SECRET}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        const fileHash = `https://ipfs.io/ipfs/${resFile.data.IpfsHash}`;
+
+        return fileHash;
+      } catch (err) {
+        console.log("Error sending file to IPFS: ", err);
+      }
+    }
+  };
+
   const submit = async () => {
     setLoading(true)
+
+    const fileHash = await sendFileToIPFS(file);
+
+    console.log(fileHash);
 
     // if (file) {
     // let s3Response = await S3Service.uploadFile(file)
@@ -226,7 +258,7 @@ const CreateProject = (props: Props) => {
       roles: JSON.stringify(data.roles),
       start: new Date(data.start),
       end: new Date(data.end),
-      badge: "teste 123",
+      badge: fileHash,
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })

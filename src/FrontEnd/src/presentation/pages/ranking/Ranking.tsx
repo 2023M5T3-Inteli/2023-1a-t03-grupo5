@@ -3,15 +3,13 @@ import Logo from "/public/imgDell.png";
 import ImgLogin from "/public/img-tela-login.png";
 import "./ranking.styles.scss";
 import { Link } from "react-router-dom";
+import UserService from "../../../main/services/userService";
 
 
 //404 page
 let Ranking = () => {
 
-    const [pages, setPages] = useState<any>()
-    const [busy, setBusy] = useState(true)
-    const [currentPage, setCurrentPage] = useState(0)
-    const [ranking1, setRanking1] = useState<any>([])
+    const [ranking1, setRanking1] = useState<any>([]);
 
     const ranking = [
         {
@@ -40,37 +38,20 @@ let Ranking = () => {
         },
     ]
 
-   
+    const getRanking = async () => {
+        console.log("getRanking")	
 
-    //let pages = [[{}, {}, {}, {}, {}, {}]]
+        const response:any = await UserService.getRanking();
 
-    let i = 0;
+        setRanking1(response.data);
 
-    useEffect(() => {
-        const length = ranking.length
-
-        const qntPerPage = 6
-
-        const qntPages = Math.ceil(length / qntPerPage)
-
-        const pagesTeste = []
-
-        if (length > qntPerPage) {
-            for (let i = 0; i < qntPages; i++) {
-                pagesTeste.push(ranking.slice(i * qntPerPage, (i + 1) * qntPerPage));
-            }
-        } else {
-            pagesTeste.push(ranking)
-        }
-        setPages(pagesTeste)
-        setBusy(false)
-    }, [])
+        console.log(response.data);
+    }
 
     useEffect(() => {
-        console.log(currentPage)
-        if (busy) setRanking1([])
-        else {setRanking1(pages[currentPage])}
-    }, [currentPage])
+        getRanking();
+        // setRanking1(ranking);
+    }, []);
 
     return (
         <div className="ranking">
@@ -95,10 +76,13 @@ let Ranking = () => {
                 </div>
                 {/* Ranking Table */}
                 <div>
+                    <p style={{"marginLeft": "140px", "marginTop": "48px", "marginBottom": "-24px"}}>
+                        <span style={{"color": "white"}}>Você está na posição {ranking1.position}</span>
+                    </p>
                     <div className="table-div">
                         <div className="container">
                             {
-                                ranking.map((item: any, index: any) => {
+                                ranking1.ranking.map((item: any, index: any) => {
                                     return (
                                         <div className="container-table">
                                             <div className="first-container">

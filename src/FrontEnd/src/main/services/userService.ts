@@ -144,6 +144,19 @@ const UserService = {
     } catch (error) {
       return "Password not changed! Try again later."
     }
+  },
+  getRanking: async () => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+    try {
+      const response = await axios.get(`${API_URL}/user/ranking`, config);
+      return response;
+    } catch (error) {
+      return "Ranking not found! Try again later"
+    }
   }
 };
 

@@ -499,4 +499,29 @@ export class UsersService {
             description: "Habillity added with success"
         }
     }
+
+    async getRanking(id) {
+        const allUsers = await this.prisma.user.findMany({
+            select: {
+                id: true,
+                name: true,
+                points: true
+            }
+        })
+
+        let sortedPeople = allUsers.sort(
+            (p1, p2) => (p1.points < p2.points) ? 1 : (p1.points > p2.points) ? -1 : 0);
+
+        
+
+        const userPosition = sortedPeople.findIndex((user) => user.id == id)
+
+        let displayUsers = sortedPeople.slice(0,10)
+
+        return {
+            ranking: displayUsers,
+            position: userPosition + 1
+        }
+
+    }
 }

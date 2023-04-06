@@ -139,4 +139,12 @@ export class UsersController {
   async addHigh(@Body() data: any, @Req() req: any) {
     return this.usersService.addHighligth(req.user.id, data.highlight);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get("/ranking")
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 401, description: 'Error: Unauthorized'})
+  async getRank(@Req() req: any) {
+    return this.usersService.getRanking(req.user.id);
+  }
 }

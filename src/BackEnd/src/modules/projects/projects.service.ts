@@ -250,7 +250,7 @@ export class ProjectsService {
         
     }
 
-    async approveProject(token: string, status: string) {
+    async approveProject(token: string, status: string, feedback: string) {
         //Verifying if the token is valid
         let projectId;
         
@@ -294,6 +294,7 @@ export class ProjectsService {
                 },
                 data: {
                     status: status,
+                    feedback: feedback,
                 }
             })
         } catch (err) {

@@ -164,6 +164,36 @@ export class ApplyService {
       });
     }
 
+    if(applyExists.status === 'Approved') {
+      //Add 1 to the number of roles
+      const project = await this.prisma.project.findUnique({
+        where: {
+          projectId: applyExists.projectId,
+        },
+      });
+
+      let newRoles = JSON.parse(project.roles).map((role) => {
+        if (role.role === applyExists.offerName) {
+          role.vacancies -= 1;
+          role.vacancies = String(role.vacancies);
+        } 
+        return role;
+      });
+
+      try {
+        await this.prisma.project.update({
+          where: {
+            projectId: applyExists.projectId,
+          },
+          data: {
+            roles: JSON.stringify(newRoles),
+          },
+        });
+      } catch (err) {
+        throw new InternalServerErrorException('Something bad happened', {cause: new Error(), description: err});
+      }
+    }
+
     try {
       await this.prisma.apply.delete({
         where: {
@@ -223,6 +253,36 @@ export class ApplyService {
 
     if (!applyExists) {
       throw new BadRequestException('Something bad happened', {cause: new Error(), description: 'Application does not exist'});
+    }
+
+    if(applyExists.status === 'Approved') {
+      //Add 1 to the number of roles
+      const project = await this.prisma.project.findUnique({
+        where: {
+          projectId: applyExists.projectId,
+        },
+      });
+
+      let newRoles = JSON.parse(project.roles).map((role) => {
+        if (role.role === applyExists.offerName) {
+          role.vacancies -= 1;
+          role.vacancies = String(role.vacancies);
+        } 
+        return role;
+      });
+
+      try {
+        await this.prisma.project.update({
+          where: {
+            projectId: applyExists.projectId,
+          },
+          data: {
+            roles: JSON.stringify(newRoles),
+          },
+        });
+      } catch (err) {
+        throw new InternalServerErrorException('Something bad happened', {cause: new Error(), description: err});
+      }
     }
 
     if(feedback) {

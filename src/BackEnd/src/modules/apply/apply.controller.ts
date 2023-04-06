@@ -10,6 +10,7 @@ import {
 import { ApplyService } from './apply.service';
 import { createApplyDTO } from './DTOs/createApply.dto';
 import { ApiTags, ApiResponse, ApiHeader } from '@nestjs/swagger';
+import { get } from 'http';
 
 @ApiTags('Apply')
 @Controller('Apply')
@@ -79,7 +80,13 @@ export class ApplyController {
 
   @Put('/updateFeedback/:id')
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
-  async updateFeedback(@Param() id: string, @Body() feedback: string) {
-    return await this.applyService.createFeedback(id, feedback);
+  async updateFeedback(@Param() id: string, @Body() feedback: string, status: string) {
+    return await this.applyService.createFeedback(id, feedback, status);
+  }
+
+  @Get('/approve/:id')
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  async approve(@Param("id") id: string) {
+    return await this.applyService.approveApply(id);
   }
 }

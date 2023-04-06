@@ -260,7 +260,11 @@ export class UsersService {
             include: {
                 projects: true,
                 projectsColeader: true,
-                applies: true
+                applies: {
+                    include: {
+                        user: true
+                    }
+                }
             }
         });
 

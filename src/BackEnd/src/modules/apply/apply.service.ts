@@ -13,9 +13,6 @@ export class ApplyService {
   constructor(private readonly prisma: PrismaService) {}
 
   async apply(infos: createApplyDTO) {
-
-    console.log(infos)
-
     //verify if the project exists
     const project = await this.prisma.project.findUnique({
       where: {
@@ -44,6 +41,22 @@ export class ApplyService {
       });
     }
 
+    const roles = JSON.parse(project.roles).length;
+
+    //Get all applies to the project
+    const applies = await this.prisma.apply.findMany({
+      where: {
+        projectId: infos.projectId,
+      },
+    });
+
+    if (applies.length >= roles) {
+      throw new BadRequestException('Something bad happened', {
+        cause: new Error(),
+        description: 'Project is full',
+      });
+    }
+
     //verify if the user exists
     const user = await this.prisma.user.findUnique({
       where: {
@@ -66,12 +79,25 @@ export class ApplyService {
       },
     });
 
-    console.log(alreadyApplied);
-
     if (alreadyApplied.length > 0) {
       throw new BadRequestException('Something bad happened', {
         cause: new Error(),
         description: 'Application already exists',
+      });
+    }
+
+    //veridy if offer exists
+    let offerExists = false;
+    JSON.parse(project.roles).map((role) => {
+      if (role.role === infos.offerName) {
+        offerExists = true;
+      }
+    });
+
+    if (!offerExists) {
+      throw new BadRequestException('Something bad happened', {
+        cause: new Error(),
+        description: 'Offer does not exist',
       });
     }
 
@@ -94,33 +120,7 @@ export class ApplyService {
       });
     }
 
-    //Remove the 1 of the offer quantity
-    try {
-      JSON.parse(project.roles).map((role) => {
-        if (role.role === infos.offerName) {
-          role.quantity -= 1;
-        }
-      });
-
-      console.log(project.roles);
-
-      project.roles = JSON.stringify(project.roles);
-
-      await this.prisma.project.update({
-        where: {
-          projectId: infos.projectId,
-        },
-        data: {
-          roles: project.roles,
-        },
-      });
-
-    } catch (err) {
-      throw new InternalServerErrorException('Something bad happened', {
-        cause: new Error(),
-        description: err,
-      });
-    }
+    
 
 
     return 'Application created successfully';
@@ -212,7 +212,9 @@ export class ApplyService {
     return 'Application updated successfully';
   }
 
-  async createFeedback(id: string, feedback: string) {
+
+
+  async createFeedback(id: string, feedback: string, status: string) {
     const applyExists = await this.prisma.apply.findUnique({
       where: {
         id,
@@ -223,10 +225,81 @@ export class ApplyService {
       throw new BadRequestException('Something bad happened', {cause: new Error(), description: 'Application does not exist'});
     }
 
+    if(feedback) {
+      try {
+        await this.prisma.apply.update({
+          data: {
+            status: status,
+            feedback: feedback,
+          },
+          where: {
+            id: id,
+          },
+        });
+      } catch (err) {
+        throw new InternalServerErrorException('Something bad happened', {cause: new Error(), description: err});
+      }
+    } else {
+      try {
+        await this.prisma.apply.update({
+          data: {
+            status: status,
+          },
+          where: {
+            id: id,
+          },
+        });
+      } catch (err) {
+        throw new InternalServerErrorException('Something bad happened', {cause: new Error(), description: err});
+      }
+    }
+   
+    return 'Status changed successfully';
+  }
+
+  async approveApply(id: string) {
+    const applyExists = await this.prisma.apply.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!applyExists) {
+      throw new BadRequestException('Something bad happened', {cause: new Error(), description: 'Application does not exist'});
+    }
+
+    //Remove 1 from the offer quantity
+    const project = await this.prisma.project.findUnique({
+      where: {
+        projectId: applyExists.projectId,
+      },
+    });
+
+    let newRoles = JSON.parse(project.roles).map((role) => {
+      if (role.role === applyExists.offerName) {
+        role.vacancies -= 1;
+        role.vacancies = String(role.vacancies);
+      } 
+      return role;
+    });
+
+    try {
+      await this.prisma.project.update({
+        where: {
+          projectId: applyExists.projectId,
+        },
+        data: {
+          roles: JSON.stringify(newRoles),
+        },
+      });
+    } catch (err) {
+      throw new InternalServerErrorException('Something bad happened', {cause: new Error(), description: err});
+    }
+
     try {
       await this.prisma.apply.update({
         data: {
-          feedback: feedback,
+          status: "Approved",
         },
         where: {
           id: id,

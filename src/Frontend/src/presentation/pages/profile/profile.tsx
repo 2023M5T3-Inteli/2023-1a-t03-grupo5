@@ -16,9 +16,12 @@ const Profile = () => {
         name: '',
         area: '',
         habilities: [''],
-        photoURL: ''
+        photoURL: '',
+        highlights: '',
+        linkedin: ''
     });
     const [projects, setProjects] = useState<any>([])
+    const [highlights, setHighligths] = useState<any>([])
 
     const getUser = async () => {
         const response = await userService.validate();
@@ -27,6 +30,7 @@ const Profile = () => {
         if (response.status === 200) {
             response.data.habilities = JSON.parse(response.data.habilities)
             setUser(response.data)
+            setHighligths(JSON.parse(response.data.highlights))
             setLoading(false)
         }
         else {
@@ -75,7 +79,7 @@ const Profile = () => {
                             </div>
                             <div className="linkedinDiv">
                                 <img width={36} src={"/linkedin.png"}></img>
-                                <p className="linkedinText">www.linkedIn/victor</p>
+                                <p className="linkedinText">{user.linkedin}</p>
                             </div>
                             {/* <div className="curriculumDiv">
                                 <button className="btnCurriculum">
@@ -119,7 +123,16 @@ const Profile = () => {
                                 <img width={28} src={"/award.png"}></img>
                             </div>
                             <div className="highligthsDiv">
-                                <div className="itemHighligth">
+                                {
+                                    highlights.slice(0, 3).map((highlight: any, index: number) => {
+                                        return (
+                                            <div className="itemHighligth" key={`${highlight}-${index}`}>
+                                                <img className="imgHighlight" width={110} src={highlight.badge}></img>
+                                            </div>
+                                        )
+                                    })
+                                }
+                                {/* <div className="itemHighligth">
                                     <img className="imgHighlight" width={110} src={"/Ellipse2.png"}></img>
                                 </div>
                                 <div className="itemHighligth">
@@ -128,6 +141,7 @@ const Profile = () => {
                                 <div className="itemHighligth">
                                     <img className="imgHighlight" width={110} src={"/Ellipse2.png"}></img>
                                 </div>
+                                <p>{JSON.stringify(highlights[0])}</p> */}
                             </div>
                         </div>
                     </div>

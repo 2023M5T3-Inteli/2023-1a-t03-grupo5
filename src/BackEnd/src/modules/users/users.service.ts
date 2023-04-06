@@ -246,6 +246,9 @@ export class UsersService {
             projects: user.projects,
             projectsColeader: user.projectsColeader,
             photoURL: user.photoURL,
+            area: user.area,
+            linkedin: user.linkedin,
+            highlights: user.highligths,
         }
     }
 
@@ -279,7 +282,10 @@ export class UsersService {
             isAdmin: user.isAdmin,
             projects: user.projects,
             projectsColeader: user.projectsColeader,
-            photoURL: user.photoURL
+            photoURL: user.photoURL,
+            area: user.area,
+            linkedin: user.linkedin,
+            highlights: user.highligths,
         }
     }
 
@@ -453,4 +459,44 @@ export class UsersService {
         }
     }
 
+    async addHighligth(id: string, highligth: object) {
+        //Verify if user already exists
+        const userExists = await this.prisma.user.findUnique({
+            where: {
+                id: id
+            }
+        })
+
+        if (!userExists) {
+            throw new BadRequestException("Something bad happened", {cause: new Error(), description: "User doesn't exists"})
+        }
+
+        console.log(userExists.highligths)
+        console.log(highligth)
+
+        let newHighlugth = JSON.parse(userExists.highligths)
+        
+        newHighlugth.push(highligth)
+
+        newHighlugth = JSON.stringify(newHighlugth)
+
+        try {
+            await this.prisma.user.update({
+                data: {
+                    highligths: newHighlugth
+                },
+                where: {
+                    id: id
+                }
+            })
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+
+        return {
+            message: "Doing great",
+            statusCode: 200,
+            description: "Habillity added with success"
+        }
+    }
 }

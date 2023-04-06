@@ -131,4 +131,12 @@ export class UsersController {
   async resetPassword(@Body() data: ResetPasswordDTO) {
     return this.usersService.resetPassword(data);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post("/addHighlight")
+  @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
+  @ApiResponse({ status: 401, description: 'Error: Unauthorized'})
+  async addHigh(@Body() data: any, @Req() req: any) {
+    return this.usersService.addHighligth(req.user.id, data.highlight);
+  }
 }

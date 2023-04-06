@@ -238,6 +238,9 @@ export class ProjectsService {
         try {
            const project = await this.prisma.project.findMany({
                 where: data,
+                include: {
+                    applies: true
+                }
             })
 
             return project; 

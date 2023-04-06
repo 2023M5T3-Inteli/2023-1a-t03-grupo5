@@ -84,6 +84,18 @@ const ProjectService = {
       return error.response.data
     }
   },
+  reprove: async (token: string, status: string, feedback: string) => {
+    try {
+      const response = await axios.put(`${API_URL}/Project/approve/${token}`, {
+        status: status,
+        feedback: feedback
+      })
+      return response
+    }
+    catch (error: any) {
+      return error.response.data
+    }
+  },
   finish: async (id: string) => {
     const config = {
       headers: {

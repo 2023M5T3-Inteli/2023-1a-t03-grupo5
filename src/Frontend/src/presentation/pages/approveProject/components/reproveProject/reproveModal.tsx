@@ -9,15 +9,15 @@ type Props = {
 }
 
 const ReproveModal = (props: Props) => {
-  const [message, setMessage] = useState("")
+  const [feedback, setFeedback] = useState("")
 
   const submit = (e?: any) => {
     if(e) {
       e.preventDefault()
     }
 
-    if (message.length > 0) {
-      props.confirm()
+    if (feedback.length > 0) {
+      props.confirm(feedback)
     }
   }
 
@@ -25,8 +25,8 @@ const ReproveModal = (props: Props) => {
     <div id='reprove-modal'>
       <h2 className='send'>Reprove Project</h2>
       <form onSubmit={submit}>
-        <label className='reprove-modal'>Message*</label>
-        <Input value={message} type="text" placeholder='Write the reasons for reprove' size='large' onChange={(value: string) => setMessage(value)}/>
+        <label className='reprove-modal'>Feedback*</label>
+        <Input value={feedback} type="text" placeholder='Write the reasons for reprove' size='large' onChange={(value: string) => setFeedback(value)}/>
       </form>
 
       <div className="reprove-modal-buttons">

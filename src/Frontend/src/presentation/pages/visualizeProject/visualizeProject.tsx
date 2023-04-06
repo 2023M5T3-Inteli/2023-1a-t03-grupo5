@@ -70,7 +70,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
 
     let owner = await getUser(response.data.ownerId)
 
-    if(owner) {
+    if (owner) {
       setOwnerName(owner.name)
     }
     else {
@@ -214,7 +214,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
 
 
       {loading && <Loading />}
-      <div className="container-visualize">
+      <div className={`container-visualize ${!meta && "showMeta"}`}>
         <div className=" grid-8 project-info">
           <div className=" project-start">
             <h1>{project.name}</h1>
@@ -302,7 +302,13 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
               }
             </div>
           </div>
+
+          {
+            project.feedback &&
+            <div className="feedback"><strong>Reprove Feedback:</strong> {project.feedback}</div>
+          }
         </div>
+
         <div className="line"></div>
         <div className="grid-4 right-side">
           <div className="status-info">
@@ -329,7 +335,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
               <div className="p-visualize">
                 <p>Project start:</p>
                 <p>
-                  {new Date(project.start).getDate()}/
+                  {new Date(project.start).getDate() + 1}/
                   {new Date(project.start).getMonth() + 1}/
                   {new Date(project.start).getFullYear()}
                 </p>
@@ -342,7 +348,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
               <div className="p-visualize">
                 <p>Project end:</p>
                 <p>
-                  {new Date(project.end).getDate()}/
+                  {new Date(project.end).getDate() + 1}/
                   {new Date(project.end).getMonth() + 1}/
                   {new Date(project.end).getFullYear()}
                 </p>

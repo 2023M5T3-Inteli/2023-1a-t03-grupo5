@@ -72,13 +72,12 @@ const ApproveProject = () => {
         }
     }
 
-    const reproveProject = async () => {
+    const reproveProject = async (feedback: string) => {
         let token = searchParams.get("token")
 
         console.log(token)
         if (token) {
-            let response = await ProjectService.approve(token, "Reproved")
-            console.log(response)
+            let response = await ProjectService.reprove(token, "Reproved", feedback)
 
             if (response.status === 200) {
                 toast.success("Project reproved with success")
@@ -243,7 +242,7 @@ const ApproveProject = () => {
             </div>
 
             {
-                openReproveModal && <Modal type="warning" closeModal={() => toggleReproveModal()} content={<ReproveModal closeModal={() => toggleReproveModal()} confirm={() => reproveProject()} />} />
+                openReproveModal && <Modal type="warning" closeModal={() => toggleReproveModal()} content={<ReproveModal closeModal={() => toggleReproveModal()} confirm={(feedback: string) => reproveProject(feedback)} />} />
             }
         </div >
     )

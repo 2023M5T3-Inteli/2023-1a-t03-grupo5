@@ -25,11 +25,33 @@ const Card: any = (props: any) => {
                 </span>
               </div>
               <div className='status-div'>
-                <p>{props.status === "Approved" ? "On going" : "Finished"}</p>
                 {
-                  props.status === "Finished" ?
-                    <span className='red-circle'></span> :
-                    <span className='green-circle'></span>
+                  props.status === "Approved" && props.status !== "Finished" &&
+                  <>
+                    <p>On going</p>
+                    <span className='red-circle'></span>
+                  </>
+                }
+                {
+                  props.status === "Reproved" &&
+                  <>
+                    <p>Reproved</p>
+                    <span className='red-circle'></span>
+                  </>
+                }
+                {
+                  props.status === "Pending" &&
+                  <>
+                    <p>Pending</p>
+                    <span className='orange-circle'></span>
+                  </>
+                }
+                {
+                  props.status === "Finished" &&
+                  <>
+                    <p>Finished</p>
+                    <span className='red-circle'></span>
+                  </>
                 }
               </div>
             </div>

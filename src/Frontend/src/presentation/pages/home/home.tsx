@@ -21,6 +21,9 @@ import Select from '../../components/select/select'
 
 const Home: React.FC = () => {
   const isMobile = true;
+  const [user, setUser] = useState({
+    id: "-1"
+  })
   const [loading, setLoading] = useState(true)
   const [openCreateModal, setOpenCreateModal] = useState(false)
   const [openEditModal, setOpenEditModal] = useState(false)
@@ -104,10 +107,14 @@ const Home: React.FC = () => {
   }
 
   const validateUser = async () => {
-    const user = await UserService.validate();
+    const response = await UserService.validate();
 
-    if (user.statusCode === 401) {
+    if (response.statusCode === 401) {
       window.location.href = '/login'
+    }
+    else {
+      console.log(response)
+      setUser(response.data)
     }
   }
 
@@ -155,7 +162,8 @@ const Home: React.FC = () => {
         (project.tags.includes(tagFilter) || tagFilter === "") &&
         (project.roles.includes(areaFilter)) &&
         project.status.includes(statusFilter) &&
-        project.status !== "Pending"
+        project.status !== "Pending" &&
+        (user.id === project.ownerId || user.id === project.coleaderId)
       ) {
         return (
           <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>

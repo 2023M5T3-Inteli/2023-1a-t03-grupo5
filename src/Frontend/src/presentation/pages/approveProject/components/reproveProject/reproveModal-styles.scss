@@ -1,0 +1,41 @@
+@use '/public/styles/spacing.scss' as sp;
+@use '/public/styles/color.scss' as c;
+@use '/public/styles/typographic.scss' as t;
+
+#reprove-modal {
+  padding: sp.$stack-sm;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  color: c.$primary;
+  gap: 40px;
+  
+  h2 {
+    text-align: center;
+  }
+
+  .reprove-modal {
+    margin-left: sp.$stack-xs;
+  }
+
+  .text{
+    background-color: #747474;
+    width: 100%;
+
+    border: 1px solid #383838;
+    border-radius: 10px;
+    color: #FFFFFF;
+  }
+
+  input {
+    margin-top: sp.$stack-xs;
+    height: 20px;
+    font-size: 16px;
+  }
+
+  .reprove-modal-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+  }
+}

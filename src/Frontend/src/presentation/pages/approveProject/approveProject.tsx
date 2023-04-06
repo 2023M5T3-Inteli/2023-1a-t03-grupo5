@@ -11,6 +11,8 @@ import Button from '../../components/button/button'
 import Calendar from '/public/Calendar.png'
 import ProjectService from "../../../main/services/projectService"
 import { toast } from 'react-toastify'
+import Modal from "../../components/modal/modal"
+import ReproveModal from "./components/reproveProject/reproveModal"
 
 const ApproveProject = () => {
     const navigate = useNavigate()
@@ -26,6 +28,12 @@ const ApproveProject = () => {
             }
         ]
     })
+
+    const [openReproveModal, setOpenReproveModal] = useState(false)
+
+    const toggleReproveModal = () => {
+        setOpenReproveModal(!openReproveModal)
+    }
 
     const getProject = async () => {
         let projectId = searchParams.get("projectId")
@@ -64,13 +72,27 @@ const ApproveProject = () => {
         }
     }
 
+    const reproveProject = async () => {
+        let token = searchParams.get("token")
+
+        console.log(token)
+        if (token) {
+            let response = await ProjectService.approve(token, "Reproved")
+            console.log(response)
+
+            if (response.status === 200) {
+                toast.success("Project reproved with success")
+                navigate("/")
+            }
+            else {
+                toast.error("Error to reprove the project")
+            }
+        }
+    }
+
     useEffect(() => {
         getProject()
     }, [])
-
-    const [projectTagsRoles, setProjectTagsRoles] = useState({
-        rolesProject: ["Developer", "Scrum Master", "DevOps"]
-    })
 
     return (
         <div id="approve_project">
@@ -105,7 +127,11 @@ const ApproveProject = () => {
                             </div>
                             <div className="text-date">
                                 <p>Start Date:</p>
-                                <p>XX/XX/XXXX</p>
+                                <p>
+                                    {new Date(project.start).getDate()}/
+                                    {new Date(project.start).getMonth() + 1}/
+                                    {new Date(project.start).getFullYear()}
+                                </p>
                             </div>
                         </div>
 
@@ -115,7 +141,11 @@ const ApproveProject = () => {
                             </div>
                             <div className="text-date">
                                 <p>End Date:</p>
-                                <p>XX/XX/XXXX</p>
+                                <p>
+                                    {new Date(project.end).getDate()}/
+                                    {new Date(project.end).getMonth() + 1}/
+                                    {new Date(project.end).getFullYear()}
+                                </p>
                             </div>
                         </div>
 
@@ -125,22 +155,27 @@ const ApproveProject = () => {
                             </div>
                             <div className="text-date">
                                 <p>Expiration Date:</p>
-                                <p>XX/XX/XXXX</p>
+                                <p>
+                                    {new Date(project.endSubscription).getDate()}/
+                                    {new Date(project.endSubscription).getMonth() + 1}/
+                                    {new Date(project.endSubscription).getFullYear()}
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <div className="tags grid-4">
                         <p>Tags:</p>
-                        <div className="tags-languages">
-                            <p>Python</p>
-                        </div>
-                        <div className="tags-languages">
-                            <p>Java</p>
-                        </div>
-                        <div className="tags-languages">
-                            <p>C#</p>
-                        </div>
+                        {
+                            project.tags &&
+                            project.tags.map((tag: string, index: number) => {
+                                return (
+                                    <div className="tags-languages" key={`${tag}-${index}`}>
+                                        <p>{tag}</p>
+                                    </div>
+                                )
+                            })
+                        }
                     </div>
                 </div>
 
@@ -175,25 +210,41 @@ const ApproveProject = () => {
                     </div>
 
                     <div className="buttons-aprove-refuse">
-                        <div className="buttons-aprove">
-                            <Button
-                                type='default'
-                                text='Approve'
-                                size='medium'
-                                onClick={() => approve()}
-                            />
-                        </div>
+                        {
+                            project.status === "Pending" ?
+                                <>
+                                    <div className="buttons-aprove">
+                                        <Button
+                                            type='default'
+                                            text='Approve'
+                                            size='medium'
+                                            onClick={() => approve()}
+                                        />
+                                    </div>
 
-                        <div className="buttons-refuse">
-                            <Button
-                                type='cancel'
-                                text='Refuse'
-                                size='medium'
-                            />
-                        </div>
+                                    <div className="buttons-refuse">
+                                        <Button
+                                            type='cancel'
+                                            text='Refuse'
+                                            size='medium'
+                                            onClick={() => toggleReproveModal()}
+                                        />
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    {console.log(project)}
+                                    <p className={`status ${project.status}`}>{project.status}</p>
+                                    <p>{project.message}</p>
+                                </>
+                        }
                     </div>
                 </div>
             </div>
+
+            {
+                openReproveModal && <Modal type="warning" closeModal={() => toggleReproveModal()} content={<ReproveModal closeModal={() => toggleReproveModal()} confirm={() => reproveProject()} />} />
+            }
         </div >
     )
 }

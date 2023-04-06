@@ -242,11 +242,12 @@ const EditProject = (props: Props) => {
       start: new Date(data.start),
       end: new Date(data.end),
       badge: data.badge,
+      status: "Pending",
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
     if (response.status === 200) {
-      navigate("/")
+      navigate(-1)
       toast.success("Project edited with success")
     }
     else {

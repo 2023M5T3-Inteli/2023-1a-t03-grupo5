@@ -1,4 +1,5 @@
 @use 'public/styles/spacing.scss' as sp;
+@use 'public/styles/color.scss' as c;
 
 #approve_project {
     display: flex;
@@ -204,6 +205,14 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
+                .status {
+                    color: c.$highlight;
+                }
+
+                .Reproved {
+                    color: c.$warning
+                }
 
                 .buttons-aprove {
                     margin-bottom: 10px;

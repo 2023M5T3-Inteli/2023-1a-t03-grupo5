@@ -166,6 +166,9 @@ export class ProjectsService {
             const project = await this.prisma.project.findUnique({
                 where: {
                     projectId,
+                },
+                include: {
+                    applies: true
                 }
             })
             return project;

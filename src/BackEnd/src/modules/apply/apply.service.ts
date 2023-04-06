@@ -141,12 +141,17 @@ export class ApplyService {
       where: {
         userId,
       },
-      include: {
-        project: true,
-      }
     });
 
-    return apply;
+    const projects = await this.prisma.project.findMany({
+      where: {
+        projectId: {
+          in: apply.map((apply) => apply.projectId),
+        },
+      },
+    });
+
+    return projects;
   }
 
   async deleteApply(id: string) {

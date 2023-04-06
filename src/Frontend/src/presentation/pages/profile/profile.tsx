@@ -206,17 +206,18 @@ const Profile = () => {
                     <p>History</p>
                 </div>
                 <div className="project-history">
-                    <p>{JSON.stringify(projects)}</p>
+                    {/* <p>{JSON.stringify(projects)}</p> */}
                     {
-                        // projects.map((project: any, index: number) => {
-                        //     return (
-                        //         <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
-                        //             <div className='project-container grid-6'>
-                        //                 <Card {...project}></Card>
-                        //             </div>
-                        //         </Link>
-                        //     )
-                        // })
+                        !loading &&
+                        projects.map((project: any, index: number) => {
+                            return (
+                                <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
+                                    <div className='project-container grid-6'>
+                                        <Card {...project}></Card>
+                                    </div>
+                                </Link>
+                            )
+                        })
                     }
                 </div>
             </div>

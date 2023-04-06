@@ -384,6 +384,7 @@ export class ApplyService {
       where: {
         projectId: projectId,
         userId: userId,
+        status: "Approves",
       },
     });
 

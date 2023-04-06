@@ -10,12 +10,14 @@ import Card from "../../components/card/card";
 import ProjectService from "../../../main/services/projectService";
 import { toast } from "react-toastify";
 import UserService from "../../../main/services/userService";
+import ApplyService from "../../../main/services/applyService";
 
 
 //404 page
 const Profile = () => {
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState({
+        id: '',
         name: '',
         area: '',
         habilities: [''],
@@ -40,6 +42,7 @@ const Profile = () => {
                 response.data.habilities = JSON.parse(response.data.habilities)
                 setUser(response.data)
                 setHighligths(JSON.parse(response.data.highlights))
+                getProjects(response.data)
             }
             else {
                 toast.error("Error to load the user profile")
@@ -60,13 +63,15 @@ const Profile = () => {
         }
     }
 
-    const getProjects = async () => {
+    const getProjects = async (user:any) => {
+        console.log(user)
         setLoading(true)
-        const response = await ProjectService.filter({ "name": "Project Teste 3" })
+        const response = await ApplyService.getAllAppliesFromUser(user.id)
         // const response = await ProjectService.findAll()
         console.log(response)
 
-        if (response.status === 201) {
+        if (response.status === 200) {
+            console.log(response.data)
             setProjects(response.data)
             setLoading(false)
         }
@@ -99,7 +104,6 @@ const Profile = () => {
 
     useEffect(() => {
         getUser()
-        getProjects()
     }, []);
 
     return (
@@ -202,16 +206,17 @@ const Profile = () => {
                     <p>History</p>
                 </div>
                 <div className="project-history">
+                    <p>{JSON.stringify(projects)}</p>
                     {
-                        projects.map((project: any, index: number) => {
-                            return (
-                                <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
-                                    <div className='project-container grid-6'>
-                                        <Card {...project}></Card>
-                                    </div>
-                                </Link>
-                            )
-                        })
+                        // projects.map((project: any, index: number) => {
+                        //     return (
+                        //         <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
+                        //             <div className='project-container grid-6'>
+                        //                 <Card {...project}></Card>
+                        //             </div>
+                        //         </Link>
+                        //     )
+                        // })
                     }
                 </div>
             </div>

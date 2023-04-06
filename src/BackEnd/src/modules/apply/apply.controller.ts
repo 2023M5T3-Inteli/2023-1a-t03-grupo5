@@ -41,7 +41,7 @@ export class ApplyController {
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 404, description: 'Error: Not Found'})
   @ApiResponse({ status: 400, description: 'Error: Bad Request'})
-  async getApplyByProjectId(@Param() projectId: string) {
+  async getApplyByProjectId(@Param("userId") projectId: string) {
     return await this.applyService.getApplyByProjectId(projectId);
   }
 
@@ -55,7 +55,7 @@ export class ApplyController {
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 404, description: 'Error: Not Found'})
   @ApiResponse({ status: 400, description: 'Error: Bad Request'})
-  async getApplyByUserId(@Param() userId: string) {
+  async getApplyByUserId(@Param("userId") userId: string) {
     return await this.applyService.getApplyByUserId(userId);
   }
 
@@ -80,8 +80,8 @@ export class ApplyController {
 
   @Put('/updateFeedback/:id')
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
-  async updateFeedback(@Param() id: string, @Body() feedback: string, status: string) {
-    return await this.applyService.createFeedback(id, feedback, status);
+  async updateFeedback(@Param("id") id: string, @Body() data: any) {
+    return await this.applyService.createFeedback(id, data.feedback, data.status);
   }
 
   @Get('/approve/:id')

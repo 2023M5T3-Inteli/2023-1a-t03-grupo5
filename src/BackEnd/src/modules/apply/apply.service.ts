@@ -67,6 +67,9 @@ export class ApplyService {
       where: {
         userId,
       },
+      include: {
+        project: true,
+      }
     });
 
     return apply;

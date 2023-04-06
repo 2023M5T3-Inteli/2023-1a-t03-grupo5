@@ -157,6 +157,19 @@ const UserService = {
     } catch (error) {
       return "Ranking not found! Try again later"
     }
+  },
+  addHighligth: async (data: any) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${cookie.load("token")}`,
+      },
+    };
+    try {
+      const response = await axios.post(`${API_URL}/user/addHighlight`, data, config);
+      return response;
+    } catch (error) {
+      return "Error adding highlight! Try again later"
+    }
   }
 };
 

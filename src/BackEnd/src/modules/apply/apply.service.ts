@@ -149,6 +149,9 @@ export class ApplyService {
           in: apply.map((apply) => apply.projectId),
         },
       },
+      include: {
+        applies: true
+      },
     });
 
     return projects;

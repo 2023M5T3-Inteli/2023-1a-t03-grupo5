@@ -138,6 +138,7 @@ export class ApplyService {
     const apply = await this.prisma.apply.findMany({
       where: {
         userId,
+        status: 'Approved',
       },
     });
 
@@ -383,8 +384,7 @@ export class ApplyService {
     const isApplied = this.prisma.apply.findMany({
       where: {
         projectId: projectId,
-        userId: userId,
-        status: "Approves",
+        userId: userId
       },
     });
 

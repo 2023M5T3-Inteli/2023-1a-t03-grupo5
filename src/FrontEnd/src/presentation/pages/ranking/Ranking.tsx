@@ -82,6 +82,7 @@ let Ranking = () => {
                     <div className="table-div">
                         <div className="container">
                             {
+                                ranking1.ranking &&
                                 ranking1.ranking.map((item: any, index: any) => {
                                     return (
                                         <div className="container-table">

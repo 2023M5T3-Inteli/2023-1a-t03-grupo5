@@ -5,11 +5,13 @@ import Modal from "../../components/modal/modal";
 import FeedbackRegistrantion from "./components/feedbackRegistrantion/feedbackRegistrantion";
 import Button from "../../components/button/button";
 import ModalConfirm from "./components/modalConfirm/modalConfirm";
+import VisualizeApplication from "../visualizeApplication/visualizeApplication"
 
 
 let Registrations = () => {
     const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
     const [actualApply, setActualApply] = useState(-1)
+    const [openApplyModal, setOpenApplyModal] = useState(false)
 
     const toggleFeedbackModal = (index: number) => {
         setActualApply(index)
@@ -21,6 +23,11 @@ let Registrations = () => {
     const toggleConfirmModal = (index: number) => {
         setActualApply(index)
         setOpenConfirmModal(!openConfirmModal)
+    }
+
+    const toggleApplyModal = (index: number) => {
+        setActualApply(index)
+        setOpenApplyModal(!openApplyModal)
     }
 
     const [data, setData] = useState([
@@ -100,9 +107,9 @@ let Registrations = () => {
                                             }
                                         </div>
                                         <div className="see-profile grid-3">
-                                            <Link to="/profile">
-                                                <button className="button-see-profile">See Profile</button>
-                                            </Link>
+                                            
+                                                <button className="button-see-profile" onClick={() => toggleApplyModal(index)} >See Apply</button>
+
                                         </div>
                                     </div>
                                 )
@@ -119,6 +126,10 @@ let Registrations = () => {
 
             {
                 openConfirmModal && <Modal type="warning" closeModal={() => toggleConfirmModal(actualApply)} content={<ModalConfirm closeModal={() => toggleConfirmModal(actualApply)} confirm={() => confirm()} />} />
+            }
+
+            {
+                openApplyModal && <Modal type="warning" size="large" closeModal={() => toggleApplyModal(actualApply)} content={<VisualizeApplication closeModal={() => toggleApplyModal(actualApply)} />} />
             }
         </div>
     )

@@ -182,7 +182,8 @@ export class ApplyService {
 
       let newRoles = JSON.parse(project.roles).map((role) => {
         if (role.role === applyExists.offerName) {
-          role.vacancies -= 1;
+          role.vacancies = Number(role.vacancies)
+          role.vacancies += 1;
           role.vacancies = String(role.vacancies);
         } 
         return role;
@@ -264,6 +265,7 @@ export class ApplyService {
     }
 
     if(applyExists.status === 'Approved') {
+      console.log("entrou")
       //Add 1 to the number of roles
       const project = await this.prisma.project.findUnique({
         where: {
@@ -273,7 +275,8 @@ export class ApplyService {
 
       let newRoles = JSON.parse(project.roles).map((role) => {
         if (role.role === applyExists.offerName) {
-          role.vacancies -= 1;
+          role.vacancies = Number(role.vacancies)
+          role.vacancies += 1;
           role.vacancies = String(role.vacancies);
         } 
         return role;

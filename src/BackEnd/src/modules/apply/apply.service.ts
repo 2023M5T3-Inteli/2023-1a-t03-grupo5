@@ -34,13 +34,6 @@ export class ApplyService {
       });
     }
 
-    if (project.blockedSubscription) {
-      throw new BadRequestException('Something bad happened', {
-        cause: new Error(),
-        description: 'Project is blocked',
-      });
-    }
-
     const roles = JSON.parse(project.roles).length;
 
     //Get all applies to the project

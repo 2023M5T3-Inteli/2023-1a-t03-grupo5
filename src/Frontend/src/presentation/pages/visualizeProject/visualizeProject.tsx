@@ -20,6 +20,7 @@ import FinishProject from "./components/finishProject/finishProject"
 import { ethers } from "ethers";
 import Contract from "../../../../../Blockchain/build/contracts/DellFactory.json";
 import ApplyService from "../../../main/services/applyService"
+import UnsubscribeModal from "./components/unsubscribeModal/unsubscribeModal"
 
 // type Props = {
 //   closeModal: Function
@@ -39,6 +40,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [openFinishModal, setOpenFinishModal] = useState(false)
+  const [openUnsubscribeModal, setOpenUnsubscribeModal] = useState(false)
 
   const [project, setProject] = useState<any>({
     name: "Loading...",
@@ -91,16 +93,18 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     if (response.status === 200) {
       setUser(userResponse.data)
       getApply(response.data.projectId, userResponse.data.id)
+
+      userResponse.data.highlights = JSON.parse(userResponse.data.highlights)
+      verifyIfAlreadyMinted(userResponse.data, response.data);
     }
 
     if (userResponse.data.id === response.data.ownerId || userResponse.data.id === response.data.coleaderId) {
       setIsOwner(true)
-      userResponse.data.highlights = JSON.parse(userResponse.data.highlights)
-      verifyIfAlreadyMinted(userResponse.data, response.data);
     }
   }
 
   const verifyIfAlreadyMinted = async (user: any, project: any) => {
+    console.log(user)
     if (user.highlights) {
       user.highlights.map((highlight: any) => {
         if (highlight.projectId === project.projectId) {
@@ -188,6 +192,10 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     setOpenFinishModal(!openFinishModal)
   }
 
+  const toggleUnsubscribeModal = () => {
+    setOpenUnsubscribeModal(!openUnsubscribeModal)
+  }
+
   const getAccount = async () => {
     if (!window.ethereum) {
       toast.error("Install MetaMask")
@@ -253,6 +261,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   }
 
   const unsubscribe = async () => {
+    setLoading(true)
     const response = await ApplyService.deleteApply(applyId)
 
     if (response.status !== 200) {
@@ -338,6 +347,21 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                   <FinishProject
                     finish={() => finishProject()}
                     closeModal={() => toggleFinishModal()}
+                  />
+                }
+              />
+            )
+          }
+
+          {
+            openUnsubscribeModal && (
+              <Modal
+                type="warning"
+                closeModal={() => toggleUnsubscribeModal()}
+                content={
+                  <UnsubscribeModal
+                    unsubscribe={() => unsubscribe()}
+                    closeModal={() => toggleUnsubscribeModal()}
                   />
                 }
               />
@@ -485,7 +509,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                   {
                     !isOwner && project.status !== "Finished" && applied &&
                     <div className="badge-center">
-                      <Button type="default" text="Unsubscribe" size="large" onClick={() => unsubscribe()} />
+                      <Button type="default" text="Unsubscribe" size="large" onClick={() => toggleUnsubscribeModal()} />
                     </div>
                   }
                 </>

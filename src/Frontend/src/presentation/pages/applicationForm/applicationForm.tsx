@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { useState } from "react"
 import "./applicationForm-styles.scss"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import Input from '../../components/input/input'
 import Button from '../../components/button/button'
 import Ellipse from "/public/Ellipse2.png"
@@ -10,13 +10,16 @@ import ProjectService from "../../../main/services/projectService"
 import { toast } from "react-toastify"
 import ApplyService from "../../../main/services/applyService"
 import UserService from "../../../main/services/userService"
+import Loading from "../../components/loading/loading"
 
 type Props = {
     closeModal: Function;
 }
 
 const ApplicationForm = (props: Props) => {
+    const navigate = useNavigate()
     const location = useLocation()
+    const [loading, setLoading] = useState(true)
 
     const [data, setData] = useState({
         projectId: location.state.projectId,
@@ -63,6 +66,7 @@ const ApplicationForm = (props: Props) => {
             setProject(response.data)
             console.log(response.data)
             createRoleOptions(response.data)
+            setLoading(false)
         }
         else {
             toast.error("Error to load the project")
@@ -82,8 +86,15 @@ const ApplicationForm = (props: Props) => {
 
 
     const submit = async () => {
+        setLoading(true)
         const response = await ApplyService.apply(data)
-        console.log(data)
+
+        if (response.status === 201) {
+            navigate(-1)
+        }
+        else {
+            toast.error("Error to subscribe")
+        }
     }
 
     useEffect(() => {
@@ -98,6 +109,9 @@ const ApplicationForm = (props: Props) => {
 
     return (
         <div className="application-form">
+            {
+                loading && <Loading />
+            }
             <div className="container">
                 <div className="grid-6 left-side">
                     <h1>Application Form</h1>

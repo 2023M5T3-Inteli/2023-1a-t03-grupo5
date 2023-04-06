@@ -139,12 +139,12 @@ const Profile = () => {
                     </div>
                     <div className="second">
                         <div className="ranking-container">
-                            <div className="position">
+                            {/* <div className="position">
                                 {
                                     ranking &&
                                     <p className="positionText">Position at Ranking: {ranking.position}</p>
                                 }
-                            </div>
+                            </div> */}
                             <div className="tagsDiv">
                                 <p className="tagTextTitle">Habilities: </p>
                                 <div className="tags">

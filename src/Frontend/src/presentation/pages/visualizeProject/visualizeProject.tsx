@@ -377,7 +377,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
               }
               {
                 !isOwner && project.status !== "Finished" &&
-                <Link to="/applicationForm">
+                <Link to="/applicationForm" state={{ projectId: location.state.projectId }}>
                   <div className="badge-center">
                     <Button type="default" text="Subscribe" size="large" />
                   </div>

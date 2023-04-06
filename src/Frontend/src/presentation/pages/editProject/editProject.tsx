@@ -98,6 +98,7 @@ const EditProject = (props: Props) => {
       //   vacancies: 5
       // }
     ],
+    status: "Approved",
     start: "",
     end: "",
     endSubscription: ""
@@ -244,7 +245,7 @@ const EditProject = (props: Props) => {
       endSubscription: new Date(data.endSubscription),
       coleaderId: data.coleaderId,
     })
-    if(response.status === 200) {
+    if (response.status === 200) {
       navigate("/")
       toast.success("Project edited with success")
     }
@@ -341,42 +342,45 @@ const EditProject = (props: Props) => {
               <Select value={data.coleaderId} options={usersOptions} showDefault size="small" default="Co-leader name" onChange={(value: string) => setData({ ...data, coleaderId: value })} />
             </div>
 
-            <div className="role-container">
-              <div className="input-container">
-                <h4 className="input-title ">Area</h4>
-                <Select options={areaOptions} default="Vacancy area" onChange={(value: string) => setArea(value)} />
+            {
+              data.status !== "Approved" &&
+              <div className="role-container">
+                <div className="input-container">
+                  <h4 className="input-title ">Area</h4>
+                  <Select options={areaOptions} default="Vacancy area" onChange={(value: string) => setArea(value)} />
+                </div>
+                <div className="input-container">
+                  <h4 className="input-title ">Role</h4>
+                  <form onSubmit={addRoles}>
+                    {
+                      area == "Shadowing" ? (
+                        <Input
+                          disabled={true}
+                          size='large'
+                          placeholder={"e.g. DevOps"}
+                          type={""}
+                          value={role}
+                          onChange={(role: any) => setRole(role)}
+                        />
+                      ) :
+                        <Input
+                          size='large'
+                          placeholder={"e.g. DevOps"}
+                          value={role}
+                          type={""}
+                          onChange={(role: any) => setRole(role)}
+                        />
+                    }
+                  </form>
+                </div>
+                <div className="input-container button">
+                  <Button type='terceary' text='Add' size='small' onClick={() => addRoles()}></Button>
+                </div>
               </div>
-              <div className="input-container">
-                <h4 className="input-title ">Role</h4>
-                <form onSubmit={addRoles}>
-                  {
-                    area == "Shadowing" ? (
-                      <Input
-                        disabled={true}
-                        size='large'
-                        placeholder={"e.g. DevOps"}
-                        type={""}
-                        value={role}
-                        onChange={(role: any) => setRole(role)}
-                      />
-                    ) :
-                      <Input
-                        size='large'
-                        placeholder={"e.g. DevOps"}
-                        value={role}
-                        type={""}
-                        onChange={(role: any) => setRole(role)}
-                      />
-                  }
-                </form>
-              </div>
-              <div className="input-container button">
-                <Button type='terceary' text='Add' size='small' onClick={() => addRoles()}></Button>
-              </div>
-            </div>
+            }
 
             {
-              data.roles && data.roles.length > 0 && (
+              data.status !== "Approved" && data.roles && data.roles.length > 0 && (
                 <div className="added-roles">
                   <p className='added-roles-title'>Roles / Vacancies</p>
                   {

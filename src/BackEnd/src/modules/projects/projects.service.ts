@@ -168,7 +168,11 @@ export class ProjectsService {
                     projectId,
                 },
                 include: {
-                    applies: true
+                    applies: {
+                        include: {
+                            user: true
+                        }
+                    }
                 }
             })
             return project;

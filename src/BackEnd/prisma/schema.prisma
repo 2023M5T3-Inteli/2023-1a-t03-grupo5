@@ -82,7 +82,7 @@ model Apply {
   user       User     @relation("Applies", fields: [userId], references: [id])
   status     String   @default("Pending")
   why        String?
-  which      String?
+  habilities String?
   feedback   String?
   isAccepted Boolean  @default(false)
 

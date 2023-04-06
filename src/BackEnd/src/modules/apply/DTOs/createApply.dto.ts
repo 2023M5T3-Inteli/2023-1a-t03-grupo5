@@ -3,14 +3,6 @@ import { IsString } from "class-validator";
 
 
 export class createApplyDTO {
-    
-    @ApiProperty({
-        description: 'User ID',
-        example: 'id',
-    })
-    @IsString()
-    applicantId: string;
-    
     @ApiProperty({
         description: 'Project ID',
         example: 'id',
@@ -23,7 +15,7 @@ export class createApplyDTO {
         example: 'id',
     })
     @IsString()
-    roleId: string;
+    offerName: string;
 
     @ApiProperty({
         description: 'Why',
@@ -45,25 +37,4 @@ export class createApplyDTO {
     })
     @IsString()
     userId: string;
-
-    @ApiProperty({
-        description: 'Message',
-        example: 'Mensagem',
-    })
-    @IsString()
-    message: string;
-    
-    @ApiProperty({
-        description: 'Offer ID',
-        example: 'id',
-    })
-    @IsString()
-    offerName: string;
- 
-    @ApiProperty({
-        description: 'Status',
-        example: 'status',
-    })
-    @IsString()
-    which: string;
 }

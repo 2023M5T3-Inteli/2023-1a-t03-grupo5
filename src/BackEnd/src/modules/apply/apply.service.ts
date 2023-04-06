@@ -13,6 +13,51 @@ export class ApplyService {
   constructor(private readonly prisma: PrismaService) {}
 
   async apply(infos: createApplyDTO) {
+
+    console.log(infos)
+
+    //verify if the project exists
+    const project = await this.prisma.project.findUnique({
+      where: {
+        projectId: infos.projectId,
+      },
+    });
+
+    if (!project) {
+      throw new BadRequestException('Something bad happened', {
+        cause: new Error(),
+        description: 'Project does not exist',
+      });
+    }
+
+    if (project.status !== 'Approved') {
+      throw new BadRequestException('Something bad happened', {
+        cause: new Error(),
+        description: 'Project is not approved',
+      });
+    }
+
+    if (project.blockedSubscription) {
+      throw new BadRequestException('Something bad happened', {
+        cause: new Error(),
+        description: 'Project is blocked',
+      });
+    }
+
+    //verify if the user exists
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: infos.userId,
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestException('Something bad happened', {
+        cause: new Error(),
+        description: 'User does not exist',
+      });
+    }
+
     //verify if the user is already applied to the project
     const alreadyApplied = await this.prisma.apply.findMany({
       where: {
@@ -39,7 +84,7 @@ export class ApplyService {
           projectId: infos.projectId,
           offerName: infos.offerName,
           why: infos.why,
-          which: infos.which,
+          habilities: infos.habilities,
         },
       });
     } catch (err) {
@@ -48,6 +93,35 @@ export class ApplyService {
         description: err,
       });
     }
+
+    //Remove the 1 of the offer quantity
+    try {
+      JSON.parse(project.roles).map((role) => {
+        if (role.role === infos.offerName) {
+          role.quantity -= 1;
+        }
+      });
+
+      console.log(project.roles);
+
+      project.roles = JSON.stringify(project.roles);
+
+      await this.prisma.project.update({
+        where: {
+          projectId: infos.projectId,
+        },
+        data: {
+          roles: project.roles,
+        },
+      });
+
+    } catch (err) {
+      throw new InternalServerErrorException('Something bad happened', {
+        cause: new Error(),
+        description: err,
+      });
+    }
+
 
     return 'Application created successfully';
   }

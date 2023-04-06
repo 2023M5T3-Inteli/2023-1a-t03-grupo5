@@ -37,7 +37,7 @@ export class ApplyService {
           id: uuid(),
           userId: infos.userId,
           projectId: infos.projectId,
-          offerId: infos.offerId,
+          offerName: infos.offerName,
           why: infos.why,
           which: infos.which,
         },

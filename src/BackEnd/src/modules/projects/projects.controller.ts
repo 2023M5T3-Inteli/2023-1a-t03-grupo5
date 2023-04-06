@@ -93,7 +93,7 @@ export class ProjectsController {
     if(data.status != "Approved" && data.status != "Reproved") {
       return {error: "Invalid status"};
     }
-    return this.projectsService.approveProject(token, data.status);
+    return this.projectsService.approveProject(token, data.status, data.feedback);
   }
 
   @Put("/cancel/:projectId")

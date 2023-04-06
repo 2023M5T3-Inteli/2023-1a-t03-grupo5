@@ -58,7 +58,7 @@ export class createApplyDTO {
         example: 'id',
     })
     @IsString()
-    offerId: string;
+    offerName: string;
  
     @ApiProperty({
         description: 'Status',

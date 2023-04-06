@@ -41,7 +41,7 @@ let Ranking = () => {
                 {/* Ranking Table */}
                 <div>
                     <p style={{ "marginLeft": "140px", "marginTop": "48px", "marginBottom": "-24px" }}>
-                        <span style={{ "color": "white" }}>Você está na posição {ranking.position}</span>
+                        <span style={{ "color": "white" }}>Position at Ranking: {ranking.position}</span>
                     </p>
                     <div className="table-div">
                         <div className="container">

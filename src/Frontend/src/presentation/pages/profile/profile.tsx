@@ -9,6 +9,7 @@ import Loading from "../../components/loading/loading";
 import Card from "../../components/card/card";
 import ProjectService from "../../../main/services/projectService";
 import { toast } from "react-toastify";
+import UserService from "../../../main/services/userService";
 
 
 //404 page
@@ -24,14 +25,14 @@ const Profile = () => {
     });
     const [projects, setProjects] = useState<any>([])
     const [highlights, setHighligths] = useState<any>([])
-    
+    const [ranking, setRanking] = useState<any>(null)
+
     const [searchParams, setSearchParams] = useSearchParams();
 
 
     const getUser = async () => {
-
         const userId = searchParams.get("userId");
-        if(!userId){
+        if (!userId) {
             const response = await userService.validate();
             console.log(response.data)
 
@@ -39,7 +40,6 @@ const Profile = () => {
                 response.data.habilities = JSON.parse(response.data.habilities)
                 setUser(response.data)
                 setHighligths(JSON.parse(response.data.highlights))
-                setLoading(false)
             }
             else {
                 toast.error("Error to load the user profile")
@@ -52,7 +52,6 @@ const Profile = () => {
                 response.data.habilities = JSON.parse(response.data.habilities)
                 setUser(response.data)
                 setHighligths(JSON.parse(response.data.highlights))
-                setLoading(false)
             }
             else {
                 toast.error("Error to load the user profile")
@@ -62,7 +61,7 @@ const Profile = () => {
 
     const getProjects = async () => {
         setLoading(true)
-        const response = await ProjectService.filter({"name": "Project Teste 3"})
+        const response = await ProjectService.filter({ "name": "Project Teste 3" })
         // const response = await ProjectService.findAll()
         console.log(response)
 
@@ -75,9 +74,23 @@ const Profile = () => {
         }
     }
 
+    const getRanking = async () => {
+        setLoading(true)
+        const response: any = await UserService.getRanking()
+
+        if (response.status === 200) {
+            setRanking(response.data)
+            setLoading(false)
+        }
+        else {
+            toast.error("Error to loading ranking")
+        }
+    }
+
     useEffect(() => {
         getUser()
         getProjects()
+        getRanking()
     }, []);
 
     return (
@@ -114,7 +127,10 @@ const Profile = () => {
                     <div className="second">
                         <div className="ranking-container">
                             <div className="position">
-                                <p className="positionText">Position at Ranking: 1st</p>
+                                {
+                                    ranking &&
+                                    <p className="positionText">Position at Ranking: {ranking.position}</p>
+                                }
                             </div>
                             <div className="tagsDiv">
                                 <p className="tagTextTitle">Habilities: </p>
@@ -147,14 +163,14 @@ const Profile = () => {
                             <div className="highligthsDiv">
                                 {
                                     highlights.length > 0 ?
-                                    highlights.slice(0, 3).map((highlight: any, index: number) => {
-                                        return (
-                                            <div className="itemHighligth" key={`${highlight}-${index}`}>
-                                                <img className="imgHighlight" width={110} src={highlight.badge}></img>
-                                            </div>
-                                        )
-                                    })
-                                    : <p style={{"marginTop": "20px", "marginBottom": "20px", "color": "white"}}>Você não possui Badges :(</p>
+                                        highlights.slice(0, 3).map((highlight: any, index: number) => {
+                                            return (
+                                                <div className="itemHighligth" key={`${highlight}-${index}`}>
+                                                    <img className="imgHighlight" width={110} src={highlight.badge}></img>
+                                                </div>
+                                            )
+                                        })
+                                        : <p style={{ "marginTop": "20px", "marginBottom": "20px", "color": "white" }}>Você não possui Badges :(</p>
                                 }
                                 {/* <div className="itemHighligth">
                                     <img className="imgHighlight" width={110} src={"/Ellipse2.png"}></img>

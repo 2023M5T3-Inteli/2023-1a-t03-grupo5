@@ -83,6 +83,14 @@
               color: #00FF66;
             }
 
+            .grey {
+              color: #acacac
+            }
+            
+            .yellow {
+              color: #ffc400
+            }
+
             .green-circle {
               width: 20px;
               height: 20px;
@@ -90,7 +98,14 @@
               background-color: #00FF66;
             }
 
-            .orange-circle {
+            .grey-circle {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background-color: #acacac;
+            }
+
+            .yellow-circle {
               width: 20px;
               height: 20px;
               border-radius: 50%;

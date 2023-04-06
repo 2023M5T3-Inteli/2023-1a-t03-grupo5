@@ -76,7 +76,8 @@ const ProjectService = {
   approve: async (token: string, status: string) => {
     try {
       const response = await axios.put(`${API_URL}/Project/approve/${token}`, {
-        status: status
+        status: status,
+        feedback: ""
       })
       return response
     }

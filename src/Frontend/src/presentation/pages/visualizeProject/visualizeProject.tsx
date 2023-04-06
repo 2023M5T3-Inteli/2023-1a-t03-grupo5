@@ -52,7 +52,6 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const [coleaderName, setColeaderName] = useState("")
   const [meta, setMeta] = useState(false)
   const [alreadyMinted, setAlreadyMinted] = useState(false)
-  const [user, setUser] = useState<any>({})
 
   const getUser = async (id: string) => {
     const response = await UserService.findByID(id)
@@ -85,24 +84,23 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     }
 
     const user = await UserService.validate()
-    setUser(user)
     if (user.data.id === response.data.ownerId || user.data.id === response.data.coleaderId) {
       setIsOwner(true)
+      user.data.highlights = JSON.parse(user.data.highlights)
+      verifyIfAlreadyMinted(user.data, response.data);
     }
 
     setLoading(false)
-    verifyIfAlreadyMinted();
   }
 
-  const verifyIfAlreadyMinted = async () => {
-    console.log(user)
-    user.highlights.forEach((highlight: any) => {
-      if (highlight.projectId === project.projectId) {
-        setAlreadyMinted(true)
-        console.log("ja mintou")
-        console.log(highlight.projectId, project.projectId)
-      }
-    })
+  const verifyIfAlreadyMinted = async (user: any, project: any) => {
+    if (user.highlights) {
+      user.highlights.map((highlight: any) => {
+        if (highlight.projectId === project.projectId) {
+          setAlreadyMinted(true)
+        }
+      })
+    }
   }
 
   const deleteProject = async () => {
@@ -139,19 +137,20 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
 
   const onSubmit = async () => {
     try {
-      //await transferNFT(project.badge);
+      await transferNFT(project.badge);
 
       const achievement = {
         highlight: {
           "projectId": project.projectId,
-          "badge": project.badge	
+          "badge": project.badge
         }
       }
 
-      const response:any = await UserService.addHighligth(achievement)
+      const response: any = await UserService.addHighligth(achievement)
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         toast.success("NFT transfered with success")
+        navigate(0)
       } else {
         toast.error("Error to add achievement")
       }
@@ -347,7 +346,10 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                 <img width={28} src={UserIcon} />
               </div>
               <div className="p-visualize">
-                <p>25/50</p>
+                {
+                  project.applies &&
+                  <p>{project.applies.length}</p>
+                }
               </div>
             </div>
             <div className="info-visualize">
@@ -395,34 +397,39 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                 {/* <p>{project.badge}</p> */}
               </div>
               {
-                isOwner && project.status !== "Finished" &&
-                <div className="badge-center">
-                  <Button type="default" text="Finish project" size="large" onClick={() => toggleFinishModal()} />
-                </div>
-              }
-              {
-                alreadyMinted ?
-                  meta ?
-                    project.status === "Finished" &&
+                !loading &&
+                <>
+                  {
+                    isOwner && project.status !== "Finished" &&
                     <div className="badge-center">
-                      <Button type="default" text="Claim NFT" size="large" onClick={() => { onSubmit() }} />
+                      <Button type="default" text="Finish project" size="large" onClick={() => toggleFinishModal()} />
                     </div>
-                    : project.status === "Finished" &&
-                    <div className="badge-center">
-                      <p style={{ "color": "white", "fontSize": "20px" }}>You need to connect with Metamask</p>
-                    </div>
-                  :
-                  <div className="badge-center">
-                    <p style={{ "color": "white", "fontSize": "20px" }}>Already Minted</p>
-                  </div>
-              }
-              {
-                !isOwner && project.status !== "Finished" &&
-                <Link to="/applicationForm" state={{ projectId: location.state.projectId }}>
-                  <div className="badge-center">
-                    <Button type="default" text="Subscribe" size="large" />
-                  </div>
-                </Link>
+                  }
+                  {
+                    !alreadyMinted ?
+                      meta ?
+                        project.status === "Finished" &&
+                        <div className="badge-center">
+                          <Button type="default" text="Claim NFT" size="large" onClick={() => { onSubmit() }} />
+                        </div>
+                        : project.status === "Finished" &&
+                        <div className="badge-center">
+                          <p style={{ "color": "white", "fontSize": "20px" }}>You need to connect with Metamask</p>
+                        </div>
+                      :
+                      <div className="badge-center">
+                        <p style={{ "color": "white", "fontSize": "20px" }}>Already Minted</p>
+                      </div>
+                  }
+                  {
+                    !isOwner && project.status !== "Finished" &&
+                    <Link to="/applicationForm" state={{ projectId: location.state.projectId }}>
+                      <div className="badge-center">
+                        <Button type="default" text="Subscribe" size="large" />
+                      </div>
+                    </Link>
+                  }
+                </>
               }
             </div>
           </div>

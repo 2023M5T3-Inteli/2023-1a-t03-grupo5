@@ -2,7 +2,6 @@ import React from 'react'
 
 import UserIcon from '/public/user.png'
 import ArrowRight from '/public/arrow-right.png'
-import StarIcon from '/public/star.png'
 
 import './card-styles.scss'
 
@@ -28,8 +27,8 @@ const Card: any = (props: any) => {
                 {
                   props.status === "Approved" && props.status !== "Finished" &&
                   <>
-                    <p>On going</p>
-                    <span className='red-circle'></span>
+                    <p className='green'>On going</p>
+                    <span className='green-circle'></span>
                   </>
                 }
                 {
@@ -42,15 +41,15 @@ const Card: any = (props: any) => {
                 {
                   props.status === "Pending" &&
                   <>
-                    <p>Pending</p>
-                    <span className='orange-circle'></span>
+                    <p className='grey'>Pending</p>
+                    <span className='grey-circle'></span>
                   </>
                 }
                 {
                   props.status === "Finished" &&
                   <>
-                    <p className='green'>Finished</p>
-                    <span className='green-circle'></span>
+                    <p className='yellow'>Finished</p>
+                    <span className='yellow-circle'></span>
                   </>
                 }
               </div>
@@ -59,9 +58,6 @@ const Card: any = (props: any) => {
           </div>
           <div className='second-container'>
             <p className='description'>{props.description}</p>
-          </div>
-          <div className='fav-icon-div'>
-            <div><img width={28} src={StarIcon} /></div>
           </div>
         </div>
 

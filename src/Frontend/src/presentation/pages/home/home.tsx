@@ -95,12 +95,6 @@ const Home: React.FC = () => {
     }
   }
 
-  // useEffect(() => {
-  //   validateUser();
-
-  //   getAll()
-  // }, [])
-
   const createTagOptions = () => {
     let options: any = []
 
@@ -141,7 +135,7 @@ const Home: React.FC = () => {
         (project.tags.includes(tagFilter) || tagFilter === "") &&
         (project.roles.includes(areaFilter)) &&
         project.status.includes(statusFilter) &&
-        project.status !== "Pending"
+        (project.status !== "Pending" && project.status !== "Finished")
       ) {
         return (
           <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>

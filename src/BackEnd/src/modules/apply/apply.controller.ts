@@ -93,6 +93,6 @@ export class ApplyController {
   @Post('/getApplyByUser')
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   async getApply(@Body() data: any) {
-    return await this.applyService.getApplyById(data.userId, data.projectId);
+    return await this.applyService.getApplyById(data.projectId, data.userId);
   }
 }

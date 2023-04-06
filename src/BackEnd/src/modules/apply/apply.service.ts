@@ -34,7 +34,12 @@ export class ApplyService {
       });
     }
 
-    const roles = JSON.parse(project.roles).length;
+    let roles = 0;
+
+    JSON.parse(project.roles).map((role) => {
+      console.log(role.vacancies)
+      roles += role.vacancies
+    });
 
     //Get all applies to the project
     const applies = await this.prisma.apply.findMany({

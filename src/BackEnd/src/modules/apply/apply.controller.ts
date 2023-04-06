@@ -68,13 +68,13 @@ export class ApplyController {
   //possible error responses
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
   @ApiResponse({ status: 404, description: 'Error: Not Found'})
-  async deleteApply(@Param() id: string) {
+  async deleteApply(@Param("id") id: string) {
     return await this.applyService.deleteApply(id);
   }
 
   @Put('/update/:id')
   @ApiResponse({ status: 500, description: 'Error: Internal Server Error'})
-  async updateApply(@Param() id: string, @Body() data: createApplyDTO) {
+  async updateApply(@Param("id") id: string, @Body() data: createApplyDTO) {
     return await this.applyService.updateApply(id, data);
   }
 

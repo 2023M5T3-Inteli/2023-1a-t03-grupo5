@@ -35,7 +35,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const location = useLocation()
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState<any>(null)
-  const [applyId, setApplyId] = useState<any>(null)
+  const [apply, setApply] = useState<any>(null)
   const [applied, setApplied] = useState(false)
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
@@ -172,11 +172,13 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   };
 
   const finishProject = async () => {
+    setLoading(true)
     let response = await ProjectService.finish(project.projectId)
 
     if (response.status === 200) {
       toast.success("Project finished with success")
       toggleFinishModal()
+      navigate(0)
     }
     else {
       console.log(response)
@@ -254,7 +256,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     const response = await ApplyService.applyByUser(projectId, id)
     console.log(response.data)
     if (response.data.length > 0) {
-      setApplyId(response.data[0].id)
+      setApply(response.data[0])
       setApplied(true)
     }
     setLoading(false)
@@ -262,7 +264,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
 
   const unsubscribe = async () => {
     setLoading(true)
-    const response = await ApplyService.deleteApply(applyId)
+    const response = await ApplyService.deleteApply(apply.id)
 
     if (response.status !== 200) {
       toast.error("Error to unsubscribe")
@@ -482,21 +484,27 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                       <Button type="default" text="Finish project" size="medium" onClick={() => toggleFinishModal()} />
                     </div>
                   }
+
                   {
-                    !alreadyMinted ?
-                      meta ?
-                        project.status === "Finished" &&
-                        <div className="badge-center">
-                          <Button type="default" text="Claim NFT" size="large" onClick={() => { onSubmit() }} />
-                        </div>
-                        : project.status === "Finished" &&
-                        <div className="badge-center">
-                          <p style={{ "color": "white", "fontSize": "20px" }}>You need to connect with Metamask</p>
-                        </div>
-                      :
-                      <div className="badge-center">
-                        <p style={{ "color": "white", "fontSize": "20px" }}>Already Minted</p>
-                      </div>
+                    (isOwner || (applied && apply.status === "Approved")) &&
+                    <>
+                      {
+                        !alreadyMinted ?
+                          meta ?
+                            project.status === "Finished" &&
+                            <div className="badge-center">
+                              <Button type="default" text="Claim NFT" size="large" onClick={() => { onSubmit() }} />
+                            </div>
+                            : project.status === "Finished" &&
+                            <div className="badge-center">
+                              <p style={{ "color": "white", "fontSize": "20px" }}>You need to connect with Metamask</p>
+                            </div>
+                          :
+                          <div className="badge-center">
+                            <p style={{ "color": "white", "fontSize": "20px" }}>Already Minted</p>
+                          </div>
+                      }
+                    </>
                   }
                   {
                     !isOwner && project.status !== "Finished" && !applied &&

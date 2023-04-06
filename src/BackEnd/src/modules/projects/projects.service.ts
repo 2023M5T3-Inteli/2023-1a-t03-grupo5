@@ -205,6 +205,25 @@ export class ProjectsService {
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
 
+        //Get Manager Email and Name
+        const person = await this.prisma.user.findUnique({
+            where: {
+                id: projectExists.ownerId,
+            }
+        })
+
+        const managerId = person.managerId;
+
+        const manager = await this.prisma.user.findUnique({
+            where: {
+                id: managerId,
+            }
+        })
+
+        const email = manager.email;
+        const name = manager.name;
+        
+
         //Sending Email to Manager authorizing the project
         const token = jwt.sign({sub: project.projectId}, process.env.JWT_APPROVE);
 
@@ -213,7 +232,7 @@ export class ProjectsService {
                 from: '"NoReply DELLPROJECTS" <noreply@dellprojects.com>', 
                 to: email, // list of receivers
                 subject: "Reset Password", // Subject line
-                html: htmlApprove(name, token, project.projectId) // html body
+                html: htmlApprove(name, token, projectId) // html body
             });
 
             console.log("Message sent: ", emailSent.messageId);

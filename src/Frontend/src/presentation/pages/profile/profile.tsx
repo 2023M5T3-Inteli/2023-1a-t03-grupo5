@@ -52,6 +52,7 @@ const Profile = () => {
                 response.data.habilities = JSON.parse(response.data.habilities)
                 setUser(response.data)
                 setHighligths(JSON.parse(response.data.highlights))
+                getRanking()
             }
             else {
                 toast.error("Error to load the user profile")
@@ -74,9 +75,18 @@ const Profile = () => {
         }
     }
 
-    const getRanking = async () => {
+    const getRanking = async (id?: string) => {
         setLoading(true)
-        const response: any = await UserService.getRanking()
+        let response: any
+
+        // if (id) {
+        //     response = await UserService.getRanking(id)
+        // }
+        // else {
+        //     response = await UserService.getRanking()
+        // }
+        
+        response = await UserService.getRanking()
 
         if (response.status === 200) {
             setRanking(response.data)
@@ -90,7 +100,6 @@ const Profile = () => {
     useEffect(() => {
         getUser()
         getProjects()
-        getRanking()
     }, []);
 
     return (

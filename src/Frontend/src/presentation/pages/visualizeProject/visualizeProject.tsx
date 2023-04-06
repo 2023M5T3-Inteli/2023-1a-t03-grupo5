@@ -19,6 +19,7 @@ import { toast } from "react-toastify"
 import FinishProject from "./components/finishProject/finishProject"
 import { ethers } from "ethers";
 import Contract from "../../../../../Blockchain/build/contracts/DellFactory.json";
+import ApplyService from "../../../main/services/applyService"
 
 // type Props = {
 //   closeModal: Function
@@ -32,6 +33,9 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
   const navigate = useNavigate()
   const location = useLocation()
   const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>(null)
+  const [applyId, setApplyId] = useState<any>(null)
+  const [applied, setApplied] = useState(false)
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const [openFinishModal, setOpenFinishModal] = useState(false)
@@ -83,14 +87,17 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
       setColeaderName(coleader.name)
     }
 
-    const user = await UserService.validate()
-    if (user.data.id === response.data.ownerId || user.data.id === response.data.coleaderId) {
-      setIsOwner(true)
-      user.data.highlights = JSON.parse(user.data.highlights)
-      verifyIfAlreadyMinted(user.data, response.data);
+    const userResponse = await UserService.validate()
+    if (response.status === 200) {
+      setUser(userResponse.data)
+      getApply(response.data.projectId, userResponse.data.id)
     }
 
-    setLoading(false)
+    if (userResponse.data.id === response.data.ownerId || userResponse.data.id === response.data.coleaderId) {
+      setIsOwner(true)
+      userResponse.data.highlights = JSON.parse(userResponse.data.highlights)
+      verifyIfAlreadyMinted(userResponse.data, response.data);
+    }
   }
 
   const verifyIfAlreadyMinted = async (user: any, project: any) => {
@@ -231,7 +238,28 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
         }
       })
 
-      return `(${members}/${vacancies})`
+      return `(${members}/${vacancies + members})`
+    }
+  }
+
+  const getApply = async (projectId: string, id: string) => {
+    const response = await ApplyService.applyByUser(projectId, id)
+    console.log(response.data)
+    if (response.data.length > 0) {
+      setApplyId(response.data[0].id)
+      setApplied(true)
+    }
+    setLoading(false)
+  }
+
+  const unsubscribe = async () => {
+    const response = await ApplyService.deleteApply(applyId)
+
+    if (response.status !== 200) {
+      toast.error("Error to unsubscribe")
+    }
+    else {
+      navigate(0)
     }
   }
 
@@ -270,12 +298,14 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
             {/* <img width={28} src={StarIcon} /> */}
             {isOwner && project.status !== "Finished" && (
               <>
-                <Link
-                  to="/editProject"
-                  state={{ projectId: location.state.projectId }}
-                >
-                  <EditIcon className="edit-icon" />
-                </Link>
+                {project.status !== "Approved" &&
+                  <Link
+                    to="/editProject"
+                    state={{ projectId: location.state.projectId }}
+                  >
+                    <EditIcon className="edit-icon" />
+                  </Link>
+                }
                 <div onClick={() => toggleDeleteModal()}>
                   <DeleteIcon className="delete-icon" />
                 </div>
@@ -423,7 +453,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                     isOwner && project.status !== "Finished" && project.status !== "Pending" && project.status !== "Reproved" &&
                     <div className="badge-center">
                       <Link to={"/registrations"} state={{ projectId: location.state.projectId }}>
-                        <Button type="terceary" text="View applies" size="medium" onClick={() => false}/>
+                        <Button type="terceary" text="View applies" size="medium" onClick={() => false} />
                       </Link>
                       <Button type="default" text="Finish project" size="medium" onClick={() => toggleFinishModal()} />
                     </div>
@@ -445,12 +475,18 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                       </div>
                   }
                   {
-                    !isOwner && project.status !== "Finished" &&
-                    <Link to="/applicationForm" state={{ projectId: location.state.projectId }}>
+                    !isOwner && project.status !== "Finished" && !applied &&
+                    <Link to="/applicationForm" state={{ projectId: project.projectId }}>
                       <div className="badge-center">
-                        <Button type="default" text="Subscribe" size="large" />
+                        <Button type="default" text="Subscribe" size="large" onClick={() => false} />
                       </div>
                     </Link>
+                  }
+                  {
+                    !isOwner && project.status !== "Finished" && applied &&
+                    <div className="badge-center">
+                      <Button type="default" text="Unsubscribe" size="large" onClick={() => unsubscribe()} />
+                    </div>
                   }
                 </>
               }

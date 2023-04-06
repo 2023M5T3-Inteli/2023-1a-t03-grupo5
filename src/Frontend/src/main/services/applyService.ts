@@ -16,13 +16,32 @@ const ApplyService = {
   },
   apply: async (data: any) => {
     try {
-      const response = await axios.put(`${API_URL}/Apply/create`, data);
+      const response = await axios.post(`${API_URL}/Apply/create`, data);
       return response
     } catch (error: any) {
       return error.response.data
     }
   },
-
+  deleteApply: async (id: string) => {
+    try {
+      const response = await axios.delete(`${API_URL}/Apply/delete/${id}`)
+      return response
+    } catch (error: any) {
+      return error.response.data
+    }
+  },
+  applyByUser: async (projectId: String, userId: string) => {
+    console.log(projectId, userId)
+    try {
+      const response = await axios.post(`${API_URL}/Apply/getApplyByUser/`, {
+        projectId: projectId,
+        userId: userId
+      });
+      return response
+    } catch (error: any) {
+      return error.response.data
+    }
+  },
   changeStatus: async (id: String, status: string, feedback?: string) => {
     try {
       let response

@@ -8,6 +8,8 @@ import Ellipse from "/public/Ellipse2.png"
 import Select from "../../components/select/select"
 import ProjectService from "../../../main/services/projectService"
 import { toast } from "react-toastify"
+import ApplyService from "../../../main/services/applyService"
+import UserService from "../../../main/services/userService"
 
 type Props = {
     closeModal: Function;
@@ -17,7 +19,9 @@ const ApplicationForm = (props: Props) => {
     const location = useLocation()
 
     const [data, setData] = useState({
-        role: "",
+        projectId: location.state.projectId,
+        userId: "",
+        offerName: "",
         why: "",
         habilities: ""
     });
@@ -50,6 +54,7 @@ const ApplicationForm = (props: Props) => {
     }
 
     const getProject = async (id: string) => {
+        console.log(id)
         let response = await ProjectService.findByID(id)
 
         if (response.status === 200) {
@@ -64,13 +69,32 @@ const ApplicationForm = (props: Props) => {
         }
     }
 
-    const submit = () => {
+    const validateUser = async () => {
+        const response = await UserService.validate();
 
+        if (response.statusCode === 401) {
+            window.location.href = '/login'
+        }
+        else {
+            setData({ ...data, userId: response.data.id })
+        }
+    }
+
+
+    const submit = async () => {
+        const response = await ApplyService.apply(data)
+        console.log(data)
     }
 
     useEffect(() => {
+        validateUser()
         getProject(location.state.projectId)
     }, [])
+
+    useEffect(() => {
+        console.log(data)
+    }, [data])
+
 
     return (
         <div className="application-form">
@@ -84,7 +108,7 @@ const ApplicationForm = (props: Props) => {
                             <Select
                                 options={roleOptions}
                                 default="Choose role"
-                                onChange={(value: string) => setData({ ...data, role: value })}
+                                onChange={(value: string) => setData({ ...data, offerName: value })}
                                 size='large'
                             />
                         </div>
@@ -110,7 +134,7 @@ const ApplicationForm = (props: Props) => {
                                 type={""}
                                 size='large'
                                 value={""}
-                                onChange={(value: string) => ({ ...data, habilities: value })}
+                                onChange={(value: string) => setData({ ...data, habilities: value })}
                             />
                         </div>
                     </div>
@@ -119,7 +143,7 @@ const ApplicationForm = (props: Props) => {
                             type='default'
                             text='Submit'
                             size='medium'
-                            onClick={submit()}
+                            onClick={() => submit()}
                         ></Button>
                     </div>
                 </div>

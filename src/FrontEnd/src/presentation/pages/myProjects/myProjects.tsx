@@ -11,9 +11,10 @@ import Loading from '../../components/loading/loading'
 import UserService from '../../../main/services/userService'
 import { toast } from 'react-toastify'
 import Select from '../../components/select/select'
+import ApplyService from '../../../main/services/applyService'
 
 const MyProjects: React.FC = () => {
-  const isMobile = true;
+  const isMobile = true
   const [loading, setLoading] = useState(true)
   const [active, setActive] = useState(1)
   const [openCreateModal, setOpenCreateModal] = useState(false)
@@ -90,10 +91,18 @@ const MyProjects: React.FC = () => {
   }
 
   const getAll = async () => {
-    const response = await ProjectService.findAll();
+    setLoading(true)
+    let response
+
+    if (active == 1) {
+      response = await ProjectService.findAll()
+    }
+    else {
+      response = await ApplyService.getAllAppliesFromUser(user.id)
+    }
 
     if (response.status === 200) {
-      setProjects(response.data);
+      setProjects(response.data)
       setLoading(false)
     }
     else {
@@ -102,7 +111,7 @@ const MyProjects: React.FC = () => {
   }
 
   const validateUser = async () => {
-    const response = await UserService.validate();
+    const response = await UserService.validate()
 
     if (response.statusCode === 401) {
       window.location.href = '/login'
@@ -114,7 +123,7 @@ const MyProjects: React.FC = () => {
   }
 
   // useEffect(() => {
-  //   validateUser();
+  //   validateUser()
 
   //   getAll()
   // }, [])
@@ -146,9 +155,13 @@ const MyProjects: React.FC = () => {
   }, [projects])
 
   useEffect(() => {
-    validateUser();
+    validateUser()
     getAll()
   }, [location])
+
+  useEffect(() => {
+    getAll()
+  }, [active])
 
   const filter = () => {
     return projects.map((project: any, index: number) => {
@@ -171,7 +184,7 @@ const MyProjects: React.FC = () => {
             </Link>
           )
         }
-        else if(active === 2) {
+        else if (active === 2) {
           return (
             <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
               {/* <div onClick={() => setOpenEditModal(!openEditModal)} key={index}>

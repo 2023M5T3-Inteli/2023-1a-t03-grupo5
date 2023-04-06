@@ -19,27 +19,27 @@ let Registrations = () => {
     const [loading, setLoading] = useState(true)
     const [update, setUpdate] = useState(false)
     const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
-    const [actualApply, setActualApply] = useState("")
+    const [actualApply, setActualApply] = useState<any>()
     const [openApplyModal, setOpenApplyModal] = useState(false)
 
     const [project, setProject] = useState<any>({
         applies: []
     })
 
-    const toggleFeedbackModal = (id: string) => {
-        setActualApply(id)
+    const toggleFeedbackModal = (apply: any) => {
+        setActualApply(apply)
         setOpenFeedbackModal(!openFeedbackModal)
     }
 
     const [openConfirmModal, setOpenConfirmModal] = useState(false)
 
-    const toggleConfirmModal = (id: string) => {
-        setActualApply(id)
+    const toggleConfirmModal = (apply: any) => {
+        setActualApply(apply)
         setOpenConfirmModal(!openConfirmModal)
     }
 
-    const toggleApplyModal = (id: string) => {
-        setActualApply(id)
+    const toggleApplyModal = (apply: any) => {
+        setActualApply(apply)
         setOpenApplyModal(!openApplyModal)
     }
 
@@ -48,10 +48,10 @@ let Registrations = () => {
 
         let response
         if (feedback) {
-            response = await ApplyService.changeStatus(actualApply, status, feedback)
+            response = await ApplyService.changeStatus(actualApply.id, status, feedback)
         }
         else {
-            response = await ApplyService.changeStatus(actualApply, status)
+            response = await ApplyService.changeStatus(actualApply.id, status)
         }
 
         if (response.status !== 200) {
@@ -148,18 +148,16 @@ let Registrations = () => {
                                                 apply.status === "Pending" ?
                                                     <div className="button-container grid-3">
                                                         <Button type="default" size="small" text="Approve" onClick={() => approve(apply.id)} />
-                                                        <Button type="cancel" size="small" text="Refuse" onClick={() => toggleFeedbackModal(apply.id)} />
+                                                        <Button type="cancel" size="small" text="Refuse" onClick={() => toggleFeedbackModal(apply)} />
                                                     </div>
                                                     :
                                                     <div className="pending button-container grid-3">
-                                                        <button className={apply.status} onClick={() => toggleConfirmModal(apply.id)}>{apply.status}</button>
+                                                        <button className={apply.status} onClick={() => toggleConfirmModal(apply)}>{apply.status}</button>
                                                     </div>
                                             }
                                         </div>
                                         <div className="see-profile grid-3">
-
-                                            <button className="button-see-profile" onClick={() => toggleApplyModal(apply.user.id)} >See Apply</button>
-
+                                            <button className="button-see-profile" onClick={() => toggleApplyModal(apply)} >See Apply</button>
                                         </div>
                                     </div>
                                 )
@@ -179,7 +177,7 @@ let Registrations = () => {
             }
 
             {
-                openApplyModal && <Modal type="warning" size="large" closeModal={() => toggleApplyModal(actualApply)} content={<VisualizeApplication closeModal={() => toggleApplyModal(actualApply)} />} />
+                openApplyModal && <Modal type="warning" size="large" closeModal={() => toggleApplyModal(actualApply)} content={<VisualizeApplication informations={actualApply} closeModal={() => toggleApplyModal(actualApply)} />} />
             }
         </div>
     )

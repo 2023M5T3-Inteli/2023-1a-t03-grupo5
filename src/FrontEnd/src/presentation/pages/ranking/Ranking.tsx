@@ -58,7 +58,9 @@ let Ranking = () => {
                                                 </div>
                                             </div>
                                             <div className="second-container">
-                                                <button className="btn-second-container">See Profile</button>
+                                                <Link to={`/profile?userId=${item.id}`}>
+                                                    <button className="btn-second-container">See Profile</button>
+                                                </Link>
                                             </div>
                                         </div>
                                     )

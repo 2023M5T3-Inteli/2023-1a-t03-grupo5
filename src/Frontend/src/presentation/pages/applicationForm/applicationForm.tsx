@@ -15,18 +15,9 @@ type Props = {
 
 const ApplicationForm = (props: Props) => {
     const location = useLocation()
-    const [vacancies, setVacancies] = useState('');
-
-    function submitApplicationForm() {
-        console.log(`Vacancy of interest: ${vacancies}`);
-    }
-
-    function handleVacanciesChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setVacancies(event.target.value);
-    }
 
     const [data, setData] = useState({
-        roleId: "",
+        role: "",
         why: "",
         habilities: ""
     });
@@ -39,23 +30,19 @@ const ApplicationForm = (props: Props) => {
         }
     ])
 
-    const [projectData, setProjectData] = useState({
-        tags: ["python", "java", "c++", "php", "java-script"]
-    });
-
     const createRoleOptions = (data: any) => {
         let roles: any = []
         data.roles.map((item: any, index: number) => {
             console.log(item)
-            item.role ?
-                roles.push({
-                    value: item.role,
-                    label: `${item.role} (${item.vacancies} vacancies)`
-                })
-                :
+            item.area === "Shadowing" ?
                 roles.push({
                     value: item.area,
                     label: `${item.area} (${item.vacancies} vacancies)`
+                })
+                :
+                roles.push({
+                    value: item.role,
+                    label: `${item.role} (${item.vacancies} vacancies)`
                 })
         })
 
@@ -77,6 +64,10 @@ const ApplicationForm = (props: Props) => {
         }
     }
 
+    const submit = () => {
+
+    }
+
     useEffect(() => {
         getProject(location.state.projectId)
     }, [])
@@ -93,7 +84,7 @@ const ApplicationForm = (props: Props) => {
                             <Select
                                 options={roleOptions}
                                 default="Choose role"
-                                onChange={(value: string) => setData({ ...data, roleId: value })}
+                                onChange={(value: string) => setData({ ...data, role: value })}
                                 size='large'
                             />
                         </div>
@@ -128,7 +119,7 @@ const ApplicationForm = (props: Props) => {
                             type='default'
                             text='Submit'
                             size='medium'
-                            onClick={submitApplicationForm()}
+                            onClick={submit()}
                         ></Button>
                     </div>
                 </div>
@@ -191,7 +182,7 @@ const ApplicationForm = (props: Props) => {
                                 project &&
                                 project.roles.map((item: any, index: number) => {
                                     return (
-                                        <div className="role-habilit grid-4">
+                                        <div className="role-habilit grid-4" key={`${item.role}-${index}`}>
                                             <p>{item.role ? item.role : item.area} (0/{item.vacancies})</p>
                                         </div>
                                     )

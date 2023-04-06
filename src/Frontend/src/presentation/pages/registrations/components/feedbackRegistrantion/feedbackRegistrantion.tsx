@@ -17,7 +17,7 @@ const FeedbackRegistrantion = (props: Props) => {
     }
 
     if (feedback.length > 0) {
-      props.confirm()
+      props.confirm(feedback)
     }
   }
 

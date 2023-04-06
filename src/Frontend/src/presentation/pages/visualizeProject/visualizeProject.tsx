@@ -215,6 +215,26 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
     }
   };
 
+  const getVacancies = () => {
+    let vacancies = 0
+
+    if (project.roles) {
+      console.log(project.roles)
+      project.roles.map((item: any, index: number) => {
+        vacancies += +item.vacancies
+      })
+
+      let members = 0
+      project.applies.map((apply: any, index: number) => {
+        if (apply.status === "Approved") {
+          members += 1
+        }
+      })
+
+      return `(${members}/${vacancies})`
+    }
+  }
+
   useEffect(() => {
     getProject()
 
@@ -315,7 +335,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
             <h2 className="h2-roles">Roles</h2>
             <div className="list-roles">
               {
-                !loading &&
+                !loading && project.roles &&
                 project.roles.map((item: any, index: number) => {
                   return (
                     <div className="roles-line" key={`${item.role}-${index}`}>
@@ -348,7 +368,7 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
               <div className="p-visualize">
                 {
                   project.applies &&
-                  <p>{project.applies.length}</p>
+                  <p>{getVacancies()}</p>
                 }
               </div>
             </div>
@@ -400,9 +420,12 @@ const VisualizeProject: React.FC<Props> = (props: Props) => {
                 !loading &&
                 <>
                   {
-                    isOwner && project.status !== "Finished" &&
+                    isOwner && project.status !== "Finished" && project.status !== "Pending" && project.status !== "Reproved" &&
                     <div className="badge-center">
-                      <Button type="default" text="Finish project" size="large" onClick={() => toggleFinishModal()} />
+                      <Link to={"/registrations"} state={{ projectId: location.state.projectId }}>
+                        <Button type="terceary" text="View applies" size="medium" onClick={() => false}/>
+                      </Link>
+                      <Button type="default" text="Finish project" size="medium" onClick={() => toggleFinishModal()} />
                     </div>
                   }
                   {

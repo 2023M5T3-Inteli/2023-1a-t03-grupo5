@@ -220,8 +220,11 @@
 
   .badge-center {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: sp.$stack-md;
+    gap: sp.$stack-sm;
 
     .image-bagde {
       border-radius: 50%;

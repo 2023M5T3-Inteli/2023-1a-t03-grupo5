@@ -148,28 +148,46 @@ const CreateProject = (props: Props) => {
         if (!data.roles) {
           if (area === "Shadowing") {
             setRole("Shadowing")
+            setData({
+              ...data, roles: [{
+                area: area,
+                role: area,
+                vacancies: 1
+              }]
+            })
           }
-          setData({
-            ...data, roles: [{
-              area: area,
-              role: role,
-              vacancies: 1
-            }]
-          })
+          else {
+            setData({
+              ...data, roles: [{
+                area: area,
+                role: role,
+                vacancies: 1
+              }]
+            })
+          }
         }
         else {
           let find = data.roles.some((el: any) => el.role == role)
           if (!find) {
             if (area === "Shadowing") {
               setRole("Shadowing")
+              setData({
+                ...data, roles: [...data.roles, {
+                  area: area,
+                  role: area,
+                  vacancies: 1
+                }]
+              })
             }
-            setData({
-              ...data, roles: [...data.roles, {
-                area: area,
-                role: role,
-                vacancies: 1
-              }]
-            })
+            else {
+              setData({
+                ...data, roles: [...data.roles, {
+                  area: area,
+                  role: role,
+                  vacancies: 1
+                }]
+              })
+            }
           }
         }
       })

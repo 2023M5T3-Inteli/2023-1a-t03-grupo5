@@ -344,7 +344,7 @@ const EditProject = (props: Props) => {
             </div>
 
             {
-              data.status !== "Approved" &&
+              data.status !== "Approved" && !data.feedback &&
               <div className="role-container">
                 <div className="input-container">
                   <h4 className="input-title ">Area</h4>
@@ -381,7 +381,7 @@ const EditProject = (props: Props) => {
             }
 
             {
-              data.status !== "Approved" && data.roles && data.roles.length > 0 && (
+              data.status !== "Approved" && !data.feedback && data.roles && data.roles.length > 0 && (
                 <div className="added-roles">
                   <p className='added-roles-title'>Roles / Vacancies</p>
                   {

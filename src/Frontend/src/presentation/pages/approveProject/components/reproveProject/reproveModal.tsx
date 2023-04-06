@@ -30,7 +30,7 @@ const ReproveModal = (props: Props) => {
       </form>
 
       <div className="reprove-modal-buttons">
-        <Button text="Refuse apply" size='medium' type='cancel' onClick={() => submit()} />
+        <Button text="Reprove" size='medium' type='cancel' onClick={() => submit()} />
         <Button text="Cancel" size='medium' type='default' onClick={() => props.closeModal()} />
       </div>
     </div>

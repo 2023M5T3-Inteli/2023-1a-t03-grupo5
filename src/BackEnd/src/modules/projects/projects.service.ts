@@ -189,9 +189,11 @@ export class ProjectsService {
 
         data.updatedAt = new Date()
 
+        let updateProject;
+
         //Doing the update
         try {
-            const updateProject = await this.prisma.project.update({
+            updateProject = await this.prisma.project.update({
                 where: {
                     projectId,
                 },
@@ -199,13 +201,27 @@ export class ProjectsService {
                     ...data,
                 }
             })
-    
-            //Returning the updated project
-            return updateProject;
         } catch (err) {
             throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
         }
-        
+
+        //Sending Email to Manager authorizing the project
+        const token = jwt.sign({sub: project.projectId}, process.env.JWT_APPROVE);
+
+        try {
+            const emailSent = await transporter.sendMail({
+                from: '"NoReply DELLPROJECTS" <noreply@dellprojects.com>', 
+                to: email, // list of receivers
+                subject: "Reset Password", // Subject line
+                html: htmlApprove(name, token, project.projectId) // html body
+            });
+
+            console.log("Message sent: ", emailSent.messageId);
+        } catch (err) {
+            throw new InternalServerErrorException("Something bad happened", {cause: new Error(), description: err})
+        }
+
+        return updateProject;
     }
 
     async deleteProject(projectId: string){

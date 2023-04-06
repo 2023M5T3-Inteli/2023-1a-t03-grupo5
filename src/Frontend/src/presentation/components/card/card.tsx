@@ -35,7 +35,7 @@ const Card: any = (props: any) => {
                 {
                   props.status === "Reproved" &&
                   <>
-                    <p>Reproved</p>
+                    <p className='red'>Reproved</p>
                     <span className='red-circle'></span>
                   </>
                 }
@@ -49,8 +49,8 @@ const Card: any = (props: any) => {
                 {
                   props.status === "Finished" &&
                   <>
-                    <p>Finished</p>
-                    <span className='red-circle'></span>
+                    <p className='green'>Finished</p>
+                    <span className='green-circle'></span>
                   </>
                 }
               </div>

@@ -225,7 +225,7 @@ export class ProjectsService {
         
 
         //Sending Email to Manager authorizing the project
-        const token = jwt.sign({sub: project.projectId}, process.env.JWT_APPROVE);
+        const token = jwt.sign({sub: projectId}, process.env.JWT_APPROVE);
 
         try {
             const emailSent = await transporter.sendMail({

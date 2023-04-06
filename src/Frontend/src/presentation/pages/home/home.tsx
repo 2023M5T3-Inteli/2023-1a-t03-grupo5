@@ -25,11 +25,6 @@ const Home: React.FC = () => {
     id: "-1"
   })
   const [loading, setLoading] = useState(true)
-  const [openCreateModal, setOpenCreateModal] = useState(false)
-  const [openEditModal, setOpenEditModal] = useState(false)
-  const [openViewModal, setOpenViewModal] = useState(false)
-  const [openApplyModal, setOpenApplyModal] = useState(false)
-  const [openConfirmModal, setOpenConfirmModal] = useState(true)
   const [search, setSearch] = useState("")
 
   const [projects, setProjects] = useState([])
@@ -76,30 +71,11 @@ const Home: React.FC = () => {
     }
   ])
 
-  const closeCreateModal = () => {
-    setOpenCreateModal(!openCreateModal)
-  }
-
-  const toggleEditModal = () => {
-    setOpenViewModal(false)
-    setOpenEditModal(!openEditModal)
-  }
-
-  const toggleViewModal = () => {
-    setOpenViewModal(!openViewModal)
-  }
-
-  const toggleApplyModal = () => {
-    setOpenViewModal(false)
-    setOpenApplyModal(!openApplyModal)
-  }
-
   const getAll = async () => {
     const response = await ProjectService.findAll();
 
     if (response.status === 200) {
       setProjects(response.data);
-      setLoading(false)
     }
     else {
       toast.error("Error to load all projects")
@@ -115,6 +91,7 @@ const Home: React.FC = () => {
     else {
       console.log(response)
       setUser(response.data)
+      setLoading(false)
     }
   }
 
@@ -158,12 +135,13 @@ const Home: React.FC = () => {
   const filter = () => {
     return projects.map((project: any, index: number) => {
       if (
+        user.id !== project.ownerId &&
+        user.id !== project.coleaderId &&
         project.name.toUpperCase().includes(search.toUpperCase()) &&
         (project.tags.includes(tagFilter) || tagFilter === "") &&
         (project.roles.includes(areaFilter)) &&
         project.status.includes(statusFilter) &&
-        project.status !== "Pending" &&
-        (user.id === project.ownerId || user.id === project.coleaderId)
+        project.status !== "Pending"
       ) {
         return (
           <Link to="/visualizeProject" state={{ projectId: project.projectId }} key={`${project.name}-${index}`}>
@@ -197,6 +175,7 @@ const Home: React.FC = () => {
       {
         <div className="body-cards">
           {
+            !loading &&
             filter()
           }
         </div>

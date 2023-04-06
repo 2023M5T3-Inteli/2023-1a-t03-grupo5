@@ -75,6 +75,14 @@
             gap: 5px;
             align-items: center;
 
+            .red {
+              color: c.$warning;
+            }
+
+            .green {
+              color: #00FF66;
+            }
+
             .green-circle {
               width: 20px;
               height: 20px;

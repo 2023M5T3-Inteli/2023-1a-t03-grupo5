@@ -21,20 +21,6 @@
 
 📜 A Dell, uma das maiores empresas de hardware e software do mundo, apresentou um problema que os seus funcionários não estavam se sentindo desafiados, e para tentar solucionar e amenizar esse problema foi desenvolvido uma aplicação web onde os funcionários podem criar e participar de projetos temporários dentro da empresa, e assim podem aprender e desenvolver novas tecnologias e linguagens em diferentes áreas dentro da empresa.
 <br><br>
-Meu projeto é um exemplo de como utilizar o github.
-<br><br>
-<p align="center">
-<img src="https://pix4free.org/assets/library/2021-01-20/originals/game.jpg" alt="NOME DO JOGO" border="0">
-  Game by <a href="http://www.nyphotographic.com/">Nick Youngson</a> <a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> <a href="http://pix4free.org/">Pix4free</a>
-</p>
-
-
-💡 De um a dois parágrafos sobre o que é seu projeto e o que ele faz.
-<br><br>
-Meu projeto ajuda estudantes inteli a configurarem seus githubs.
-<br><br>
-May the force be with you!
-<br><br>
 
 ## 🛠 Estrutura de pastas
 
@@ -58,14 +44,11 @@ A pasta raiz contem dois arquivos que devem ser alterados:
 
 Há também 4 pastas que seguem da seguinte forma:
 
-<b>docs</b>: Aqui serão colocados os arquivos compilados em HTML do jogo.
-<b>documentos</b>: Aqui estarão todos os documentos do projeto, mas principalmente o <b>GDD (Game Design Document)/Documentação do Sistema</b>. Há uma pasta <b>antigos</b> onde estarão todas as versões antigas da documentação.
+<b>.github</b>: Aqui dentro está uma pasta chamada workflows, que contêm o github actions
 
-<b>executáveis</b>: Aqui estarão todos os executáveis do jogo, prontos para rodar. Há no mínimo 3 pastas, uma para binários <b>Windows</b>, uma para binários <b>android</b> e uma para a <b>Web/HTML</b>
+<b>documentos</b>: Aqui está a documentação do projeto.
 
-<b>imagens</b>: Algumas imagens do jogo/sistema e logos prontos para serem utilizados e visualizados.
-
-<b>src</b>: Nesta pasta irá todo o código fonte do jogo/sistema, pronto para para ser baixado e modificado.
+<b>src</b>: Nesta pasta irá todo o código fonte do sistema, dividido em outras duas pastas Frontend e Backend, pronto para para ser baixado e modificado.
 
 ## 🛠 Instalação
 
